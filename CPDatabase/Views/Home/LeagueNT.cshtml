@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CPDatabase.Models.LeagueNT>
+@{
+    //ViewData["Title"] = "LeagueNT";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>LeagueNTs</title>
+</head>
+<body>
+    <h3>Leagues for National Teams</h3>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>LeagueNT</td>
+            <td>Year</td>
+            <td>Period</td>
+            <td>Giggiriva</td>
+            <td>Jbou41</td>
+            <td>Valambrosio</td>
+            <td></td>
+        </tr>
+        @foreach (var leagueNT in Model)
+        {
+            <tr>
+                <td>@leagueNT.Id</td>
+                <td>@leagueNT.LeagueNTName</td>
+                <td>@leagueNT.Year</td>
+                <td>@leagueNT.Period</td>
+                <td>@leagueNT.Giggi</td>
+                <td>@leagueNT.Jbou</td>
+                <td>@leagueNT.Val</td>
+                <td><a href="#">Look</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

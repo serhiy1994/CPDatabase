@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CPDatabase.Models.CountryNT>
+@{
+    //ViewData["Title"] = "CountryNT";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>CountriesNT</title>
+</head>
+<body>
+    <h3>Countries for National Teams</h3>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>CountryNT</td>
+            <td>Has subcountry</td>
+            <td>Subcountry</td>
+            <td>Giggiriva</td>
+            <td>Jbou41</td>
+            <td>Valambrosio</td>
+            <td></td>
+        </tr>
+        @foreach (var countryNT in Model)
+        {
+            <tr>
+                <td>@countryNT.Id</td>
+                <td>@countryNT.CountryNTName</td>
+                <td>@countryNT.HasSub</td>
+                <td>@countryNT.Subcountry</td>
+                <td>@countryNT.Giggi</td>
+                <td>@countryNT.Jbou</td>
+                <td>@countryNT.Val</td>
+                <td><a href="#">Look</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

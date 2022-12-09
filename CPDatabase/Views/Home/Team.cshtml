@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CPDatabase.Models.Team>
+@{
+    //ViewData["Title"] = "Team";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Teams</title>
+</head>
+<body>
+    <h3>Teams</h3>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Team</td>
+            <td>Fixed name</td>
+            <td>Club</td>
+            <td>Half-decade</td>
+            <td>Season</td>
+            <td>Giggiriva</td>
+            <td>Jbou41</td>
+            <td>Valambrosio</td>
+            <td></td>
+        </tr>
+        @foreach (var team in Model)
+        {
+            <tr>
+                <td>@team.Id</td>
+                <td>@team.TeamName</td>
+                <td>@team.FixedTeamName</td>
+                <td>@team.Club</td>
+                <td>@team.HalfDecade</td>
+                <td>@team.Season</td>
+                <td>@team.Giggi</td>
+                <td>@team.Jbou</td>
+                <td>@team.Val</td>
+                <td><a href="#">Look</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

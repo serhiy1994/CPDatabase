@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CPDatabase.Models.CountryClub>
+@{
+    //ViewData["Title"] = "CountryClub";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>CountriesClub</title>
+</head>
+<body>
+    <h3>Countries for Clubs</h3>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>CountryClub</td>
+            <td>Has subcountry</td>
+            <td>Subcountry</td>
+            <td>Giggiriva</td>
+            <td>Jbou41</td>
+            <td>Valambrosio</td>
+            <td></td>
+        </tr>
+        @foreach (var countryClub in Model)
+        {
+            <tr>
+                <td>@countryClub.Id</td>
+                <td>@countryClub.CountryClubName</td>
+                <td>@countryClub.HasSub</td>
+                <td>@countryClub.Subcountry</td>
+                <td>@countryClub.Giggi</td>
+                <td>@countryClub.Jbou</td>
+                <td>@countryClub.Val</td>
+                <td><a href="#">Look</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

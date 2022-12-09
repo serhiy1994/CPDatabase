@@ -1,21 +1,17 @@
-﻿using CPDatabase.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
+using CPDatabase.Models;
 
 namespace CPDatabase.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        CPDBContext cpdbcontext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(CPDBContext context)
         {
-            _logger = logger;
+            cpdbcontext = context;
         }
 
         public IActionResult Index()
@@ -23,9 +19,58 @@ namespace CPDatabase.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult CountryClub()
         {
-            return View();
+            return View(cpdbcontext.CountryClub.ToList());
+        }
+
+        public IActionResult CountryNT()
+        {
+            return View(cpdbcontext.CountryNT.ToList());
+        }
+
+        public IActionResult HalfDecade()
+        {
+            return View(cpdbcontext.HalfDecade.ToList());
+        }
+
+        public IActionResult Season()
+        {
+            return View(cpdbcontext.Season.ToList());
+        }
+
+        public IActionResult Year()
+        {
+            return View(cpdbcontext.Year.ToList());
+        }
+
+        public IActionResult Period()
+        {
+            return View(cpdbcontext.Period.ToList());
+        }
+
+        public IActionResult LeagueTeam()
+        {
+            return View(cpdbcontext.LeagueTeam.ToList());
+        }
+
+        public IActionResult LeagueNT()
+        {
+            return View(cpdbcontext.LeagueNT.ToList());
+        }
+
+        public IActionResult Club()
+        {
+            return View(cpdbcontext.Club.ToList());
+        }
+        public IActionResult Team()
+        {
+            return View(cpdbcontext.Team.ToList());
+        }
+
+        public IActionResult NT()
+        {
+            return View(cpdbcontext.NT.ToList());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

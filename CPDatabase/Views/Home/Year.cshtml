@@ -1,0 +1,37 @@
+﻿@model IEnumerable<CPDatabase.Models.Year>
+@{
+    //ViewData["Title"] = "Year";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Year</title>
+</head>
+<body>
+    <h3>Years for National Teams</h3>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Year</td>
+            <td>Giggiriva</td>
+            <td>Jbou41</td>
+            <td>Valambrosio</td>
+            <td></td>
+        </tr>
+        @foreach (var year in Model)
+        {
+            <tr>
+                <td>@year.Id</td>
+                <td>@year.YearName</td>
+                <td>@year.Giggi</td>
+                <td>@year.Jbou</td>
+                <td>@year.Val</td>
+                <td><a href="#">Look</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<CPDatabase.Models.Season>
+@{
+    //ViewData["Title"] = "Season";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Season</title>
+</head>
+<body>
+    <h3>Seasons for Clubs</h3>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Season</td>
+            <td>Giggiriva</td>
+            <td>Jbou41</td>
+            <td>Valambrosio</td>
+            <td></td>
+        </tr>
+        @foreach (var season in Model)
+        {
+            <tr>
+                <td>@season.Id</td>
+                <td>@season.SeasonName</td>
+                <td>@season.Giggi</td>
+                <td>@season.Jbou</td>
+                <td>@season.Val</td>
+                <td><a href="#">Look</a></td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
