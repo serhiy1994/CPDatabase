@@ -1,11 +1,23 @@
-﻿namespace CPDatabase.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace CPDatabase.Models
 {
-    public class Period
+    public partial class Period
     {
-        public int Id { get; set; }
-        public string PeriodName { get; set; }
-        public bool Giggi { get; set; }
-        public bool Jbou { get; set; }
-        public bool Val { get; set; }
+        public Period()
+        {
+            LeagueNT = new HashSet<LeagueNT>();
+            NationalTeam = new HashSet<NationalTeam>();
+        }
+
+        public int Id { get; set; } = default!;
+        public string PeriodName { get; set; } = default!;
+        public bool Giggi { get; set; } = default!;
+        public bool Jbou { get; set; } = default!;
+        public bool Val { get; set; } = default!;
+
+        public virtual ICollection<LeagueNT> LeagueNT { get; set; } = default!;
+        public virtual ICollection<NationalTeam> NationalTeam { get; set; } = default!;
     }
 }

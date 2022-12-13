@@ -1,13 +1,23 @@
-﻿namespace CPDatabase.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace CPDatabase.Models
 {
-    public class CountryNT
+    public partial class CountryNT
     {
-        public int Id { get; set; }
-        public string CountryNTName { get; set; }
-        public bool HasSub { get; set; }
+        public CountryNT()
+        {
+            NationalTeam = new HashSet<NationalTeam>();
+        }
+
+        public int Id { get; set; } = default!;
+        public string CountryNTName { get; set; } = default!;
+        public bool HasSub { get; set; } = default!;
         public string? Subcountry { get; set; }
-        public bool Giggi { get; set; }
-        public bool Jbou { get; set; }
-        public bool Val { get; set; }
+        public bool Giggi { get; set; } = default!;
+        public bool Jbou { get; set; } = default!;
+        public bool Val { get; set; } = default!;
+
+        public virtual ICollection<NationalTeam> NationalTeam { get; set; } = default!;
     }
 }

@@ -1,11 +1,23 @@
-﻿namespace CPDatabase.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace CPDatabase.Models
 {
-    public class Year
+    public partial class Year
     {
-        public int Id { get; set; }
-        public string YearName { get; set; }
-        public bool Giggi { get; set; }
-        public bool Jbou { get; set; }
-        public bool Val { get; set; }
+        public Year()
+        {
+            LeagueNt = new HashSet<LeagueNT>();
+            NationalTeam = new HashSet<NationalTeam>();
+        }
+
+        public int Id { get; set; } = default!;
+        public string YearName { get; set; } = default!;
+        public bool Giggi { get; set; } = default!;
+        public bool Jbou { get; set; } = default!;
+        public bool Val { get; set; } = default!;
+
+        public virtual ICollection<LeagueNT> LeagueNt { get; set; } = default!;
+        public virtual ICollection<NationalTeam> NationalTeam { get; set; } = default!;
     }
 }

@@ -70,7 +70,7 @@ namespace CPDatabase.Controllers
 
         public IActionResult NT()
         {
-            return View(cpdbcontext.NT.ToList());
+            return View(cpdbcontext.NationalTeam.ToList());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

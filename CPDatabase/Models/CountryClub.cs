@@ -1,13 +1,23 @@
-﻿namespace CPDatabase.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace CPDatabase.Models
 {
-    public class CountryClub
+    public partial class CountryClub
     {
-        public int Id { get; set; }
-        public string CountryClubName { get; set; }
-        public bool HasSub { get; set; }
+        public CountryClub()
+        {
+            Club = new HashSet<Club>();
+        }
+
+        public int Id { get; set; } = default!;
+        public string CountryClubName { get; set; } = default!;
+        public bool HasSub { get; set; } = default!;
         public string? Subcountry { get; set; }
-        public bool Giggi { get; set; }
-        public bool Jbou { get; set; }
-        public bool Val { get; set; }
+        public bool Giggi { get; set; } = default!;
+        public bool Jbou { get; set; } = default!;
+        public bool Val { get; set; } = default!;
+
+        public virtual ICollection<Club> Club { get; set; } = default!;
     }
 }

@@ -1,15 +1,22 @@
-﻿namespace CPDatabase.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace CPDatabase.Models
 {
-    public class Team
+    public partial class Team
     {
-        public int Id { get; set; }
-        public string TeamName { get; set; }
-        public string FixedTeamName { get; set; }
-        public Club Club { get; set; }
-        public HalfDecade? HalfDecade { get; set; }
-        public Season? Season { get; set; }
-        public bool Giggi { get; set; }
-        public bool Jbou { get; set; }
-        public bool Val { get; set; }
+        public int Id { get; set; } = default!;
+        public string TeamName { get; set; } = default!;
+        public string FixedTeamName { get; set; } = default!;
+        public string Club { get; set; } = default!;
+        public string? HalfDecade { get; set; }
+        public string? Season { get; set; }
+        public bool Giggi { get; set; } = default!;
+        public bool Jbou { get; set; } = default!;
+        public bool Val { get; set; } = default!;
+
+        public virtual Club ClubNavigation { get; set; } = default!;
+        public virtual HalfDecade HalfDecadeNavigation { get; set; } = default!;
+        public virtual Season SeasonNavigation { get; set; } = default!;
     }
 }
