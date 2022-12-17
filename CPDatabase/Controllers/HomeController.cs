@@ -19,58 +19,13 @@ namespace CPDatabase.Controllers
             return View();
         }
 
-        public IActionResult CountryClub()
+        public IActionResult Changelog()
         {
-            return View(cpdbcontext.CountryClub.ToList());
+            return View();
         }
-
-        public IActionResult CountryNT()
+        public IActionResult Contacts()
         {
-            return View(cpdbcontext.CountryNT.ToList());
-        }
-
-        public IActionResult HalfDecade()
-        {
-            return View(cpdbcontext.HalfDecade.ToList());
-        }
-
-        public IActionResult Season()
-        {
-            return View(cpdbcontext.Season.ToList());
-        }
-
-        public IActionResult Year()
-        {
-            return View(cpdbcontext.Year.ToList());
-        }
-
-        public IActionResult Period()
-        {
-            return View(cpdbcontext.Period.ToList());
-        }
-
-        public IActionResult LeagueTeam()
-        {
-            return View(cpdbcontext.LeagueTeam.ToList());
-        }
-
-        public IActionResult LeagueNT()
-        {
-            return View(cpdbcontext.LeagueNT.ToList());
-        }
-
-        public IActionResult Club()
-        {
-            return View(cpdbcontext.Club.ToList());
-        }
-        public IActionResult Team()
-        {
-            return View(cpdbcontext.Team.ToList());
-        }
-
-        public IActionResult NT()
-        {
-            return View(cpdbcontext.NationalTeam.ToList());
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -78,5 +33,13 @@ namespace CPDatabase.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        //todo: clean usings etc.
+        //todo: check out what EF made
+        //todo: make pages for Team/NT entities
+        //todo: make changelog
+        //todo: make contacts page
+        //todo: explore bootstrap
+        //todo: show on github
     }
 }
