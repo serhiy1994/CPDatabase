@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CPDatabase.Models.FeedbackLog>
+@{
+    //ViewData["Title"] = "Feedback";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Reports & feedbacks</title>
+</head>
+<body>
+    <h3>Reports & feedbacks</h3>
+    <form method="post" action="~/Home/MakeFeedback">
+        <input type="hidden" value="@DateTime.Now" name="DateMessage" />
+        <label>Name:</label><br />
+        <input type="text" name="Username" /><br />
+        <label>Email:</label><br />
+        <input type="text" name="Email" /><br />
+        <label>Message:</label><br />
+        <input type="text" name="Message" /><br />
+        <input type="submit" value="Send" />
+    </form>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Message date</td>
+            <td>User name</td>
+            <td>Email</td>
+            <td>Message</td>
+            <td>Reply</td>
+            <td>Reply date</td>
+        </tr>
+        @foreach (var feedback in Model)
+        {
+            <tr>
+                <td>@feedback.MessageId</td>
+                <td>@feedback.DateMessage</td>
+                <td>@feedback.Username</td>
+                <td>@feedback.Email</td>
+                <td>@feedback.Message</td>
+                <td>@feedback.Reply</td>
+                <td>@feedback.DateReply</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

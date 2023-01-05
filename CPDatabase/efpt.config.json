@@ -15,47 +15,7 @@
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[dbo].[Club]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[CountryClub]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[CountryNT]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[HalfDecade]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[LeagueNT]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[LeagueTeam]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[NationalTeam]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Period]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Season]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Team]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Year]",
+         "Name": "[dbo].[FeedbackLog]",
          "ObjectType": 0
       }
    ],

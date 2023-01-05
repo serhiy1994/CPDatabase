@@ -9,6 +9,7 @@ namespace CPDatabase.Models
         public virtual DbSet<Club> Club { get; set; } = default!;
         public virtual DbSet<CountryClub> CountryClub { get; set; } = default!;
         public virtual DbSet<CountryNT> CountryNT { get; set; } = default!;
+        public virtual DbSet<FeedbackLog> FeedbackLog { get; set; } = default!;
         public virtual DbSet<HalfDecade> HalfDecade { get; set; } = default!;
         public virtual DbSet<LeagueNT> LeagueNT { get; set; } = default!;
         public virtual DbSet<LeagueTeam> LeagueTeam { get; set; } = default!;
@@ -77,6 +78,29 @@ namespace CPDatabase.Models
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Subcountry).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<FeedbackLog>(entity =>
+            {
+                entity.HasKey(e => e.MessageId);
+
+                entity.Property(e => e.DateMessage).HasColumnType("smalldatetime");
+
+                entity.Property(e => e.DateReply).HasColumnType("smalldatetime");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Message)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
+                entity.Property(e => e.Reply).HasMaxLength(1000);
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<HalfDecade>(entity =>

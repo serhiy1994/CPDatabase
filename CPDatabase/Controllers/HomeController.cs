@@ -23,6 +23,20 @@ namespace CPDatabase.Controllers
         {
             return View();
         }
+
+        public IActionResult Feedback()
+        {
+            return View(cpdbcontext.FeedbackLog.ToList());
+        }
+
+        [HttpPost]
+        public IActionResult MakeFeedback(FeedbackLog feedback)
+        {
+            cpdbcontext.FeedbackLog.Add(feedback);
+            cpdbcontext.SaveChanges();
+            return RedirectToAction("Feedback");
+        }
+
         public IActionResult Contacts()
         {
             return View();
@@ -39,6 +53,7 @@ namespace CPDatabase.Controllers
         //todo: make pages for Team/NT entities
         //todo: make changelog
         //todo: make contacts page
+        //todo: make feedback page
         //todo: explore bootstrap
         //todo: show on github
     }
