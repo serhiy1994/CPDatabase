@@ -56,5 +56,6 @@ namespace CPDatabase.Controllers
         //todo: make feedback page
         //todo: explore bootstrap
         //todo: show on github
+        //todo: make 2nd level menus
     }
 }
