@@ -1,0 +1,23 @@
+﻿@model IEnumerable<CPDatabase.Models.FeedbackLog>
+@{
+    //ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h3>Login page</h3>
+    <form method="post">
+        <label>Login:</label><br />
+        <input type="text" name="login" /><br /><br />
+        <label>Password:</label><br />
+        <input type="text" name="password" /><br /><br />
+        <input type="submit" value="Submit" />
+    </form>
+</body>
+</html>

@@ -42,6 +42,18 @@ namespace CPDatabase.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(string login, string password)
+        {
+            return Content($"Login: {login}, Password: {password}");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -54,6 +66,7 @@ namespace CPDatabase.Controllers
         //todo: make changelog
         //todo: make contacts page
         //todo: make feedback page
+        //todo: make login page
         //todo: explore bootstrap
         //todo: show on github
         //todo: make 2nd level menus
