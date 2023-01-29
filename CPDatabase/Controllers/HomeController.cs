@@ -32,9 +32,13 @@ namespace CPDatabase.Controllers
         [HttpPost]
         public IActionResult MakeFeedback(FeedbackLog feedback)
         {
-            cpdbcontext.FeedbackLog.Add(feedback);
-            cpdbcontext.SaveChanges();
-            return RedirectToAction("Feedback");
+            if (ModelState.IsValid)
+            {
+                cpdbcontext.FeedbackLog.Add(feedback);
+                cpdbcontext.SaveChanges();
+                return RedirectToAction("Feedback");
+            }
+            else return Content("An error occured during adding feedback. Please go back and try again.");
         }
 
         public IActionResult Contacts()
@@ -67,8 +71,10 @@ namespace CPDatabase.Controllers
         //todo: make contacts page
         //todo: make feedback page
         //todo: make login page
+        //todo: make 2nd level menus
+        //todo: write views using helpers
+        //todo: add validatePartial cshtml
         //todo: explore bootstrap
         //todo: show on github
-        //todo: make 2nd level menus
     }
 }
