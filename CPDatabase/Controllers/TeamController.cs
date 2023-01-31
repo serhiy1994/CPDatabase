@@ -19,8 +19,9 @@ namespace CPDatabase.Controllers
         public IActionResult View(int? id)
         {
             if (id == null) return RedirectToAction("All");
-            ViewBag.ViewTeamId = id;
-            return View();
+            Team team = cpdbcontext.Team.FirstOrDefault(t => t.Id == id);
+            if (team != null) return View(team);
+            else return NotFound();
         }
 
         public IActionResult All()

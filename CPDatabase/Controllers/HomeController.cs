@@ -7,7 +7,7 @@ namespace CPDatabase.Controllers
 {
     public class HomeController : Controller
     {
-        CPDBContext cpdbcontext;
+        private CPDBContext cpdbcontext;
 
         public HomeController(CPDBContext context)
         {
@@ -66,14 +66,15 @@ namespace CPDatabase.Controllers
 
         //todo: clean usings etc.
         //todo: check out what EF made
-        //todo: make pages for Team/NT entities
         //todo: make changelog
         //todo: make contacts page
         //todo: make feedback page
         //todo: make login page
         //todo: make 2nd level menus
         //todo: write views using helpers
+        //todo: make page titles
         //todo: add validatePartial cshtml
+        //todo: make one style pages
         //todo: explore bootstrap
         //todo: show on github
     }

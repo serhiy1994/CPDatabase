@@ -16,6 +16,14 @@ namespace CPDatabase.Controllers
             cpdbcontext = context;
         }
 
+        public IActionResult View(int? id)
+        {
+            if (id == null) return RedirectToAction("All");
+            NationalTeam teamNT = cpdbcontext.NationalTeam.FirstOrDefault(t => t.Id == id);
+            if (teamNT != null) return View(teamNT);
+            else return NotFound();
+        }
+
         public IActionResult CountryNT()
         {
             return View(cpdbcontext.CountryNT.ToList());

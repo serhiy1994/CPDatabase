@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CPDatabase.Models.Team
+@{
     //ViewData["Title"] = "View Team";
     Layout = null;
 }
@@ -7,23 +8,34 @@
 
 <html>
 <head>
-    <title>View Team</title>
+    <title>View Team: @Model.TeamName</title>
 </head>
 <body>
-    <input type="hidden" value="@ViewBag.ViewTeamId" name="Id" />
-    <h3>Team Name</h3>
-    @*<table>
+    <h3>@Model.TeamName</h3>
+    <table>
         <tr>
-            <td>@team.Id</td>
-            <td>@team.TeamName</td>
-            <td>@team.FixedTeamName</td>
-            <td>@team.Club</td>
-            <td>@team.HalfDecade</td>
-            <td>@team.Season</td>
-            <td>@team.Giggi</td>
-            <td>@team.Jbou</td>
-            <td>@team.Val</td>
+            <td>Id</td>
+            <td>Team Name</td>
+            <td>Fixed Team Name</td>
+            <td>Club</td>
+            <td>Half-decade (if exists)</td>
+            <td>Season (if exists)</td>
+            <td>Giggi</td>
+            <td>Jbou</td>
+            <td>Val</td>
         </tr>
-    </table>*@
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.TeamName</td>
+            <td>@Model.FixedTeamName</td>
+            <td>@Model.Club</td>
+            <td>@Model.HalfDecade</td>
+            <td>@Model.Season</td>
+            <td>@Model.Giggi</td>
+            <td>@Model.Jbou</td>
+            <td>@Model.Val</td>
+        </tr>
+    </table>
+    <img src="@String.Concat("/images/", Model.TeamName.Replace(" ",""),".png")"/>
 </body>
 </html>
