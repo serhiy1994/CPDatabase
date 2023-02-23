@@ -71,11 +71,16 @@ namespace CPDatabase.Controllers
         //todo: make feedback page
         //todo: make login page
         //todo: make 2nd level menus
+        //todo: check images paths
+        //todo: fix bug with both filters selected
+        //todo: decide what to do with fixed names
         //todo: write views using helpers
         //todo: make page titles
         //todo: add validatePartial cshtml
+        //todo: make ienumerable
         //todo: make one style pages
         //todo: explore bootstrap
         //todo: show on github
+        //todo: make donate button
     }
 }
