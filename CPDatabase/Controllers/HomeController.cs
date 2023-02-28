@@ -65,7 +65,6 @@ namespace CPDatabase.Controllers
         }
 
         //todo: clean usings etc.
-        //todo: check out what EF made
         //todo: make changelog
         //todo: make contacts page
         //todo: make feedback page
@@ -75,10 +74,8 @@ namespace CPDatabase.Controllers
         //todo: fix bug with both filters selected
         //todo: decide what to do with fixed names
         //todo: write views using helpers
-        //todo: make page titles
         //todo: add validatePartial cshtml
         //todo: make ienumerable
-        //todo: make one style pages
         //todo: explore bootstrap
         //todo: show on github
         //todo: make donate button

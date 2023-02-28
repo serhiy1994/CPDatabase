@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CPDatabase</title>
+    <title>@ViewData["Title"] - CP14DB</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
@@ -13,8 +13,27 @@
                 <div>
                     <ul class="nav navbar-nav">
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="All">Teams</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="NT" asp-action="All">National teams</a></li>
+                        <li class="nav-item">Teams</li>
+                        <li>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="All">All</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="CountryClub">By country</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="Club">By club</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="LeagueTeam">By league (tournament)</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="HalfDecade">By half-decade</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="Season">By season</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">National teams</li>
+                        <li>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="NT" asp-action="All">All</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="NT" asp-action="CountryNT">By country</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="NT" asp-action="LeagueNT">By league (tournament)</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="NT" asp-action="Period">By period</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="NT" asp-action="Year">By year</a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Cahngelog">Changelog</a></li>
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Feedback">Report & feedback</a></li>
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contacts">Contacts</a></li>
