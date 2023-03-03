@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CPDatabase.Models.Season>
+﻿<!--model IEnumerable<CPDatabase.Models.Season>-->
+@model TeamsSeasonViewModel
 
 <!DOCTYPE html>
 
@@ -8,16 +9,15 @@
 </head>
 <body>
     <h3>Seasons for Clubs</h3>
-    <table>
+    <table class="table">
         <tr>
             <td>Id</td>
-            <td>Season</td>
-            <td>Giggiriva</td>
-            <td>Jbou41</td>
-            <td>Valambrosio</td>
-            <td></td>
+            <td><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.NameSort">Season</a></td>
+            <td><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></td>
+            <td><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></td>
+            <td><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></td>
         </tr>
-        @foreach (var season in Model)
+        @foreach (var season in Model.Seasons)
         {
             <tr>
                 <td>@season.Id</td>
@@ -25,9 +25,17 @@
                 <td>@season.Giggi</td>
                 <td>@season.Jbou</td>
                 <td>@season.Val</td>
-                <td><a href="#">Look</a></td>
+                <td><a href="~/Season/View/@season.Id">Look</a></td>
             </tr>
         }
     </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+    }
 </body>
 </html>

@@ -13,10 +13,70 @@ namespace CPDatabase.Models
         FixedNameDesc,
         ClubAsc,
         ClubDesc,
+        LeagueAsc,
+        LeagueDesc,
         HalfDecadeAsc,
         HalfDecadeDesc,
         SeasonAsc,
         SeasonDesc,
+        GiggiAsc,
+        GiggiDesc,
+        JbouAsc,
+        JbouDesc,
+        ValAsc,
+        ValDesc
+    }
+
+    public enum TeamClubSortState
+    {
+        NameAsc,
+        NameDesc,
+        CountryAsc,
+        CountryDesc,        
+        GiggiAsc,
+        GiggiDesc,
+        JbouAsc,
+        JbouDesc,
+        ValAsc,
+        ValDesc
+    }
+
+    public enum TeamCountrySortState
+    {
+        NameAsc,
+        NameDesc,
+        HasSubAsc,
+        HasSubDesc,
+        SubcountryAsc,
+        SubcountryDesc,
+        GiggiAsc,
+        GiggiDesc,
+        JbouAsc,
+        JbouDesc,
+        ValAsc,
+        ValDesc
+    }
+
+    public enum TeamLeagueSortState
+    {
+        NameAsc,
+        NameDesc,
+        HalfDecadeAsc,
+        HalfDecadeDesc,
+        SeasonAsc,
+        SeasonDesc,
+        GiggiAsc,
+        GiggiDesc,
+        JbouAsc,
+        JbouDesc,
+        ValAsc,
+        ValDesc
+    }
+
+    public enum TeamHalfDecadeAndSeasonSortState
+    {
+        NameAsc,
+        NameDesc,
         GiggiAsc,
         GiggiDesc,
         JbouAsc,

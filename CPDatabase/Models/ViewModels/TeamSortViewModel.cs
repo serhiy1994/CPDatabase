@@ -10,6 +10,7 @@ namespace CPDatabase.Models
         public TeamSortState NameSort { get; private set; }
         public TeamSortState FixedNameSort { get; private set; }
         public TeamSortState ClubSort { get; private set; }
+        public TeamSortState LeagueSort { get; private set; }
         public TeamSortState HalfDecadeSort { get; private set; }
         public TeamSortState SeasonSort { get; private set; }
         public TeamSortState GiggiSort { get; private set; }
@@ -22,6 +23,7 @@ namespace CPDatabase.Models
             NameSort = sortOrder == TeamSortState.NameAsc ? TeamSortState.NameDesc : TeamSortState.NameAsc;
             FixedNameSort = sortOrder == TeamSortState.FixedNameAsc ? TeamSortState.FixedNameDesc : TeamSortState.FixedNameAsc;
             ClubSort = sortOrder == TeamSortState.ClubAsc ? TeamSortState.ClubDesc : TeamSortState.ClubAsc;
+            LeagueSort = sortOrder == TeamSortState.LeagueAsc ? TeamSortState.LeagueDesc : TeamSortState.LeagueAsc;
             HalfDecadeSort = sortOrder == TeamSortState.HalfDecadeAsc ? TeamSortState.HalfDecadeDesc : TeamSortState.HalfDecadeAsc;
             SeasonSort = sortOrder == TeamSortState.SeasonAsc ? TeamSortState.SeasonDesc : TeamSortState.SeasonAsc;
             GiggiSort = sortOrder == TeamSortState.GiggiAsc ? TeamSortState.GiggiDesc : TeamSortState.GiggiAsc;

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CPDatabase.Models.LeagueTeam>
+﻿<!--IEnumerable<CPDatabase.Models.LeagueTeam>-->
+@model TeamsLeagueViewModel
 
 <!DOCTYPE html>
 
@@ -8,18 +9,18 @@
 </head>
 <body>
     <h3>Leagues for Clubs</h3>
-    <table>
+    <table class="table">
         <tr>
             <td>Id</td>
-            <td>LeagueTeam</td>
-            <td>Half-decade</td>
-            <td>Season</td>
-            <td>Giggiriva</td>
-            <td>Jbou41</td>
-            <td>Valambrosio</td>
+            <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.NameSort">LeagueTeam</a></td>
+            <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.HalfDecadeSort">Half-decade</a></td>
+            <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.SeasonSort">Season</a></td>
+            <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></td>
+            <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></td>
+            <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></td>
             <td></td>
         </tr>
-        @foreach (var leagueTeam in Model)
+        @foreach (var leagueTeam in Model.LeaguesT)
         {
             <tr>
                 <td>@leagueTeam.Id</td>
@@ -29,9 +30,17 @@
                 <td>@leagueTeam.Giggi</td>
                 <td>@leagueTeam.Jbou</td>
                 <td>@leagueTeam.Val</td>
-                <td><a href="#">Look</a></td>
+                <td><a href="~/LeagueTeam/View/@leagueTeam.Id">Look</a></td>
             </tr>
         }
     </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="LeagueTeam" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="LeagueTeam" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+    }
 </body>
 </html>

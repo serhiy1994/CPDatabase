@@ -7,13 +7,14 @@
     <title>View Team: @Model.TeamName - CP14DB</title>
 </head>
 <body>
-    <h3>@Model.TeamName</h3>
-    <table>
+    <h3>View Team: @Model.TeamName</h3>
+    <table class="table">
         <tr>
             <td>Id</td>
             <td>Team Name</td>
             <td>Fixed Team Name</td>
             <td>Club</td>
+            <td>League</td>
             <td>Half-decade (if exists)</td>
             <td>Season (if exists)</td>
             <td>Giggi</td>
@@ -25,6 +26,7 @@
             <td>@Model.TeamName</td>
             <td>@Model.FixedTeamName</td>
             <td>@Model.Club</td>
+            <td>@Model.LeagueTeam</td>
             <td>@Model.HalfDecade</td>
             <td>@Model.Season</td>
             <td>@Model.Giggi</td>

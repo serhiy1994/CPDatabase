@@ -73,7 +73,7 @@ namespace CPDatabase.Controllers
         //todo: check images paths
         //todo: fix bug with both filters selected
         //todo: decide what to do with fixed names
-        //todo: write views using helpers
+        //todo: fix the page titles
         //todo: add validatePartial cshtml
         //todo: make ienumerable
         //todo: explore bootstrap

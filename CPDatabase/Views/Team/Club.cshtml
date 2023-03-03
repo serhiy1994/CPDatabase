@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CPDatabase.Models.Club>
+﻿<!--model IEnumerable<CPDatabase.Models.Club>-->
+@model TeamsClubViewModel
 
 <!DOCTYPE html>
 
@@ -8,17 +9,17 @@
 </head>
 <body>
     <h3>Clubs</h3>
-    <table>
+    <table class="table">
         <tr>
-            <td>Id</td>
-            <td>Club</td>
-            <td>Country</td>
-            <td>Giggiriva</td>
-            <td>Jbou41</td>
-            <td>Valambrosio</td>
+            <th>Id</th>
+            <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.NameSort">Club</a></th>
+            <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.CountrySort">Country</a></th>
+            <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
+            <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
+            <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
             <td></td>
         </tr>
-        @foreach (var club in Model)
+        @foreach (var club in Model.Clubs)
         {
             <tr>
                 <td>@club.Id</td>
@@ -27,9 +28,17 @@
                 <td>@club.Giggi</td>
                 <td>@club.Jbou</td>
                 <td>@club.Val</td>
-                <td><a href="#">Look</a></td>
+                <td><a href="~/Club/View/@club.Id">Look</a></td>
             </tr>
         }
     </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Club" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Club" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+    }
 </body>
 </html>

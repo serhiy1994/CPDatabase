@@ -128,11 +128,13 @@ namespace CPDatabase.Models
                 entity.Property(e => e.Club).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.FixedTeamName).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.HalfDecade).HasMaxLength(10);
+                entity.Property(e => e.LeagueTeam).IsRequired().HasMaxLength(50);
                 entity.Property(e => e.Season).HasMaxLength(10);
                 entity.Property(e => e.TeamName).IsRequired().HasMaxLength(50);
-                entity.HasOne(d => d.ClubNavigation).WithMany(p => p.Team).HasPrincipalKey(p => p.ClubName).HasForeignKey(d => d.Club).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK__Team__Club__1332DBDC");
-                entity.HasOne(d => d.HalfDecadeNavigation).WithMany(p => p.Team).HasPrincipalKey(p => p.HalfDecadeName).HasForeignKey(d => d.HalfDecade).HasConstraintName("FK__Team__HalfDecade__14270015");
-                entity.HasOne(d => d.SeasonNavigation).WithMany(p => p.Team).HasPrincipalKey(p => p.SeasonName).HasForeignKey(d => d.Season).HasConstraintName("FK__Team__Season__151B244E");
+                entity.HasOne(d => d.ClubNavigation).WithMany(p => p.Team).HasPrincipalKey(p => p.ClubName).HasForeignKey(d => d.Club).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Team_Club");
+                entity.HasOne(d => d.HalfDecadeNavigation).WithMany(p => p.Team).HasPrincipalKey(p => p.HalfDecadeName).HasForeignKey(d => d.HalfDecade).HasConstraintName("FK_Team_HalfDecade");
+                entity.HasOne(d => d.LeagueTeamNavigation).WithMany(p => p.Team).HasPrincipalKey(p => p.Name).HasForeignKey(d => d.LeagueTeam).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Team_LeagueTeam");
+                entity.HasOne(d => d.SeasonNavigation).WithMany(p => p.Team).HasPrincipalKey(p => p.SeasonName).HasForeignKey(d => d.Season).HasConstraintName("FK_Team_Season");
             });
 
             modelBuilder.Entity<Year>(entity =>
