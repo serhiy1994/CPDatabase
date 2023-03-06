@@ -25,24 +25,116 @@ namespace CPDatabase.Controllers
             else return NotFound();
         }
 
-        public IActionResult CountryNT()
+        public async Task<IActionResult> CountryNT(int page = 1, TeamCountryAndNTCountrySortState sortOrder = TeamCountryAndNTCountrySortState.NameAsc)
         {
-            return View(cpdbcontext.CountryNT.ToList());
+            int pageSize = 10;
+            IQueryable<CountryNT> countriesNT = cpdbcontext.CountryNT.Include(x => x.NationalTeam);
+
+            countriesNT = sortOrder switch
+            {
+                TeamCountryAndNTCountrySortState.NameDesc => countriesNT.OrderByDescending(s => s.CountryNTName),
+                TeamCountryAndNTCountrySortState.HasSubAsc => countriesNT.OrderBy(s => s.HasSub),
+                TeamCountryAndNTCountrySortState.HasSubDesc => countriesNT.OrderByDescending(s => s.HasSub),
+                TeamCountryAndNTCountrySortState.SubcountryAsc => countriesNT.OrderBy(s => s.Subcountry),
+                TeamCountryAndNTCountrySortState.SubcountryDesc => countriesNT.OrderByDescending(s => s.Subcountry),
+                TeamCountryAndNTCountrySortState.GiggiAsc => countriesNT.OrderBy(s => s.Giggi),
+                TeamCountryAndNTCountrySortState.GiggiDesc => countriesNT.OrderByDescending(s => s.Giggi),
+                TeamCountryAndNTCountrySortState.JbouAsc => countriesNT.OrderBy(s => s.Jbou),
+                TeamCountryAndNTCountrySortState.JbouDesc => countriesNT.OrderByDescending(s => s.Jbou),
+                TeamCountryAndNTCountrySortState.ValAsc => countriesNT.OrderBy(s => s.Val),
+                TeamCountryAndNTCountrySortState.ValDesc => countriesNT.OrderByDescending(s => s.Val),
+                _ => countriesNT.OrderBy(s => s.CountryNTName),
+            };
+
+            var count = await countriesNT.CountAsync();
+            var items = await countriesNT.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            CountrySortViewModel sortViewModel = new CountrySortViewModel(sortOrder);
+            NTsCountryViewModel ntcViewModel = new NTsCountryViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, CountriesNT = items };
+
+            return View(ntcViewModel);
         }
 
-        public IActionResult Year()
+        public async Task<IActionResult> Year(int page = 1, NTPeriodAndYearSortState sortOrder = NTPeriodAndYearSortState.NameAsc)
         {
-            return View(cpdbcontext.Year.ToList());
+            int pageSize = 10;
+            IQueryable<Year> years = cpdbcontext.Year.Include(x => x.NationalTeam);
+
+            years = sortOrder switch
+            {
+                NTPeriodAndYearSortState.NameDesc => years.OrderByDescending(s => s.YearName),
+                NTPeriodAndYearSortState.GiggiAsc => years.OrderBy(s => s.Giggi),
+                NTPeriodAndYearSortState.GiggiDesc => years.OrderByDescending(s => s.Giggi),
+                NTPeriodAndYearSortState.JbouAsc => years.OrderBy(s => s.Jbou),
+                NTPeriodAndYearSortState.JbouDesc => years.OrderByDescending(s => s.Jbou),
+                NTPeriodAndYearSortState.ValAsc => years.OrderBy(s => s.Val),
+                NTPeriodAndYearSortState.ValDesc => years.OrderByDescending(s => s.Val),
+                _ => years.OrderBy(s => s.YearName),
+            };
+
+            var count = await years.CountAsync();
+            var items = await years.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            PeriodAndYearSortViewModel sortViewModel = new PeriodAndYearSortViewModel(sortOrder);
+            NTsYearViewModel ntyViewModel = new NTsYearViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Years = items };
+
+            return View(ntyViewModel);
         }
 
-        public IActionResult Period()
+        public async Task<IActionResult> Period(int page = 1, NTPeriodAndYearSortState sortOrder = NTPeriodAndYearSortState.NameAsc)
         {
-            return View(cpdbcontext.Period.ToList());
+            int pageSize = 10;
+            IQueryable<Period> periods = cpdbcontext.Period.Include(x => x.NationalTeam);
+
+            periods = sortOrder switch
+            {
+                NTPeriodAndYearSortState.NameDesc => periods.OrderByDescending(s => s.PeriodName),
+                NTPeriodAndYearSortState.GiggiAsc => periods.OrderBy(s => s.Giggi),
+                NTPeriodAndYearSortState.GiggiDesc => periods.OrderByDescending(s => s.Giggi),
+                NTPeriodAndYearSortState.JbouAsc => periods.OrderBy(s => s.Jbou),
+                NTPeriodAndYearSortState.JbouDesc => periods.OrderByDescending(s => s.Jbou),
+                NTPeriodAndYearSortState.ValAsc => periods.OrderBy(s => s.Val),
+                NTPeriodAndYearSortState.ValDesc => periods.OrderByDescending(s => s.Val),
+                _ => periods.OrderBy(s => s.PeriodName),
+            };
+
+            var count = await periods.CountAsync();
+            var items = await periods.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            PeriodAndYearSortViewModel sortViewModel = new PeriodAndYearSortViewModel(sortOrder);
+            NTsPeriodViewModel ntpViewModel = new NTsPeriodViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Periods = items };
+
+            return View(ntpViewModel);
         }
 
-        public IActionResult LeagueNT()
+        public async Task<IActionResult> LeagueNT(int page = 1, NTLeagueSortState sortOrder = NTLeagueSortState.NameAsc)
         {
-            return View(cpdbcontext.LeagueNT.ToList());
+            int pageSize = 10;
+            IQueryable<LeagueNT> leaguesNT = cpdbcontext.LeagueNT.Include(x => x.YearNavigation);
+
+            leaguesNT = sortOrder switch
+            {
+                NTLeagueSortState.NameDesc => leaguesNT.OrderByDescending(s => s.LeagueNTName),
+                NTLeagueSortState.PeriodAsc => leaguesNT.OrderBy(s => s.PeriodNavigation.PeriodName),
+                NTLeagueSortState.PeriodDesc => leaguesNT.OrderByDescending(s => s.PeriodNavigation.PeriodName),
+                NTLeagueSortState.YearAsc => leaguesNT.OrderBy(s => s.YearNavigation.YearName),
+                NTLeagueSortState.YearDesc => leaguesNT.OrderByDescending(s => s.YearNavigation.YearName),
+                NTLeagueSortState.GiggiAsc => leaguesNT.OrderBy(s => s.Giggi),
+                NTLeagueSortState.GiggiDesc => leaguesNT.OrderByDescending(s => s.Giggi),
+                NTLeagueSortState.JbouAsc => leaguesNT.OrderBy(s => s.Jbou),
+                NTLeagueSortState.JbouDesc => leaguesNT.OrderByDescending(s => s.Jbou),
+                NTLeagueSortState.ValAsc => leaguesNT.OrderBy(s => s.Val),
+                NTLeagueSortState.ValDesc => leaguesNT.OrderByDescending(s => s.Val),
+                _ => leaguesNT.OrderBy(s => s.LeagueNTName),
+            };
+
+            var count = await leaguesNT.CountAsync();
+            var items = await leaguesNT.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            LeagueNTSortViewModel sortViewModel = new LeagueNTSortViewModel(sortOrder);
+            NTsLeagueViewModel ntlViewModel = new NTsLeagueViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, LeaguesNT = items };
+
+            return View(ntlViewModel);
         }
 
         public async Task<IActionResult> All(int? year, int? period, int page = 1, NTSortState sortOrder = NTSortState.NameAsc)

@@ -1,5 +1,5 @@
-﻿@model IEnumerable<CPDatabase.Models.CountryNT>
-
+﻿<!--IEnumerable<CPDatabase.Models.CountryNT>-->
+@model NTsCountryViewModel
 <!DOCTYPE html>
 
 <html>
@@ -10,16 +10,16 @@
     <h3>Countries for National Teams</h3>
     <table class="table">
         <tr>
-            <td>Id</td>
-            <td>CountryNT</td>
-            <td>Has subcountry</td>
-            <td>Subcountry</td>
-            <td>Giggiriva</td>
-            <td>Jbou41</td>
-            <td>Valambrosio</td>
+            <th>Id</th>
+            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.NameSort">Country (NT)</a></th>
+            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.HasSubSort">Has subcountry</a></th>
+            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.SubcountrySort">Subcountry</a></th>
+            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
+            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
+            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
             <td></td>
         </tr>
-        @foreach (var countryNT in Model)
+        @foreach (var countryNT in Model.CountriesNT)
         {
             <tr>
                 <td>@countryNT.Id</td>
@@ -29,9 +29,17 @@
                 <td>@countryNT.Giggi</td>
                 <td>@countryNT.Jbou</td>
                 <td>@countryNT.Val</td>
-                <td><a href="#">Look</a></td>
+                <td><a href="~/CountryNT/View/@countryNT.Id">Look</a></td>
             </tr>
         }
     </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+    }
 </body>
 </html>

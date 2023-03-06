@@ -68,24 +68,24 @@ namespace CPDatabase.Controllers
             return View(taViewModel);
         }
         
-        public async Task<IActionResult> CountryClub(int page = 1, TeamCountrySortState sortOrder = TeamCountrySortState.NameAsc)
+        public async Task<IActionResult> CountryClub(int page = 1, TeamCountryAndNTCountrySortState sortOrder = TeamCountryAndNTCountrySortState.NameAsc)
         {
             int pageSize = 10;
             IQueryable<CountryClub> countries = cpdbcontext.CountryClub.Include(x=>x.Club);
 
             countries = sortOrder switch
             {
-                TeamCountrySortState.NameDesc => countries.OrderByDescending(s => s.CountryClubName),
-                TeamCountrySortState.HasSubAsc => countries.OrderBy(s => s.HasSub),
-                TeamCountrySortState.HasSubDesc => countries.OrderByDescending(s => s.HasSub),
-                TeamCountrySortState.SubcountryAsc => countries.OrderBy(s => s.Subcountry),
-                TeamCountrySortState.SubcountryDesc => countries.OrderByDescending(s => s.Subcountry),
-                TeamCountrySortState.GiggiAsc => countries.OrderBy(s => s.Giggi),
-                TeamCountrySortState.GiggiDesc => countries.OrderByDescending(s => s.Giggi),
-                TeamCountrySortState.JbouAsc => countries.OrderBy(s => s.Jbou),
-                TeamCountrySortState.JbouDesc => countries.OrderByDescending(s => s.Jbou),
-                TeamCountrySortState.ValAsc => countries.OrderBy(s => s.Val),
-                TeamCountrySortState.ValDesc => countries.OrderByDescending(s => s.Val),
+                TeamCountryAndNTCountrySortState.NameDesc => countries.OrderByDescending(s => s.CountryClubName),
+                TeamCountryAndNTCountrySortState.HasSubAsc => countries.OrderBy(s => s.HasSub),
+                TeamCountryAndNTCountrySortState.HasSubDesc => countries.OrderByDescending(s => s.HasSub),
+                TeamCountryAndNTCountrySortState.SubcountryAsc => countries.OrderBy(s => s.Subcountry),
+                TeamCountryAndNTCountrySortState.SubcountryDesc => countries.OrderByDescending(s => s.Subcountry),
+                TeamCountryAndNTCountrySortState.GiggiAsc => countries.OrderBy(s => s.Giggi),
+                TeamCountryAndNTCountrySortState.GiggiDesc => countries.OrderByDescending(s => s.Giggi),
+                TeamCountryAndNTCountrySortState.JbouAsc => countries.OrderBy(s => s.Jbou),
+                TeamCountryAndNTCountrySortState.JbouDesc => countries.OrderByDescending(s => s.Jbou),
+                TeamCountryAndNTCountrySortState.ValAsc => countries.OrderBy(s => s.Val),
+                TeamCountryAndNTCountrySortState.ValDesc => countries.OrderByDescending(s => s.Val),
                 _ => countries.OrderBy(s => s.CountryClubName),
             };
 

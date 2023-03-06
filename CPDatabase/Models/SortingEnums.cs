@@ -41,7 +41,7 @@ namespace CPDatabase.Models
         ValDesc
     }
 
-    public enum TeamCountrySortState
+    public enum TeamCountryAndNTCountrySortState
     {
         NameAsc,
         NameDesc,
@@ -99,6 +99,34 @@ namespace CPDatabase.Models
         PeriodDesc,
         NotQualAsc,
         NotQualDesc,
+        GiggiAsc,
+        GiggiDesc,
+        JbouAsc,
+        JbouDesc,
+        ValAsc,
+        ValDesc
+    }
+
+    public enum NTLeagueSortState
+    {
+        NameAsc,
+        NameDesc,
+        PeriodAsc,
+        PeriodDesc,
+        YearAsc,
+        YearDesc,
+        GiggiAsc,
+        GiggiDesc,
+        JbouAsc,
+        JbouDesc,
+        ValAsc,
+        ValDesc
+    }
+
+    public enum NTPeriodAndYearSortState
+    {
+        NameAsc,
+        NameDesc,
         GiggiAsc,
         GiggiDesc,
         JbouAsc,
