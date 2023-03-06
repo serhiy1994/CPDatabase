@@ -19,7 +19,7 @@ namespace CPDatabase
                 try
                 {
                     CPDBContext context = services.GetRequiredService<CPDBContext>();
-                    SampleData.Initialize(context);
+                    SampleData.Initialize(context); //todo: maybe delete for necessary
                 }
                 catch (Exception ex)
                 {

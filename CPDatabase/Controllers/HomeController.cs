@@ -66,6 +66,7 @@ namespace CPDatabase.Controllers
 
         //todo: clean usings etc.
         //todo: make changelog
+        //todo: make error page
         //todo: make contacts page
         //todo: make feedback page
         //todo: make login page
