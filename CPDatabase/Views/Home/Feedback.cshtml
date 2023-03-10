@@ -14,6 +14,9 @@
 </head>
 <body>
     <h3>Reports & feedbacks</h3>
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
+    </div>
     <form method="post" action="~/Home/MakeFeedback">
         <input type="hidden" value="@DateTime.Now" name="DateMessage" />
         <label>Name:</label><br />
@@ -44,8 +47,21 @@
                 <td>@feedback.Message</td>
                 <td>@feedback.Reply</td>
                 <td>@feedback.DateReply</td>
+                <td><a href="~/Home/Reply/@feedback.MessageId" class="feedbackItem">Write a reply</a></td>
             </tr>
         }
     </table>
+    <script type="text/javascript">
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".feedbackItem").click(function (e) {
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
 </body>
 </html>

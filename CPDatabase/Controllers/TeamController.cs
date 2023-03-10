@@ -207,5 +207,24 @@ namespace CPDatabase.Controllers
 
             return View(tsViewModel);
         }
+
+        private string FixTeamName (string teamName)
+        {
+            teamName.Replace("ä", "a").Replace("Å", "A").Replace("å", "a").Replace("á", "a").Replace("à", "a").Replace("â", "a").Replace("ã", "a");
+            teamName.Replace("ç", "c").Replace("ć", "c").Replace("č", "c");
+            teamName.Replace("đ", "dj");
+            teamName.Replace("ë", "e").Replace("É", "E").Replace("é", "e").Replace("è", "e").Replace("ê", "e").Replace("ę", "e");
+            teamName.Replace("ğ", "g");
+            teamName.Replace("í", "i").Replace("ì", "i").Replace("ï", "i");
+            teamName.Replace("Ł", "L").Replace("ł", "l");
+            teamName.Replace("ñ", "n").Replace("ń", "n");
+            teamName.Replace("Ö", "O").Replace("ö", "o").Replace("ó", "o").Replace("ő", "o").Replace("ø", "o");
+            teamName.Replace("Š", "S").Replace("š", "s").Replace("ş", "s");
+            teamName.Replace("ț", "t");
+            teamName.Replace("ü", "u").Replace("Ú", "U").Replace("ú", "u");
+            teamName.Replace("Ž", "Z").Replace("ž", "z").Replace("ź", "z");
+            teamName.Replace("æ", "ae");
+            return teamName;
+        }
     }
 }

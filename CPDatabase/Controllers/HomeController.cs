@@ -41,6 +41,27 @@ namespace CPDatabase.Controllers
             else return Content("An error occured during adding feedback. Please go back and try again.");
         }
 
+        public IActionResult Reply(int? id)
+        {
+            if (id != null)
+            {
+                FeedbackLog feedback = cpdbcontext.FeedbackLog.FirstOrDefault(fbl => fbl.MessageId == id);
+                if (feedback != null) return PartialView(feedback);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult Reply(FeedbackLog feedback)
+        {
+            FeedbackLog primaryFeedback = cpdbcontext.FeedbackLog.FirstOrDefault(fbl => fbl.MessageId == feedback.MessageId);
+            primaryFeedback.Reply = feedback.Reply;
+            primaryFeedback.DateReply = feedback.DateReply;
+            cpdbcontext.FeedbackLog.Update(primaryFeedback);
+            cpdbcontext.SaveChanges();
+            return RedirectToAction("Feedback");
+        }
+
         public IActionResult Contacts()
         {
             return View();
