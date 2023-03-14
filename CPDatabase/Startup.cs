@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CPDatabase.Models;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CPDatabase
 {
@@ -25,6 +26,10 @@ namespace CPDatabase
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<CPDBContext>(options => options.UseSqlServer(connection));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => 
+                {
+                    options.LoginPath = new PathString("/Home/Login");
+                });
             services.AddControllersWithViews();
         }
 
@@ -53,6 +58,7 @@ namespace CPDatabase
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

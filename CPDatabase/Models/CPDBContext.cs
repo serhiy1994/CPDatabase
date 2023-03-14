@@ -17,6 +17,7 @@ namespace CPDatabase.Models
         public virtual DbSet<Period> Period { get; set; } = default!;
         public virtual DbSet<Season> Season { get; set; } = default!;
         public virtual DbSet<Team> Team { get; set; } = default!;
+        public virtual DbSet<User> User { get; set; } = default!;
         public virtual DbSet<Year> Year { get; set; } = default!;
 
         public CPDBContext(DbContextOptions<CPDBContext> options) : base(options)
@@ -135,6 +136,14 @@ namespace CPDatabase.Models
                 entity.HasOne(d => d.HalfDecadeNavigation).WithMany(p => p.Team).HasPrincipalKey(p => p.HalfDecadeName).HasForeignKey(d => d.HalfDecade).HasConstraintName("FK_Team_HalfDecade");
                 entity.HasOne(d => d.LeagueTeamNavigation).WithMany(p => p.Team).HasPrincipalKey(p => p.Name).HasForeignKey(d => d.LeagueTeam).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Team_LeagueTeam");
                 entity.HasOne(d => d.SeasonNavigation).WithMany(p => p.Team).HasPrincipalKey(p => p.SeasonName).HasForeignKey(d => d.Season).HasConstraintName("FK_Team_Season");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasIndex(e => e.Id).HasDatabaseName("IX_User").IsUnique();
+                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.Password).IsRequired().HasMaxLength(10);
+                entity.Property(e => e.Username).IsRequired().HasMaxLength(25);
             });
 
             modelBuilder.Entity<Year>(entity =>

@@ -1,7 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Linq;
+using System.Diagnostics;
 using CPDatabase.Models;
+using CPDatabase.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CPDatabase.Controllers
 {
@@ -41,6 +49,7 @@ namespace CPDatabase.Controllers
             else return Content("An error occured during adding feedback. Please go back and try again.");
         }
 
+        [Authorize]
         public IActionResult Reply(int? id)
         {
             if (id != null)
@@ -51,6 +60,7 @@ namespace CPDatabase.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Reply(FeedbackLog feedback)
         {
@@ -74,10 +84,54 @@ namespace CPDatabase.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string login, string password)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginModel model)
         {
-            return Content($"Login: {login}, Password: {password}");
+            if (ModelState.IsValid)
+            {
+                User user = await cpdbcontext.User.FirstOrDefaultAsync(u => u.Username == model.Name && u.Password == model.Password);
+                if (user != null)
+                {
+                    await Authenticate(model.Name);
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Incorrect name and/or password");
+            }
+            return View(model);
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Home");
+        }
+
+        //[HttpGet]
+        //public IActionResult Register()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Register(RegisterModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        User user = await cpdbcontext.User.FirstOrDefaultAsync(u => u.Username == model.Name);
+        //        if (user == null)
+        //        {
+        //            cpdbcontext.User.Add(new User { Username = model.Name, Password = model.Password });
+        //            await cpdbcontext.SaveChangesAsync();
+
+        //            await Authenticate(model.Name);
+        //            return RedirectToAction("Index", "Home");
+        //        }
+        //        else
+        //            ModelState.AddModelError("", "Incorrect name and/or password");
+        //    }
+        //    return View(model);
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -85,12 +139,21 @@ namespace CPDatabase.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        private async Task Authenticate(string userName)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+            };
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        }
+
         //todo: clean usings etc.
         //todo: make changelog
         //todo: make error page
         //todo: make contacts page
         //todo: make feedback page
-        //todo: make login page
         //todo: make 2nd level menus
         //todo: check images paths
         //todo: fix bug with both filters selected

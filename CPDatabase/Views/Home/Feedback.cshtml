@@ -47,7 +47,16 @@
                 <td>@feedback.Message</td>
                 <td>@feedback.Reply</td>
                 <td>@feedback.DateReply</td>
-                <td><a href="~/Home/Reply/@feedback.MessageId" class="feedbackItem">Write a reply</a></td>
+                <td>
+                    @if (User.Identity.Name != null && feedback.Reply == null)
+                    {
+                        <a href="~/Home/Reply/@feedback.MessageId" class="feedbackItem">Write a reply</a>
+                    }
+                    else if (User.Identity.Name == null && feedback.Reply == null)
+                    {
+                       @:<i>Login to reply</i>
+                    }
+                </td>
             </tr>
         }
     </table>
