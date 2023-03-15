@@ -1,45 +1,40 @@
 ﻿<!--IEnumerable<CPDatabase.Models.CountryNT>-->
 @model NTsCountryViewModel
-<!DOCTYPE html>
+@{
+    ViewData["Title"] = "Countries for National Teams";
+}
 
-<html>
-<head>
-    <title>Countries for National Teams - CP14DB</title>
-</head>
-<body>
-    <h3>Countries for National Teams</h3>
-    <table class="table">
+<h3>Countries for National Teams</h3>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.NameSort">Country (NT)</a></th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.HasSubSort">Has subcountry</a></th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.SubcountrySort">Subcountry</a></th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
+        <td></td>
+    </tr>
+    @foreach (var countryNT in Model.CountriesNT)
+    {
         <tr>
-            <th>Id</th>
-            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.NameSort">Country (NT)</a></th>
-            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.HasSubSort">Has subcountry</a></th>
-            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.SubcountrySort">Subcountry</a></th>
-            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
-            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
-            <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
-            <td></td>
+            <td>@countryNT.Id</td>
+            <td>@countryNT.CountryNTName</td>
+            <td>@countryNT.HasSub</td>
+            <td>@countryNT.Subcountry</td>
+            <td>@countryNT.Giggi</td>
+            <td>@countryNT.Jbou</td>
+            <td>@countryNT.Val</td>
+            <td><a href="~/CountryNT/View/@countryNT.Id">Look</a></td>
         </tr>
-        @foreach (var countryNT in Model.CountriesNT)
-        {
-            <tr>
-                <td>@countryNT.Id</td>
-                <td>@countryNT.CountryNTName</td>
-                <td>@countryNT.HasSub</td>
-                <td>@countryNT.Subcountry</td>
-                <td>@countryNT.Giggi</td>
-                <td>@countryNT.Jbou</td>
-                <td>@countryNT.Val</td>
-                <td><a href="~/CountryNT/View/@countryNT.Id">Look</a></td>
-            </tr>
-        }
-    </table>
-    @if (Model.PageViewModel.HasPreviousPage)
-    {
-        <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
     }
-    @if (Model.PageViewModel.HasNextPage)
-    {
-        <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
-    }
-</body>
-</html>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+}

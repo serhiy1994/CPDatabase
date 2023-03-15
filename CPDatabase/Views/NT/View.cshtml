@@ -1,39 +1,33 @@
 ﻿@model CPDatabase.Models.NationalTeam
+@{
+    ViewData["Title"] = "National Team: " + @Model.NTName;
+}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>View National Team: @Model.NTName - CP14DB</title>
-</head>
-<body>
-    <h3>@Model.NTName</h3>
-    <table class="table">
-        <tr>
-            <td>Id</td>
-            <td>National Team Name</td>
-            <td>Country</td>
-            <td>League NT</td>
-            <td>Year (if exists)</td>
-            <td>Period (if exists)</td>
-            <td>Not qualified</td>
-            <td>Giggi</td>
-            <td>Jbou</td>
-            <td>Val</td>
-        </tr>
-        <tr>
-            <td>@Model.Id</td>
-            <td>@Model.NTName</td>
-            <td>@Model.Country</td>
-            <td>@Model.LeagueNT</td>
-            <td>@Model.Year</td>
-            <td>@Model.Period</td>
-            <td>@Model.NotQual</td>
-            <td>@Model.Giggi</td>
-            <td>@Model.Jbou</td>
-            <td>@Model.Val</td>
-        </tr>
-    </table>
-    <img src="@String.Concat("/images/", Model.NTName.Replace(" ",""),".png")"/>
-</body>
-</html>
+<h3>National Team: @Model.NTName</h3>
+<table class="table">
+    <tr>
+        <td>Id</td>
+        <td>National Team Name</td>
+        <td>Country</td>
+        <td>League NT</td>
+        <td>Year (if exists)</td>
+        <td>Period (if exists)</td>
+        <td>Not qualified</td>
+        <td>Giggi</td>
+        <td>Jbou</td>
+        <td>Val</td>
+    </tr>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.NTName</td>
+        <td>@Model.Country</td>
+        <td>@Model.LeagueNT</td>
+        <td>@Model.Year</td>
+        <td>@Model.Period</td>
+        <td>@Model.NotQual</td>
+        <td>@Model.Giggi</td>
+        <td>@Model.Jbou</td>
+        <td>@Model.Val</td>
+    </tr>
+</table>
+<img src="@String.Concat("/images/", Model.NTName.Replace(" ",""),".png")" />

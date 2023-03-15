@@ -1,63 +1,55 @@
 ﻿<!--model IEnumerable<CPDatabase.Models.NationalTeam>-->
 @model NTsAllViewModel
+@{
+    ViewData["Title"] = "National Teams";
+}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>National teams - CP14DB</title>
-</head>
-<body>
-    <h3>National Teams</h3>
-
-    <form method="get">
-        <div class="form-group form-inline">
-            <label>Year: </label>
-            <select name="year" asp-items="Model.FilterViewModel.Years" class="form-control"></select>
-            <label>Period: </label>
-            <select name="period" asp-items="Model.FilterViewModel.Periods" class="form-control"></select>
-            <input type="submit" value="Filter" class="btn btn-outline-dark" />
-        </div>
-    </form>
-
-    <table class="table">
+<h3>National Teams</h3>
+<form method="get">
+    <div class="form-group form-inline">
+        <label>Year: </label>
+        <select name="year" asp-items="Model.FilterViewModel.Years" class="form-control"></select>
+        <label>Period: </label>
+        <select name="period" asp-items="Model.FilterViewModel.Periods" class="form-control"></select>
+        <input type="submit" value="Filter" class="btn btn-outline-dark" />
+    </div>
+</form>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NameSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">National team</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.CountrySort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Country</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.LeagueSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">League</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.YearSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Year</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.PeriodSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Period</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NotQualSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Not qual.</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.GiggiSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Giggiriva</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.JbouSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Jbou41</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ValSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Valambrosio</a></th>
+        <th></th>
+    </tr>
+    @foreach (var nationalTeam in Model.NTs)
+    {
         <tr>
-            <th>Id</th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NameSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">National team</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.CountrySort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Country</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.LeagueSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">League</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.YearSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Year</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.PeriodSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Period</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NotQualSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Not qual.</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.GiggiSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Giggiriva</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.JbouSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Jbou41</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ValSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Valambrosio</a></th>
-            <th></th>
+            <td>@nationalTeam.Id</td>
+            <td>@nationalTeam.NTName</td>
+            <td>@nationalTeam.Country</td>
+            <td>@nationalTeam.LeagueNT</td>
+            <td>@nationalTeam.Year</td>
+            <td>@nationalTeam.Period</td>
+            <td>@nationalTeam.NotQual</td>
+            <td>@nationalTeam.Giggi</td>
+            <td>@nationalTeam.Jbou</td>
+            <td>@nationalTeam.Val</td>
+            <td><a href="~/NT/View/@nationalTeam.Id">Look</a></td>
         </tr>
-        @foreach (var nationalTeam in Model.NTs)
-        {
-            <tr>
-                <td>@nationalTeam.Id</td>
-                <td>@nationalTeam.NTName</td>
-                <td>@nationalTeam.Country</td>
-                <td>@nationalTeam.LeagueNT</td>
-                <td>@nationalTeam.Year</td>
-                <td>@nationalTeam.Period</td>
-                <td>@nationalTeam.NotQual</td>
-                <td>@nationalTeam.Giggi</td>
-                <td>@nationalTeam.Jbou</td>
-                <td>@nationalTeam.Val</td>
-                <td><a href="~/NT/View/@nationalTeam.Id">Look</a></td>
-            </tr>
-        }
-    </table>
-    @if (Model.PageViewModel.HasPreviousPage)
-    {
-        <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
     }
-    @if (Model.PageViewModel.HasNextPage)
-    {
-        <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
-    }
-</body>
-</html>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+}

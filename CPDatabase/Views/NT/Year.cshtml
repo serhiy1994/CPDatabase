@@ -1,42 +1,36 @@
 ﻿<!--IEnumerable<CPDatabase.Models.Year>-->
 @model NTsYearViewModel
+@{
+    ViewData["Title"] = "Years for National Teams";
+}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Years for National Teams - CP14DB</title>
-</head>
-<body>
-    <h3>Years for National Teams</h3>
-    <table class="table">
+<h3>Years for National Teams</h3>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.NameSort">Year</a></th>
+        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
+        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
+        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
+        <td></td>
+    </tr>
+    @foreach (var year in Model.Years)
+    {
         <tr>
-            <th>Id</th>
-            <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.NameSort">Year</a></th>
-            <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
-            <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
-            <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
-            <td></td>
+            <td>@year.Id</td>
+            <td>@year.YearName</td>
+            <td>@year.Giggi</td>
+            <td>@year.Jbou</td>
+            <td>@year.Val</td>
+            <td><a href="~/Year/View/@year.Id">Look</a></td>
         </tr>
-        @foreach (var year in Model.Years)
-        {
-            <tr>
-                <td>@year.Id</td>
-                <td>@year.YearName</td>
-                <td>@year.Giggi</td>
-                <td>@year.Jbou</td>
-                <td>@year.Val</td>
-                <td><a href="~/Year/View/@year.Id">Look</a></td>
-            </tr>
-        }
-    </table>
-    @if (Model.PageViewModel.HasPreviousPage)
-    {
-        <a asp-action="Year" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
     }
-    @if (Model.PageViewModel.HasNextPage)
-    {
-        <a asp-action="Year" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
-    }
-</body>
-</html>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Year" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Year" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+}

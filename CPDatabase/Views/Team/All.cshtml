@@ -1,63 +1,55 @@
 ﻿<!--model IEnumerable<CPDatabase.Models.Team>-->
 @model TeamsAllViewModel
+@{
+    ViewData["Title"] = "Teams";
+}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Teams - CP14DB</title>
-</head>
-<body>
-    <h3>Teams</h3>
-
-    <form method="get">
-        <div class="form-group form-inline">
-            <label>Season: </label>
-            <select name="season" asp-items="Model.FilterViewModel.Seasons" class="form-control"></select>
-            <label>Half-decade: </label>
-            <select name="halfdecade" asp-items="Model.FilterViewModel.HalfDecades" class="form-control"></select>
-            <input type="submit" value="Filter" class="btn btn-outline-dark" />
-        </div>
-    </form>
-
-    <table class="table">
-        <tr>
-            <th>Id</th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NameSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Team</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.FixedNameSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Fixed name</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ClubSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Club</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.LeagueSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">League</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.HalfDecadeSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Half-decade</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.SeasonSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Season</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.GiggiSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Giggiriva</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.JbouSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Jbou41</a></th>
-            <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ValSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Valambrosio</a></th>
-            <th></th>
-        </tr>
-        @foreach (var team in Model.Teams)
-        {
+<h3>Teams</h3>
+<form method="get">
+    <div class="form-group form-inline">
+        <label>Season: </label>
+        <select name="season" asp-items="Model.FilterViewModel.Seasons" class="form-control"></select>
+        <label>Half-decade: </label>
+        <select name="halfdecade" asp-items="Model.FilterViewModel.HalfDecades" class="form-control"></select>
+        <input type="submit" value="Filter" class="btn btn-outline-dark" />
+    </div>
+</form>
+<table class="table">
     <tr>
-        <td>@team.Id</td>
-        <td>@team.TeamName</td>
-        <td>@team.FixedTeamName</td>
-        <td>@team.Club</td>
-        <td>@team.LeagueTeam</td>
-        <td>@team.HalfDecade</td>
-        <td>@team.Season</td>
-        <td>@team.Giggi</td>
-        <td>@team.Jbou</td>
-        <td>@team.Val</td>
-        <td><a href="~/Team/View/@team.Id">Look</a></td>
+        <th>Id</th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NameSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Team</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.FixedNameSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Fixed name</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ClubSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Club</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.LeagueSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">League</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.HalfDecadeSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Half-decade</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.SeasonSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Season</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.GiggiSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Giggiriva</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.JbouSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Jbou41</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ValSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Valambrosio</a></th>
+        <th></th>
     </tr>
-        }
-    </table>
-    @if (Model.PageViewModel.HasPreviousPage)
+    @foreach (var team in Model.Teams)
     {
-        <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+        <tr>
+            <td>@team.Id</td>
+            <td>@team.TeamName</td>
+            <td>@team.FixedTeamName</td>
+            <td>@team.Club</td>
+            <td>@team.LeagueTeam</td>
+            <td>@team.HalfDecade</td>
+            <td>@team.Season</td>
+            <td>@team.Giggi</td>
+            <td>@team.Jbou</td>
+            <td>@team.Val</td>
+            <td><a href="~/Team/View/@team.Id">Look</a></td>
+        </tr>
     }
-    @if (Model.PageViewModel.HasNextPage)
-    {
-        <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
-    }
-</body>
-</html>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+}

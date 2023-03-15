@@ -1,42 +1,36 @@
 ﻿<!--model IEnumerable<CPDatabase.Models.HalfDecade>-->
 @model TeamsHalfDecadeViewModel
+@{
+    ViewData["Title"] = "Half-decades for Clubs";
+}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Half-decades for Clubs - CP14DB</title>
-</head>
-<body>
-    <h3>Half-decades for Clubs</h3>
-    <table class="table">
+<h3>Half-decades for Clubs</h3>
+<table class="table">
+    <tr>
+        <td>Id</td>
+        <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.NameSort">Half-decade</a></td>
+        <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></td>
+        <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></td>
+        <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></td>
+        <td></td>
+    </tr>
+    @foreach (var halfDecade in Model.HalfDecades)
+    {
         <tr>
-            <td>Id</td>
-            <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.NameSort">Half-decade</a></td>
-            <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></td>
-            <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></td>
-            <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></td>
-            <td></td>
+            <td>@halfDecade.Id</td>
+            <td>@halfDecade.HalfDecadeName</td>
+            <td>@halfDecade.Giggi</td>
+            <td>@halfDecade.Jbou</td>
+            <td>@halfDecade.Val</td>
+            <td><a href="~/HalfDecade/View/@halfDecade.Id">Look</a></td>
         </tr>
-        @foreach (var halfDecade in Model.HalfDecades)
-        {
-            <tr>
-                <td>@halfDecade.Id</td>
-                <td>@halfDecade.HalfDecadeName</td>
-                <td>@halfDecade.Giggi</td>
-                <td>@halfDecade.Jbou</td>
-                <td>@halfDecade.Val</td>
-                <td><a href="~/HalfDecade/View/@halfDecade.Id">Look</a></td>
-            </tr>
-        }
-    </table>
-    @if (Model.PageViewModel.HasPreviousPage)
-    {
-        <a asp-action="HalfDecade" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
     }
-    @if (Model.PageViewModel.HasNextPage)
-    {
-        <a asp-action="HalfDecade" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
-    }
-</body>
-</html>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="HalfDecade" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="HalfDecade" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+}

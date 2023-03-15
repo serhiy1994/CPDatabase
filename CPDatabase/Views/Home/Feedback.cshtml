@@ -1,76 +1,69 @@
 ﻿@model IEnumerable<CPDatabase.Models.FeedbackLog>
-
+@{
+    ViewData["Title"] = "Reports & feedbacks";
+}
 @section scripts{
 
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Reports & feedbacks - CP14DB</title>
-</head>
-<body>
-    <h3>Reports & feedbacks</h3>
-    <div id="modDialog" class="modal fade">
-        <div id="dialogContent" class="modal-dialog"></div>
-    </div>
-    <form method="post" action="~/Home/MakeFeedback">
-        <input type="hidden" value="@DateTime.Now" name="DateMessage" />
-        <label>Name:</label><br />
-        <input type="text" name="Username" /><br />
-        <label>Email:</label><br />
-        <input type="text" name="Email" /><br />
-        <label>Message:</label><br />
-        <input type="text" name="Message" /><br />
-        <input type="submit" value="Send" />
-    </form>
-    <table class="table">
+<h3>Reports & feedbacks</h3>
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+<form method="post" action="~/Home/MakeFeedback">
+    <input type="hidden" value="@DateTime.Now" name="DateMessage" />
+    <label>Name:</label><br />
+    <input type="text" name="Username" /><br />
+    <label>Email:</label><br />
+    <input type="text" name="Email" /><br />
+    <label>Message:</label><br />
+    <input type="text" name="Message" /><br />
+    <input type="submit" value="Send" />
+</form>
+<table class="table">
+    <tr>
+        <td>Id</td>
+        <td>Message date</td>
+        <td>User name</td>
+        <td>Email</td>
+        <td>Message</td>
+        <td>Reply</td>
+        <td>Reply date</td>
+    </tr>
+    @foreach (var feedback in Model)
+    {
         <tr>
-            <td>Id</td>
-            <td>Message date</td>
-            <td>User name</td>
-            <td>Email</td>
-            <td>Message</td>
-            <td>Reply</td>
-            <td>Reply date</td>
+            <td>@feedback.MessageId</td>
+            <td>@feedback.DateMessage</td>
+            <td>@feedback.Username</td>
+            <td>@feedback.Email</td>
+            <td>@feedback.Message</td>
+            <td>@feedback.Reply</td>
+            <td>@feedback.DateReply</td>
+            <td>
+                @if (User.Identity.Name != null && feedback.Reply == null)
+                {
+                    <a href="~/Home/Reply/@feedback.MessageId" class="feedbackItem">Write a reply</a>
+                }
+                else if (User.Identity.Name == null && feedback.Reply == null)
+                {
+                    @:<i>Login to reply</i>
+                }
+            </td>
         </tr>
-        @foreach (var feedback in Model)
-        {
-            <tr>
-                <td>@feedback.MessageId</td>
-                <td>@feedback.DateMessage</td>
-                <td>@feedback.Username</td>
-                <td>@feedback.Email</td>
-                <td>@feedback.Message</td>
-                <td>@feedback.Reply</td>
-                <td>@feedback.DateReply</td>
-                <td>
-                    @if (User.Identity.Name != null && feedback.Reply == null)
-                    {
-                        <a href="~/Home/Reply/@feedback.MessageId" class="feedbackItem">Write a reply</a>
-                    }
-                    else if (User.Identity.Name == null && feedback.Reply == null)
-                    {
-                       @:<i>Login to reply</i>
-                    }
-                </td>
-            </tr>
-        }
-    </table>
-    <script type="text/javascript">
-        $(function () {
-            $.ajaxSetup({ cache: false });
-            $(".feedbackItem").click(function (e) {
-                e.preventDefault();
-                $.get(this.href, function (data) {
-                    $('#dialogContent').html(data);
-                    $('#modDialog').modal('show');
-                });
+     }
+</table>
+<script type="text/javascript">
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        $(".feedbackItem").click(function (e) {
+            e.preventDefault();
+            $.get(this.href, function (data) {
+                $('#dialogContent').html(data);
+                $('#modDialog').modal('show');
             });
-        })
-    </script>
-</body>
-</html>
+        });
+    })
+</script>

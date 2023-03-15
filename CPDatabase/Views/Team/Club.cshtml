@@ -1,44 +1,38 @@
 ﻿<!--model IEnumerable<CPDatabase.Models.Club>-->
 @model TeamsClubViewModel
+@{
+    ViewData["Title"] = "Clubs";
+}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Clubs - CP14DB</title>
-</head>
-<body>
-    <h3>Clubs</h3>
-    <table class="table">
+<h3>Clubs</h3>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.NameSort">Club</a></th>
+        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.CountrySort">Country</a></th>
+        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
+        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
+        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
+        <td></td>
+    </tr>
+    @foreach (var club in Model.Clubs)
+    {
         <tr>
-            <th>Id</th>
-            <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.NameSort">Club</a></th>
-            <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.CountrySort">Country</a></th>
-            <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
-            <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
-            <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
-            <td></td>
+            <td>@club.Id</td>
+            <td>@club.ClubName</td>
+            <td>@club.Country</td>
+            <td>@club.Giggi</td>
+            <td>@club.Jbou</td>
+            <td>@club.Val</td>
+            <td><a href="~/Club/View/@club.Id">Look</a></td>
         </tr>
-        @foreach (var club in Model.Clubs)
-        {
-            <tr>
-                <td>@club.Id</td>
-                <td>@club.ClubName</td>
-                <td>@club.Country</td>
-                <td>@club.Giggi</td>
-                <td>@club.Jbou</td>
-                <td>@club.Val</td>
-                <td><a href="~/Club/View/@club.Id">Look</a></td>
-            </tr>
-        }
-    </table>
-    @if (Model.PageViewModel.HasPreviousPage)
-    {
-        <a asp-action="Club" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
     }
-    @if (Model.PageViewModel.HasNextPage)
-    {
-        <a asp-action="Club" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
-    }
-</body>
-</html>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Club" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Club" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+}

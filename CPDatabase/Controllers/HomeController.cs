@@ -149,18 +149,20 @@ namespace CPDatabase.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
-        //todo: clean usings etc.
         //todo: make changelog
         //todo: make error page
         //todo: make contacts page
-        //todo: make feedback page
+        //todo: make home page
+        //todo: make feedback reply page
         //todo: make 2nd level menus
         //todo: check images paths
         //todo: fix bug with both filters selected
         //todo: decide what to do with fixed names
-        //todo: fix the page titles
+        //todo: check scripts + styles links
         //todo: add validatePartial cshtml
         //todo: make ienumerable
+        //todo: remove pagesize
+        //todo: make pagesort for feedback
         //todo: explore bootstrap
         //todo: show on github
         //todo: make donate button

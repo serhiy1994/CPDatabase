@@ -1,53 +1,46 @@
 ﻿<!--model IEnumerable<CPDatabase.Models.NationalTeam>-->
 @model NTsConcreteViewModel
+@{
+    ViewData["Title"] = "National Teams By Period: " + @ViewBag.CurrentPeriodName;
+}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>View National Teams By Period: @ViewBag.CurrentPeriodName - CP14DB</title>
-</head>
-<body>
-    <h3>View National Teams By Period: @ViewBag.CurrentPeriodName</h3>
-
-    <table class="table">
+<h3>National Teams By Period: @ViewBag.CurrentPeriodName</h3>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.NameSort">National team</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.CountrySort">Country</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.LeagueSort">League</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.YearSort">Year</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.PeriodSort">Period</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.NotQualSort">Not qual.</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
+        <th></th>
+    </tr>
+    @foreach (var nationalTeam in Model.NTs)
+    {
         <tr>
-            <th>Id</th>
-            <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.NameSort">National team</a></th>
-            <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.CountrySort">Country</a></th>
-            <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.LeagueSort">League</a></th>
-            <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.YearSort">Year</a></th>
-            <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.PeriodSort">Period</a></th>
-            <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.NotQualSort">Not qual.</a></th>
-            <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
-            <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
-            <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
-            <th></th>
+            <td>@nationalTeam.Id</td>
+            <td>@nationalTeam.NTName</td>
+            <td>@nationalTeam.Country</td>
+            <td>@nationalTeam.LeagueNT</td>
+            <td>@nationalTeam.Year</td>
+            <td>@nationalTeam.Period</td>
+            <td>@nationalTeam.NotQual</td>
+            <td>@nationalTeam.Giggi</td>
+            <td>@nationalTeam.Jbou</td>
+            <td>@nationalTeam.Val</td>
+            <td><a href="~/NT/View/@nationalTeam.Id">Look</a></td>
         </tr>
-        @foreach (var nationalTeam in Model.NTs)
-        {
-            <tr>
-                <td>@nationalTeam.Id</td>
-                <td>@nationalTeam.NTName</td>
-                <td>@nationalTeam.Country</td>
-                <td>@nationalTeam.LeagueNT</td>
-                <td>@nationalTeam.Year</td>
-                <td>@nationalTeam.Period</td>
-                <td>@nationalTeam.NotQual</td>
-                <td>@nationalTeam.Giggi</td>
-                <td>@nationalTeam.Jbou</td>
-                <td>@nationalTeam.Val</td>
-                <td><a href="~/NT/View/@nationalTeam.Id">Look</a></td>
-            </tr>
-        }
-    </table>
-    @if (Model.PageViewModel.HasPreviousPage)
-    {
-        <a asp-action="View" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
     }
-    @if (Model.PageViewModel.HasNextPage)
-    {
-        <a asp-action="View" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
-    }
-</body>
-</html>
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="View" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="View" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+}
