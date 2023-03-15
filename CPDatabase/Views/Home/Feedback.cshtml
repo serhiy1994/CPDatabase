@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CPDatabase.Models.FeedbackLog>
+﻿<!--model IEnumerable<CPDatabase.Models.FeedbackLog>-->
+@model FeedbackViewModel
 @{
     ViewData["Title"] = "Reports & feedbacks";
 }
@@ -25,14 +26,14 @@
 <table class="table">
     <tr>
         <td>Id</td>
-        <td>Message date</td>
-        <td>User name</td>
-        <td>Email</td>
-        <td>Message</td>
-        <td>Reply</td>
-        <td>Reply date</td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.MessageDateSort">Message date</a></td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.UsernameSort">User name</a></td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.EmailSort">Email</a></td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.MessageSort">Message</a></td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.ReplySort">Reply</a></td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.ReplyDateSort">Reply date</a></td>
     </tr>
-    @foreach (var feedback in Model)
+    @foreach (var feedback in Model.Feedbacks)
     {
         <tr>
             <td>@feedback.MessageId</td>
@@ -53,8 +54,16 @@
                 }
             </td>
         </tr>
-     }
+    }
 </table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+}
 <script type="text/javascript">
     $(function () {
         $.ajaxSetup({ cache: false });

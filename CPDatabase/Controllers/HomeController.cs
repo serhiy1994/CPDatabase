@@ -10,6 +10,8 @@ using System.Diagnostics;
 using CPDatabase.Models;
 using CPDatabase.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 
 namespace CPDatabase.Controllers
 {
@@ -32,9 +34,33 @@ namespace CPDatabase.Controllers
             return View();
         }
 
-        public IActionResult Feedback()
+        public async Task<IActionResult> Feedback(int page = 1, FeedbackSortState sortOrder = FeedbackSortState.MessageDateAsc)
         {
-            return View(cpdbcontext.FeedbackLog.ToList());
+            int pageSize = 10;
+            IQueryable<FeedbackLog> feedbacks = cpdbcontext.FeedbackLog.AsQueryable();
+
+            feedbacks = sortOrder switch
+            {
+                FeedbackSortState.MessageDateDesc => feedbacks.OrderByDescending(s => s.DateMessage),
+                FeedbackSortState.UsernameAsc => feedbacks.OrderBy(s => s.Username),
+                FeedbackSortState.UsernameDesc => feedbacks.OrderByDescending(s => s.Username),
+                FeedbackSortState.EmailAsc => feedbacks.OrderBy(s => s.Email),
+                FeedbackSortState.EmailDesc => feedbacks.OrderByDescending(s => s.Email),
+                FeedbackSortState.MessageAsc => feedbacks.OrderBy(s => s.Message),
+                FeedbackSortState.MessageDesc => feedbacks.OrderByDescending(s => s.Message),
+                FeedbackSortState.ReplyAsc => feedbacks.OrderBy(s => s.Reply),
+                FeedbackSortState.ReplyDesc => feedbacks.OrderByDescending(s => s.Reply),
+                FeedbackSortState.ReplyDateAsc => feedbacks.OrderBy(s => s.DateReply),
+                FeedbackSortState.ReplyDateDesc => feedbacks.OrderByDescending(s => s.DateReply),
+                _ => feedbacks.OrderBy(s => s.DateMessage),
+            };
+            var count = await feedbacks.CountAsync();
+            var items = await feedbacks.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            FeedbackSortViewModel sortViewModel = new FeedbackSortViewModel(sortOrder);
+            FeedbackViewModel feedbackViewModel = new FeedbackViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Feedbacks = items };
+
+            return View(feedbackViewModel);
         }
 
         [HttpPost]
@@ -160,9 +186,9 @@ namespace CPDatabase.Controllers
         //todo: decide what to do with fixed names
         //todo: check scripts + styles links
         //todo: add validatePartial cshtml
-        //todo: make ienumerable
+        //todo: make clean iequeryable
         //todo: remove pagesize
-        //todo: make pagesort for feedback
+        //todo: hide unnecessary columns
         //todo: explore bootstrap
         //todo: show on github
         //todo: make donate button

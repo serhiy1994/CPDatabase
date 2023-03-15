@@ -129,4 +129,20 @@
         ValAsc,
         ValDesc
     }
+
+    public enum FeedbackSortState
+    {
+        MessageDateAsc,
+        MessageDateDesc,
+        UsernameAsc,
+        UsernameDesc,
+        EmailAsc,
+        EmailDesc,
+        MessageAsc,
+        MessageDesc,
+        ReplyAsc,
+        ReplyDesc,
+        ReplyDateAsc,
+        ReplyDateDesc,
+    }
 }
