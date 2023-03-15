@@ -184,8 +184,7 @@ namespace CPDatabase.Controllers
         //todo: decide what to do with fixed names
         //todo: check scripts + styles links
         //todo: add validatePartial cshtml
-        //todo: remove pagesize
-        //todo: hide unnecessary columns
+        //todo: hide unneccessary columns
         //todo: explore bootstrap
         //todo: show on github
         //todo: make donate button

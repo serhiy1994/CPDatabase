@@ -9,6 +9,7 @@ namespace CPDatabase.Controllers
     public class TeamController : Controller
     {
         CPDBContext cpdbcontext;
+        int pageSize = 10;
 
         public TeamController(CPDBContext context)
         {
@@ -25,7 +26,6 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> All(int? season, int? halfDecade, int page = 1, TeamSortState sortOrder = TeamSortState.NameAsc)
         {
-            int pageSize = 10;
             IQueryable<Team> teams = cpdbcontext.Team.AsQueryable();
 
             if (season != null && season != -1 && season != 0) teams = teams.Where(p => p.SeasonNavigation.Id == season);
@@ -68,7 +68,6 @@ namespace CPDatabase.Controllers
         
         public async Task<IActionResult> CountryClub(int page = 1, TeamCountryAndNTCountrySortState sortOrder = TeamCountryAndNTCountrySortState.NameAsc)
         {
-            int pageSize = 10;
             IQueryable<CountryClub> countries = cpdbcontext.CountryClub.AsQueryable();
 
             countries = sortOrder switch
@@ -98,7 +97,6 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> Club(int page = 1, TeamClubSortState sortOrder = TeamClubSortState.NameAsc)
         {
-            int pageSize = 10;
             IQueryable<Club> clubs = cpdbcontext.Club.AsQueryable();
 
             clubs = sortOrder switch
@@ -126,7 +124,6 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> LeagueTeam(int page = 1, TeamLeagueSortState sortOrder = TeamLeagueSortState.NameAsc)
         {
-            int pageSize = 10;
             IQueryable<LeagueTeam> leaguesT = cpdbcontext.LeagueTeam.AsQueryable();
 
             leaguesT = sortOrder switch
@@ -156,7 +153,6 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> HalfDecade(int page = 1, TeamHalfDecadeAndSeasonSortState sortOrder = TeamHalfDecadeAndSeasonSortState.NameAsc)
         {
-            int pageSize = 10;
             IQueryable<HalfDecade> halfDecades = cpdbcontext.HalfDecade.AsQueryable();
 
             halfDecades = sortOrder switch
@@ -182,7 +178,6 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> Season(int page = 1, TeamHalfDecadeAndSeasonSortState sortOrder = TeamHalfDecadeAndSeasonSortState.NameAsc)
         {
-            int pageSize = 10;
             IQueryable<Season> seasons = cpdbcontext.Season.AsQueryable();
 
             seasons = sortOrder switch
