@@ -10,8 +10,6 @@ using System.Diagnostics;
 using CPDatabase.Models;
 using CPDatabase.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Data.SqlClient;
 
 namespace CPDatabase.Controllers
 {
@@ -186,7 +184,6 @@ namespace CPDatabase.Controllers
         //todo: decide what to do with fixed names
         //todo: check scripts + styles links
         //todo: add validatePartial cshtml
-        //todo: make clean iequeryable
         //todo: remove pagesize
         //todo: hide unnecessary columns
         //todo: explore bootstrap

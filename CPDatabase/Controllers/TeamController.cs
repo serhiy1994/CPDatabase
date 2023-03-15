@@ -26,7 +26,7 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> All(int? season, int? halfDecade, int page = 1, TeamSortState sortOrder = TeamSortState.NameAsc)
         {
             int pageSize = 10;
-            IQueryable<Team> teams = cpdbcontext.Team.Include(x => x.SeasonNavigation);
+            IQueryable<Team> teams = cpdbcontext.Team.AsQueryable();
 
             if (season != null && season != -1 && season != 0) teams = teams.Where(p => p.SeasonNavigation.Id == season);
             else if (season == 0) teams = teams.Where(p => p.Season == null);
@@ -69,7 +69,7 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> CountryClub(int page = 1, TeamCountryAndNTCountrySortState sortOrder = TeamCountryAndNTCountrySortState.NameAsc)
         {
             int pageSize = 10;
-            IQueryable<CountryClub> countries = cpdbcontext.CountryClub.Include(x=>x.Club);
+            IQueryable<CountryClub> countries = cpdbcontext.CountryClub.AsQueryable();
 
             countries = sortOrder switch
             {
@@ -99,7 +99,7 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> Club(int page = 1, TeamClubSortState sortOrder = TeamClubSortState.NameAsc)
         {
             int pageSize = 10;
-            IQueryable<Club> clubs = cpdbcontext.Club.Include(x => x.CountryNavigation);
+            IQueryable<Club> clubs = cpdbcontext.Club.AsQueryable();
 
             clubs = sortOrder switch
             {
@@ -127,7 +127,7 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> LeagueTeam(int page = 1, TeamLeagueSortState sortOrder = TeamLeagueSortState.NameAsc)
         {
             int pageSize = 10;
-            IQueryable<LeagueTeam> leaguesT = cpdbcontext.LeagueTeam.Include(x => x.SeasonNavigation);
+            IQueryable<LeagueTeam> leaguesT = cpdbcontext.LeagueTeam.AsQueryable();
 
             leaguesT = sortOrder switch
             {
@@ -157,7 +157,7 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> HalfDecade(int page = 1, TeamHalfDecadeAndSeasonSortState sortOrder = TeamHalfDecadeAndSeasonSortState.NameAsc)
         {
             int pageSize = 10;
-            IQueryable<HalfDecade> halfDecades = cpdbcontext.HalfDecade.Include(x => x.LeagueTeam);
+            IQueryable<HalfDecade> halfDecades = cpdbcontext.HalfDecade.AsQueryable();
 
             halfDecades = sortOrder switch
             {
@@ -183,7 +183,7 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> Season(int page = 1, TeamHalfDecadeAndSeasonSortState sortOrder = TeamHalfDecadeAndSeasonSortState.NameAsc)
         {
             int pageSize = 10;
-            IQueryable<Season> seasons = cpdbcontext.Season.Include(x => x.LeagueTeam);
+            IQueryable<Season> seasons = cpdbcontext.Season.AsQueryable();
 
             seasons = sortOrder switch
             {

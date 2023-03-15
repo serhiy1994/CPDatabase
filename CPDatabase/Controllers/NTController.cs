@@ -26,7 +26,7 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> CountryNT(int page = 1, TeamCountryAndNTCountrySortState sortOrder = TeamCountryAndNTCountrySortState.NameAsc)
         {
             int pageSize = 10;
-            IQueryable<CountryNT> countriesNT = cpdbcontext.CountryNT.Include(x => x.NationalTeam);
+            IQueryable<CountryNT> countriesNT = cpdbcontext.CountryNT.AsQueryable();
 
             countriesNT = sortOrder switch
             {
@@ -56,7 +56,7 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> Year(int page = 1, NTPeriodAndYearSortState sortOrder = NTPeriodAndYearSortState.NameAsc)
         {
             int pageSize = 10;
-            IQueryable<Year> years = cpdbcontext.Year.Include(x => x.NationalTeam);
+            IQueryable<Year> years = cpdbcontext.Year.AsQueryable();
 
             years = sortOrder switch
             {
@@ -82,7 +82,7 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> Period(int page = 1, NTPeriodAndYearSortState sortOrder = NTPeriodAndYearSortState.NameAsc)
         {
             int pageSize = 10;
-            IQueryable<Period> periods = cpdbcontext.Period.Include(x => x.NationalTeam);
+            IQueryable<Period> periods = cpdbcontext.Period.AsQueryable();
 
             periods = sortOrder switch
             {
@@ -108,7 +108,7 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> LeagueNT(int page = 1, NTLeagueSortState sortOrder = NTLeagueSortState.NameAsc)
         {
             int pageSize = 10;
-            IQueryable<LeagueNT> leaguesNT = cpdbcontext.LeagueNT.Include(x => x.YearNavigation);
+            IQueryable<LeagueNT> leaguesNT = cpdbcontext.LeagueNT.AsQueryable();
 
             leaguesNT = sortOrder switch
             {
@@ -138,7 +138,7 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> All(int? year, int? period, int page = 1, NTSortState sortOrder = NTSortState.NameAsc)
         {
             int pageSize = 10;
-            IQueryable<NationalTeam> nts = cpdbcontext.NationalTeam.Include(x => x.YearNavigation);
+            IQueryable<NationalTeam> nts = cpdbcontext.NationalTeam.AsQueryable();
 
             if (year != null && year != -1 && year != 0) nts = nts.Where(p => p.YearNavigation.Id == year);
             else if (year == 0) nts = nts.Where(p => p.Year == null);
