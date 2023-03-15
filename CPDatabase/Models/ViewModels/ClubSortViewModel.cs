@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CPDatabase.Models
+﻿namespace CPDatabase.Models
 {
     public class ClubSortViewModel
     {

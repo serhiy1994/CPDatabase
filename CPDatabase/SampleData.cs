@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Microsoft.Extensions.Logging;
 using CPDatabase.Models;
 
 namespace CPDatabase

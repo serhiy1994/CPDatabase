@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CPDatabase.Models
+﻿namespace CPDatabase.Models
 {
     public partial class User
     {

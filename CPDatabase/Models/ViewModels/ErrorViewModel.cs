@@ -1,5 +1,3 @@
-using System;
-
 namespace CPDatabase.Models
 {
     public class ErrorViewModel

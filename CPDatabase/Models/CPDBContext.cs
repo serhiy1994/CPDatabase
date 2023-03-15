@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CPDatabase.Models
 {
@@ -20,9 +18,7 @@ namespace CPDatabase.Models
         public virtual DbSet<User> User { get; set; } = default!;
         public virtual DbSet<Year> Year { get; set; } = default!;
 
-        public CPDBContext(DbContextOptions<CPDBContext> options) : base(options)
-        {
-        }
+        public CPDBContext(DbContextOptions<CPDBContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
