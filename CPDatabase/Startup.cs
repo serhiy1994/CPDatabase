@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CPDatabase.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace CPDatabase
 {
@@ -42,6 +43,8 @@ namespace CPDatabase
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseRewriter(new RewriteOptions().AddRedirectToWwwPermanent().AddRedirectToHttpsPermanent());
             app.UseHttpsRedirection();
 
             app.UseFileServer(new FileServerOptions
@@ -50,10 +53,16 @@ namespace CPDatabase
                 FileProvider = new PhysicalFileProvider(@"D:\\Serhiy\\CP content\\all teams\\"),
                 RequestPath = new PathString("/images"),
                 EnableDefaultFiles = false
+                //StaticFileOptions = new StaticFileOptions()
+                //{
+                //    OnPrepareResponse = ctx =>
+                //    {
+                //        ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600");
+                //    }
+                //}
             });
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
