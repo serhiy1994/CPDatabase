@@ -1,14 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CPDatabase.Models.ViewModels
+namespace CPDatabase.Models
 {
     public class LoginModel
     {
-        [Required(ErrorMessage = "Name isn't specified")]
+        [Required(ErrorMessage = "NameRequired")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Password isn't specified")]
+        [Required(ErrorMessage = "PasswordRequired")]
         [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
     }
 }

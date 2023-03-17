@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Linq;
 using System.Diagnostics;
 using CPDatabase.Models;
-using CPDatabase.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 
 namespace CPDatabase.Controllers
 {
@@ -173,20 +174,32 @@ namespace CPDatabase.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, 
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = null, IsEssential = true}
+                );
+            return LocalRedirect(returnUrl);
+        }
+
         //todo: make error page
-        //todo: complete home page
         //todo: make feedback reply page
+        //todo: complete home page
+        //todo: complete localization
         //todo: complete 2nd level menus
         //todo: check images paths
+        //todo: check scripts + styles links
+        //todo: check grammar
+        //todo: add validatePartial cshtml
+        //todo: add database files in repository
+        //todo: hide unneccessary columns
         //todo: fix bug with both filters selected
         //todo: decide what to do with fixed names
-        //todo: check scripts + styles links
-        //todo: add validatePartial cshtml
-        //todo: hide unneccessary columns
-        //todo: check grammar
-        //todo: add database files in repository
-        //todo: explore bootstrap
-        //todo: show on github
+        //---
+        //todo: explore bootstrap + make design
         //todo: make donate button
+        //todo: publish on github
     }
 }

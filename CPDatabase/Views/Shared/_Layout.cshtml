@@ -48,9 +48,12 @@
                             }
                         </li>
                     </ul>
-                </div>                
+                </div>
             </div>
         </nav>
+        <div>
+            @await Html.PartialAsync("_SelectLanguagePartial")
+        </div>
     </header>
     <div class="container body-content">
             @RenderBody()

@@ -21,4 +21,15 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Views.Home.Index.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Home.Index.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

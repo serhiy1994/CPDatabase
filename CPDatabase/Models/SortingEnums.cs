@@ -143,6 +143,6 @@
         ReplyAsc,
         ReplyDesc,
         ReplyDateAsc,
-        ReplyDateDesc,
+        ReplyDateDesc
     }
 }
