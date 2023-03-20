@@ -3,26 +3,24 @@
 @{
     ViewData["Title"] = "Reports & feedbacks";
 }
-@section scripts{
-
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-}
 
 <h3>Reports & feedbacks</h3>
 <div id="modDialog" class="modal fade">
     <div id="dialogContent" class="modal-dialog"></div>
 </div>
-<form method="post" action="~/Home/MakeFeedback">
-    <input type="hidden" value="@DateTime.Now" name="DateMessage" />
-    <label>Name:</label><br />
-    <input type="text" name="Username" /><br />
-    <label>Email (won't be shown):</label><br />
-    <input type="text" name="Email" /><br />
-    <label>Message:</label><br />
-    <input type="text" name="Message" /><br />
-    <input type="submit" value="Send" />
-</form>
+@if (User.Identity.Name == null)
+{
+    <form method="post" action="~/Home/MakeFeedback">
+        <input type="hidden" value="@DateTime.Now" name="DateMessage" />
+        <label>Name:</label><br />
+        <input type="text" name="Username" /><br />
+        <label>Email (won't be shown):</label><br />
+        <input type="text" name="Email" /><br />
+        <label>Message:</label><br />
+        <input type="text" name="Message" /><br />
+        <input type="submit" value="Send" />
+    </form>
+}
 <table class="table">
     <tr>
         <td>Id</td>

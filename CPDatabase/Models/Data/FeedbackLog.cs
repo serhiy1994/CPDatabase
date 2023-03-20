@@ -15,7 +15,7 @@ namespace CPDatabase.Models
         public string Username { get; set; } = default!;
 
         [Required(ErrorMessage = "EmailRequired")]
-        [EmailAddress(ErrorMessage ="WrongEmail")]
+        [EmailAddress(ErrorMessage = "WrongEmail")]
         [Display(Name = "Email")]
         public string Email { get; set; } = default!;
 

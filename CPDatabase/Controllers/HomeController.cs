@@ -67,11 +67,15 @@ namespace CPDatabase.Controllers
         {
             if (ModelState.IsValid)
             {
-                cpdbcontext.FeedbackLog.Add(feedback);
-                cpdbcontext.SaveChanges();
-                return RedirectToAction("Feedback");
+                if (feedback != null)
+                {
+                    cpdbcontext.FeedbackLog.Add(feedback);
+                    cpdbcontext.SaveChanges();
+                    return RedirectToAction("Feedback");
+                }
+                ModelState.AddModelError("", "An error occured during adding feedback. Please go back and try again.");
             }
-            else return Content("An error occured during adding feedback. Please go back and try again.");
+            return RedirectToAction("Feedback");
         }
 
         [Authorize]
@@ -190,10 +194,8 @@ namespace CPDatabase.Controllers
         //todo: complete localization
         //todo: complete 2nd level menus
         //todo: check images paths
-        //todo: check scripts + styles links
+        //todo: check styles links
         //todo: check grammar
-        //todo: add validatePartial cshtml
-        //todo: add database files in repository
         //todo: hide unneccessary columns
         //todo: fix bug with both filters selected
         //todo: decide what to do with fixed names

@@ -22,6 +22,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Models.Data.FeedbackLog.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models.Data.FeedbackLog.ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views.Home.Index.en.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>

@@ -75,7 +75,7 @@ namespace CPDatabase
             app.UseFileServer(new FileServerOptions
             {
                 EnableDirectoryBrowsing = true,
-                FileProvider = new PhysicalFileProvider(@"D:\\Serhiy\\CP content\\all teams\\"),
+                FileProvider = new PhysicalFileProvider(@"D:\\Serhiy\\CP content\\3.3\\all teams\\"),
                 RequestPath = new PathString("/images"),
                 EnableDefaultFiles = false
                 //StaticFileOptions = new StaticFileOptions()
