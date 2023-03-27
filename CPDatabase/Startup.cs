@@ -86,6 +86,7 @@ namespace CPDatabase
                 //    }
                 //}
             });
+            app.UseStaticFiles();
 
             app.UseRouting();
             app.UseAuthentication();

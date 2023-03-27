@@ -194,7 +194,6 @@ namespace CPDatabase.Controllers
         //todo: complete localization
         //todo: complete 2nd level menus
         //todo: check images paths
-        //todo: check styles links
         //todo: check grammar
         //todo: hide unneccessary columns
         //todo: fix bug with both filters selected
