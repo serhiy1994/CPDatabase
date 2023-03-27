@@ -7,7 +7,7 @@ Made with .NET 5 Core + Entity Framework 5 Core + MS SQL Server 2016.
 
 ## Preparing to work
 1. Download/clone the repository.
-2. Download the images archive (https://www.mediafire.com/file/xva2pzq9ecnnak0) and unpack it anywhere you wish.
+2. Download the images archive (http://www.mediafire.com/file/ujwnd93j4lmnvj0) and unpack it anywhere you wish.
 3. Change the line 78 in the Startup.cs file according to the previous step.
 4. Deploy (restore) the database in your local MS SQL Server using the ClassicPatchDatabase.bak file.
 5. Change the line 3 in the appsettings.json file according to the previous step.
