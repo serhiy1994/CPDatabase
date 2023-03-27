@@ -30,4 +30,11 @@
         <td>@Model.Val</td>
     </tr>
 </table>
-<img src="@String.Concat("/images/", Model.NTName.Replace(" ",""),".png")" />
+@if (Model.Val == true)
+{
+<img src="@String.Concat("/images/val/", Model.NTName.Replace(" ", ""), ".png")" />
+}
+else
+{
+<img src="@String.Concat("/images/", Model.NTName.Replace(" ", ""), ".png")" />
+}
