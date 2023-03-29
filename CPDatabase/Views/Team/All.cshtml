@@ -66,11 +66,36 @@
         </tr>
     }
 </table>
+@if (Model.PageViewModel.TooFarToFirst)
+{
+    <a asp-action="All" asp-route-page="1" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">1</a>
+}
+@if (Model.PageViewModel.HasPreviousPage3)
+{
+    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber - 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 3).ToString())</a>
+}
+@if (Model.PageViewModel.HasPreviousPage2)
+{
+    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber - 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 2).ToString())</a>
+}
 @if (Model.PageViewModel.HasPreviousPage)
 {
-    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
 }
+<span class="btn">@Model.PageViewModel.PageNumber.ToString()</span>
 @if (Model.PageViewModel.HasNextPage)
 {
-    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+}
+@if (Model.PageViewModel.HasNextPage2)
+{
+    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber + 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 2).ToString())</a>
+}
+@if (Model.PageViewModel.HasNextPage3)
+{
+    <a asp-action="All" asp-route-page="@(Model.PageViewModel.PageNumber + 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 3).ToString())</a>
+}
+@if (Model.PageViewModel.TooFarToLast)
+{
+    <a asp-action="All" asp-route-page="@Model.PageViewModel.TotalPages" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">@Model.PageViewModel.TotalPages.ToString()</a>
 }
