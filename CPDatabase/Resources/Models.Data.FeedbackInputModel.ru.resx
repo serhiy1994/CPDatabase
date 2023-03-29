@@ -118,33 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Email" xml:space="preserve">
-    <value>Email (won't be shown)</value>
+    <value>Email (не будет отображаться)</value>
   </data>
   <data name="EmailRequired" xml:space="preserve">
-    <value>Email is required.</value>
+    <value>Необходимо указать email.</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Message</value>
-  </data>
-  <data name="MessageDate" xml:space="preserve">
-    <value>Message date</value>
+    <value>Сообщение</value>
   </data>
   <data name="MessageRequired" xml:space="preserve">
-    <value>Non-empty message is required.</value>
-  </data>
-  <data name="Reply" xml:space="preserve">
-    <value>Reply</value>
-  </data>
-  <data name="ReplyDate" xml:space="preserve">
-    <value>Reply date</value>
+    <value>Необходимо непустое сообщение.</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Username</value>
+    <value>Имя пользователя</value>
   </data>
   <data name="UsernameRequired" xml:space="preserve">
-    <value>Username is required.</value>
+    <value>Необходимо указать имя пользователя.</value>
   </data>
   <data name="WrongEmail" xml:space="preserve">
-    <value>Wrong email address provided.</value>
+    <value>Некорректный email.</value>
   </data>
 </root>

@@ -4,13 +4,34 @@
     ViewData["Title"] = "Teams";
 }
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $('#selectS').change(function () {
+            if ($('#selectS option:selected').index() > 1) {
+                $('#selectH').val('All').prop('disabled', true);
+            } else {
+                $('#selectH').prop('disabled', false);
+            }
+        });
+
+        $('#selectH').change(function () {
+            if ($('#selectH option:selected').index() > 1) {
+                $('#selectS').val('All').prop('disabled', true);
+            } else {
+                $('#selectS').prop('disabled', false);
+            }
+        });
+    });
+</script>
+
 <h3>Teams</h3>
 <form method="get">
     <div class="form-group form-inline">
         <label>Season: </label>
-        <select name="season" asp-items="Model.FilterViewModel.Seasons" class="form-control"></select>
+        <select name="season" id="selectS" asp-items="Model.FilterViewModel.Seasons" class="form-control"></select>
         <label>Half-decade: </label>
-        <select name="halfdecade" asp-items="Model.FilterViewModel.HalfDecades" class="form-control"></select>
+        <select name="halfdecade" id="selectH" asp-items="Model.FilterViewModel.HalfDecades" class="form-control"></select>
         <input type="submit" value="Filter" class="btn btn-outline-dark" />
     </div>
 </form>

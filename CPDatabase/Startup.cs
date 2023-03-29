@@ -26,7 +26,7 @@ namespace CPDatabase
         CultureInfo[] supportedCultures = new[]
         {
                 new CultureInfo("en"),
-                new CultureInfo("fr"),
+                //new CultureInfo("fr"),
                 new CultureInfo("ru")
         };
 

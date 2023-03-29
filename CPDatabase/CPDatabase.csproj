@@ -22,11 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Models.Data.FeedbackLog.en.resx">
+    <EmbeddedResource Update="Resources\Models.Data.FeedbackInputModel.en.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Models.Data.FeedbackLog.ru.resx">
+    <EmbeddedResource Update="Resources\Models.Data.FeedbackInputModel.ru.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
     </EmbeddedResource>

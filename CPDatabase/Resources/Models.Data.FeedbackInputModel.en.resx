@@ -117,34 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Email1" xml:space="preserve">
-    <value>Email (не будет отображаться)</value>
+  <data name="Email" xml:space="preserve">
+    <value>Email (won't be shown)</value>
   </data>
   <data name="EmailRequired" xml:space="preserve">
-    <value>Необходимо указать email.</value>
+    <value>Email is required.</value>
   </data>
-  <data name="Message1" xml:space="preserve">
-    <value>Сообщение</value>
-  </data>
-  <data name="MessageDate1" xml:space="preserve">
-    <value>Дата сообщения</value>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
   </data>
   <data name="MessageRequired" xml:space="preserve">
-    <value>Необходимо непустое сообщение.</value>
+    <value>Non-empty message is required.</value>
   </data>
-  <data name="Reply1" xml:space="preserve">
-    <value>Ответ</value>
-  </data>
-  <data name="ReplyDate1" xml:space="preserve">
-    <value>Дата ответа</value>
-  </data>
-  <data name="Username1" xml:space="preserve">
-    <value>Имя пользователя</value>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
   <data name="UsernameRequired" xml:space="preserve">
-    <value>Необходимо указать имя пользователя.</value>
+    <value>Username is required.</value>
   </data>
   <data name="WrongEmail" xml:space="preserve">
-    <value>Некорректный email.</value>
+    <value>Wrong email address provided.</value>
   </data>
 </root>

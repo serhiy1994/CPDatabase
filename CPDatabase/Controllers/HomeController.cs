@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Linq;
 using System.Diagnostics;
+using System;
 using CPDatabase.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -57,25 +58,36 @@ namespace CPDatabase.Controllers
             var items = await feedbacks.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             FeedbackSortViewModel sortViewModel = new FeedbackSortViewModel(sortOrder);
-            FeedbackViewModel feedbackViewModel = new FeedbackViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Feedbacks = items };
+            FeedbackViewModel feedbackViewModel = new FeedbackViewModel(null) { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Feedbacks = items };
 
             return View(feedbackViewModel);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult MakeFeedback(FeedbackLog feedback)
+        public async Task<IActionResult> MakeFeedback(FeedbackInputModel feedback)
         {
+            FeedbackViewModel vm = await BuildFeedbackViewModelAsync(feedback.ReturnUrl!);
             if (ModelState.IsValid)
             {
                 if (feedback != null)
                 {
-                    cpdbcontext.FeedbackLog.Add(feedback);
+                    FeedbackLog fb = new FeedbackLog() { Message = feedback.Message, Email = feedback.Email, Username = feedback.Username, DateMessage = DateTime.Now };
+                    cpdbcontext.FeedbackLog.Add(fb);
                     cpdbcontext.SaveChanges();
                     return RedirectToAction("Feedback");
-                }
-                ModelState.AddModelError("", "An error occured during adding feedback. Please go back and try again.");
+                }                
             }
-            return RedirectToAction("Feedback");
+            return RedirectToAction("Feedback", vm);
+        }
+
+        private async Task<FeedbackViewModel> BuildFeedbackViewModelAsync(string returnUrl)
+        {
+            var vm = new FeedbackViewModel(returnUrl)
+            {                
+                ReturnUrl = returnUrl
+            };
+            return vm;
         }
 
         [Authorize]
@@ -189,14 +201,13 @@ namespace CPDatabase.Controllers
         }
 
         //todo: make error page
-        //todo: make feedback reply page
+        //todo: complete feedback reply page (show validation results to an user)
         //todo: complete home page
         //todo: complete localization
         //todo: complete 2nd level menus
-        //todo: check images paths
+        //todo: check images paths (place them in the wwwroot folder + make accessible)
         //todo: check grammar
         //todo: hide unneccessary columns
-        //todo: fix bug with both filters selected
         //todo: decide what to do with fixed names
         //---
         //todo: explore bootstrap + make design

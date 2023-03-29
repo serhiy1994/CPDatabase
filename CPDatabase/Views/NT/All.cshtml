@@ -4,13 +4,34 @@
     ViewData["Title"] = "National Teams";
 }
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $('#selectY').change(function () {
+            if ($('#selectY option:selected').index() > 1) {
+                $('#selectP').val('All').prop('disabled', true);
+            } else {
+                $('#selectP').prop('disabled', false);
+            }
+        });
+
+        $('#selectP').change(function () {
+            if ($('#selectP option:selected').index() > 1) {
+                $('#selectY').val('All').prop('disabled', true);
+            } else {
+                $('#selectY').prop('disabled', false);
+            }
+        });
+    });
+</script>
+
 <h3>National Teams</h3>
 <form method="get">
     <div class="form-group form-inline">
         <label>Year: </label>
-        <select name="year" asp-items="Model.FilterViewModel.Years" class="form-control"></select>
+        <select name="year" id="selectY" asp-items="Model.FilterViewModel.Years" class="form-control"></select>
         <label>Period: </label>
-        <select name="period" asp-items="Model.FilterViewModel.Periods" class="form-control"></select>
+        <select name="period" id="selectP" asp-items="Model.FilterViewModel.Periods" class="form-control"></select>
         <input type="submit" value="Filter" class="btn btn-outline-dark" />
     </div>
 </form>
