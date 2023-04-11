@@ -9,7 +9,7 @@ namespace CPDatabase.Controllers
     public class NTController : Controller
     {
         CPDBContext cpdbcontext;
-        int pageSize = 10;
+        int pageSize = 25;
 
         public NTController(CPDBContext context)
         {

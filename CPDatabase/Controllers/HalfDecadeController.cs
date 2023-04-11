@@ -17,7 +17,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> View(int? id, int page = 1, TeamSortState sortOrder = TeamSortState.NameAsc)
         {
-            int pageSize = 10;
+            int pageSize = 25;
             if (id == null) return RedirectToAction("HalfDecade", "Team");
             IQueryable<Team> teamsByHalfDecade = cpdbcontext.Team.Where(t => t.HalfDecadeNavigation.Id == id);
             if (teamsByHalfDecade != null)

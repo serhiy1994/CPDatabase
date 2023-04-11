@@ -5,9 +5,6 @@
 }
 
 <h3>Reports & feedbacks</h3>
-<div id="modDialog" class="modal fade">
-    <div id="dialogContent" class="modal-dialog"></div>
-</div>
 @if (User.Identity.Name == null)
 {
     <form asp-action="MakeFeedback" asp-controller="Home" asp-anti-forgery="true">
@@ -53,18 +50,25 @@
             <td>@feedback.Username</td>
             <td>@feedback.Email</td>
             <td>@feedback.Message</td>
-            <td>@feedback.Reply</td>
-            <td>@feedback.DateReply</td>
             <td>
                 @if (User.Identity.Name != null && feedback.Reply == null)
                 {
-                    <a href="~/Home/Reply/@feedback.MessageId" class="feedbackItem">Write a reply</a>
+                    <form method="post" action="~/Home/Reply">
+                        <textarea cols="20" rows="2" name="Reply"></textarea>
+                        <input type="hidden" name="MessageId" value="@feedback.MessageId" />
+                        <button type="submit" class="btn btn-dark">Write a reply</button>
+                    </form>
                 }
                 else if (User.Identity.Name == null && feedback.Reply == null)
                 {
                     @:<i>Login to reply</i>
                 }
+                else
+                {
+                    @feedback.Reply
+                }
             </td>
+            <td>@feedback.DateReply</td>
         </tr>
     }
 </table>
@@ -101,15 +105,3 @@
 {
     <a asp-action="Feedback" asp-route-page="@Model.PageViewModel.TotalPages" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">@Model.PageViewModel.TotalPages.ToString()</a>
 }
-<script type="text/javascript">
-    $(function () {
-        $.ajaxSetup({ cache: false });
-        $(".feedbackItem").click(function (e) {
-            e.preventDefault();
-            $.get(this.href, function (data) {
-                $('#dialogContent').html(data);
-                $('#modDialog').modal('show');
-            });
-        });
-    })
-</script>

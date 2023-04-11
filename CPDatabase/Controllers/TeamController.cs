@@ -9,7 +9,7 @@ namespace CPDatabase.Controllers
     public class TeamController : Controller
     {
         CPDBContext cpdbcontext;
-        int pageSize = 10;
+        int pageSize = 25;
 
         public TeamController(CPDBContext context)
         {

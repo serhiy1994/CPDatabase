@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Linq;
 using System.Diagnostics;
 using System;
+using System.Text;
 using CPDatabase.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,10 +19,12 @@ namespace CPDatabase.Controllers
     public class HomeController : Controller
     {
         private CPDBContext cpdbcontext;
+        StringBuilder sb;
 
         public HomeController(CPDBContext context)
         {
             cpdbcontext = context;
+            sb = new StringBuilder();
         }
 
         public IActionResult Index()
@@ -36,7 +39,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> Feedback(int page = 1, FeedbackSortState sortOrder = FeedbackSortState.MessageDateAsc)
         {
-            int pageSize = 10;
+            int pageSize = 25;
             IQueryable<FeedbackLog> feedbacks = cpdbcontext.FeedbackLog.AsQueryable();
 
             feedbacks = sortOrder switch
@@ -76,7 +79,11 @@ namespace CPDatabase.Controllers
                     cpdbcontext.FeedbackLog.Add(fb);
                     cpdbcontext.SaveChanges();
                     return RedirectToAction("Feedback");
-                }                
+                }
+                foreach (var error in ModelState.Values.SelectMany(x => x.Errors))
+                    sb.Append(error.ErrorMessage + "; ");
+                ModelState.AddModelError("Feedbacking process error(s)", sb.ToString());
+                sb.Clear();
             }
             return RedirectToAction("Feedback", vm);
         }
@@ -91,26 +98,26 @@ namespace CPDatabase.Controllers
         }
 
         [Authorize]
-        public IActionResult Reply(int? id)
-        {
-            if (id != null)
-            {
-                FeedbackLog feedback = cpdbcontext.FeedbackLog.FirstOrDefault(fbl => fbl.MessageId == id);
-                if (feedback != null) return PartialView(feedback);
-            }
-            return NotFound();
-        }
-
-        [Authorize]
         [HttpPost]
         public IActionResult Reply(FeedbackLog feedback)
         {
-            FeedbackLog primaryFeedback = cpdbcontext.FeedbackLog.FirstOrDefault(fbl => fbl.MessageId == feedback.MessageId);
-            primaryFeedback.Reply = feedback.Reply;
-            primaryFeedback.DateReply = feedback.DateReply;
-            cpdbcontext.FeedbackLog.Update(primaryFeedback);
-            cpdbcontext.SaveChanges();
-            return RedirectToAction("Feedback");
+            if (feedback != null)
+            {
+                FeedbackLog primaryFeedback = cpdbcontext.FeedbackLog.FirstOrDefault(fbl => fbl.MessageId == feedback.MessageId);
+                if (primaryFeedback != null)
+                {
+                    primaryFeedback.Reply = feedback.Reply;
+                    primaryFeedback.DateReply = DateTime.Now;
+                    cpdbcontext.FeedbackLog.Update(primaryFeedback);
+                    cpdbcontext.SaveChanges();
+                    return RedirectToAction("Feedback");
+                }
+                foreach (var error in ModelState.Values.SelectMany(x => x.Errors))
+                    sb.Append(error.ErrorMessage + "; ");
+                ModelState.AddModelError("Replying process error(s)", sb.ToString());
+                sb.Clear();
+            }
+            return NotFound();
         }
 
         public IActionResult Contacts()
@@ -136,7 +143,10 @@ namespace CPDatabase.Controllers
                     await Authenticate(model.Name);
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Incorrect name and/or password");
+                foreach (var error in ModelState.Values.SelectMany(x => x.Errors))
+                    sb.Append(error.ErrorMessage + "; ");
+                ModelState.AddModelError("Logging in process error(s)", sb.ToString());
+                sb.Clear();
             }
             return View(model);
         }
