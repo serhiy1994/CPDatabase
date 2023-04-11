@@ -212,7 +212,6 @@ namespace CPDatabase.Controllers
 
         //todo: make error page
         //todo: complete feedback reply page (show validation results to an user)
-        //todo: complete home page
         //todo: complete localization
         //todo: complete 2nd level menus
         //todo: check images paths (place them in the wwwroot folder + make accessible)
