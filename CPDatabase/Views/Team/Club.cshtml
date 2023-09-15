@@ -1,18 +1,19 @@
-﻿<!--model IEnumerable<CPDatabase.Models.Club>-->
-@model TeamsClubViewModel
+﻿@model TeamsClubViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Clubs";
+    ViewData["Title"] = @Localizer["Clubs"];
 }
 
-<h3>Clubs</h3>
+<h3>@Localizer["Clubs"]</h3>
 <table class="table">
     <tr>
         <th>Id</th>
-        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.NameSort">Club</a></th>
-        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.CountrySort">Country</a></th>
-        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
-        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
-        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
+        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["Club"]</a></th>
+        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.CountrySort">@Localizer["Country"]</a></th>
+        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
+        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
+        <th><a asp-action="Club" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
         <td></td>
     </tr>
     @foreach (var club in Model.Clubs)
@@ -24,7 +25,7 @@
             <td>@club.Giggi</td>
             <td>@club.Jbou</td>
             <td>@club.Val</td>
-            <td><a href="~/Club/View/@club.Id">Look</a></td>
+            <td><a href="~/Club/View/@club.Id">@Localizer["Look"]</a></td>
         </tr>
     }
 </table>

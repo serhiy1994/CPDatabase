@@ -1,19 +1,20 @@
-﻿<!--IEnumerable<CPDatabase.Models.CountryNT>-->
-@model NTsCountryViewModel
+﻿@model NTsCountryViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Countries for National Teams";
+    ViewData["Title"] = @Localizer["CountriesForNationalTeams"];
 }
 
-<h3>Countries for National Teams</h3>
+<h3>@Localizer["CountriesForNationalTeams"]</h3>
 <table class="table">
     <tr>
         <th>Id</th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.NameSort">Country (NT)</a></th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.HasSubSort">Has subcountry</a></th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.SubcountrySort">Subcountry</a></th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["CountryNT"]</a></th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.HasSubSort">@Localizer["HasSubcountry"]</a></th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.SubcountrySort">@Localizer["Subcountry"]</a></th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
+        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
         <td></td>
     </tr>
     @foreach (var countryNT in Model.CountriesNT)
@@ -26,7 +27,7 @@
             <td>@countryNT.Giggi</td>
             <td>@countryNT.Jbou</td>
             <td>@countryNT.Val</td>
-            <td><a href="~/CountryNT/View/@countryNT.Id">Look</a></td>
+            <td><a href="~/CountryNT/View/@countryNT.Id">@Localizer["Look"]</a></td>
         </tr>
     }
 </table>

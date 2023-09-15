@@ -1,17 +1,18 @@
-﻿<!--IEnumerable<CPDatabase.Models.Period>-->
-@model NTsPeriodViewModel
+﻿@model NTsPeriodViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Periods for National Teams";
+    ViewData["Title"] = @Localizer["PeriodsForNationalTeams"];
 }
 
-<h3>Periods for National Teams</h3>
+<h3>@Localizer["PeriodsForNationalTeams"]</h3>
 <table class="table">
     <tr>
         <th>Id</th>
-        <th><a asp-action="Period" asp-route-sortOrder="@Model.SortViewModel.NameSort">Period</a></th>
-        <th><a asp-action="Period" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
-        <th><a asp-action="Period" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
-        <th><a asp-action="Period" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
+        <th><a asp-action="Period" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["Period"]</a></th>
+        <th><a asp-action="Period" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
+        <th><a asp-action="Period" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
+        <th><a asp-action="Period" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
         <td></td>
     </tr>
     @foreach (var period in Model.Periods)
@@ -22,7 +23,7 @@
             <td>@period.Giggi</td>
             <td>@period.Jbou</td>
             <td>@period.Val</td>
-            <td><a href="~/Period/View/@period.Id">Look</a></td>
+            <td><a href="~/Period/View/@period.Id">@Localizer["Look"]</a></td>
         </tr>
     }
 </table>

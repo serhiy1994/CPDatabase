@@ -211,13 +211,14 @@ namespace CPDatabase.Controllers
         }
 
         //todo: make error page
-        //todo: complete feedback reply page (show validation results to an user)
-        //todo: complete localization
+        //todo: complete feedback reply page (show validation and localization results to an user)
         //todo: complete 2nd level menus
         //todo: check images paths (place them in the wwwroot folder + make accessible)
         //todo: check grammar
         //todo: hide unneccessary columns
         //todo: decide what to do with fixed names
+        //---
+        //todo: team[nt]/all
         //---
         //todo: explore bootstrap + make design
         //todo: make donate button

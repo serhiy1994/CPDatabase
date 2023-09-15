@@ -1,7 +1,8 @@
-﻿<!--model IEnumerable<CPDatabase.Models.NationalTeam>-->
-@model NTsAllViewModel
+﻿@model NTsAllViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "National Teams";
+    ViewData["Title"] = @Localizer["NationalTeams"];
 }
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -25,28 +26,28 @@
     });
 </script>
 
-<h3>National Teams</h3>
+<h3>@Localizer["NationalTeams"]</h3>
 <form method="get">
     <div class="form-group form-inline">
-        <label>Year: </label>
+        <label>@Localizer["Year"]: </label>
         <select name="year" id="selectY" asp-items="Model.FilterViewModel.Years" class="form-control"></select>
-        <label>Period: </label>
+        <label>@Localizer["Period"]: </label>
         <select name="period" id="selectP" asp-items="Model.FilterViewModel.Periods" class="form-control"></select>
-        <input type="submit" value="Filter" class="btn btn-outline-dark" />
+        <input type="submit" value="@Localizer["Filter"]" class="btn btn-outline-dark" />
     </div>
 </form>
 <table class="table">
     <tr>
         <th>Id</th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NameSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">National team</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.CountrySort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Country</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.LeagueSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">League</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.YearSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Year</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.PeriodSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Period</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NotQualSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Not qual.</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.GiggiSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Giggiriva</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.JbouSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Jbou41</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ValSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">Valambrosio</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NameSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">@Localizer["NationalTeam"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.CountrySort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">@Localizer["CountryNT"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.LeagueSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">@Localizer["LeagueNT"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.YearSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">@Localizer["Year"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.PeriodSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">@Localizer["Period"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NotQualSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">@Localizer["NotQual"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.GiggiSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">@Localizer["Giggiriva"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.JbouSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">@Localizer["Jbou41"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ValSort" asp-route-year="@Model.FilterViewModel.SelectedYear" asp-route-period="@Model.FilterViewModel.SelectedPeriod">@Localizer["Valambrosio"]</a></th>
         <th></th>
     </tr>
     @foreach (var nationalTeam in Model.NTs)
@@ -62,7 +63,7 @@
             <td>@nationalTeam.Giggi</td>
             <td>@nationalTeam.Jbou</td>
             <td>@nationalTeam.Val</td>
-            <td><a href="~/NT/View/@nationalTeam.Id">Look</a></td>
+            <td><a href="~/NT/View/@nationalTeam.Id">@Localizer["Look"]</a></td>
         </tr>
     }
 </table>

@@ -1,10 +1,11 @@
-﻿<!--model IEnumerable<CPDatabase.Models.FeedbackLog>-->
-@model FeedbackViewModel
+﻿@model FeedbackViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Reports & feedbacks";
+    ViewData["Title"] = @Localizer["Reports&Feedbacks"];
 }
 
-<h3>Reports & feedbacks</h3>
+<h3>@Localizer["Reports&Feedbacks"]</h3>
 @if (User.Identity.Name == null)
 {
     <form asp-action="MakeFeedback" asp-controller="Home" asp-anti-forgery="true">
@@ -35,12 +36,12 @@
 <table class="table">
     <tr>
         <td>Id</td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.MessageDateSort">Message date</a></td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.UsernameSort">User name</a></td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.EmailSort">Email</a></td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.MessageSort">Message</a></td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.ReplySort">Reply</a></td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.ReplyDateSort">Reply date</a></td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.MessageDateSort">@Localizer["MessageDate"]</a></td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.UsernameSort">@Localizer["UserName"]</a></td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.EmailSort">@Localizer["Email"]</a></td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.MessageSort">@Localizer["Message"]</a></td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.ReplySort">@Localizer["Reply"]</a></td>
+        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.ReplyDateSort">@Localizer["ReplyDate"]</a></td>
     </tr>
     @foreach (var feedback in Model.Feedbacks)
     {
@@ -56,12 +57,12 @@
                     <form method="post" action="~/Home/Reply">
                         <textarea cols="20" rows="2" name="Reply"></textarea>
                         <input type="hidden" name="MessageId" value="@feedback.MessageId" />
-                        <button type="submit" class="btn btn-dark">Write a reply</button>
+                        <button type="submit" class="btn btn-dark">@Localizer["WriteReply"]</button>
                     </form>
                 }
                 else if (User.Identity.Name == null && feedback.Reply == null)
                 {
-                    @:<i>Login to reply</i>
+                    @:<i>@Localizer["LoginReply"]</i>
                 }
                 else
                 {

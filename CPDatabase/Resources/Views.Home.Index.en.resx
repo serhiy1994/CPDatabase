@@ -120,4 +120,37 @@
   <data name="HelloWorld" xml:space="preserve">
     <value>Hello world!</value>
   </data>
+  <data name="Message1" xml:space="preserve">
+    <value>Welcome to the world of football history! Have you ever wondered what it would be like to play with the very first teams to grace the beautiful game? Well, wonder no more! The website you're in is here to offer you an immersive experience into the history of football, and all you need is an internet connection!</value>
+  </data>
+  <data name="Message2" xml:space="preserve">
+    <value>In October 2013, a passionate Italian gamer of the FIFA series and a football history enthusiast began making a patch for FIFA 14 that would transport us to the past. Two other Italians later joined him, and their product has been maintained for almost 10 years.</value>
+  </data>
+  <data name="Message3" xml:space="preserve">
+    <value>We are proud to present to you the FIFA 14 'History Of Football' patch, which brings together a complete collection of important teams from as far back as the 1870s. This patch was carefully crafted to ensure accuracy, data completion, and proper design, making it the perfect addition to your FIFA 14 gaming experience. You can now take on the role of legendary football pioneers and compete in matches that helped shape the game we all love today.</value>
+  </data>
+  <data name="Message4" xml:space="preserve">
+    <value>But that's not all! The website (which has been made by a fan of the patch) offers a unique experience for those who love football history but may not  necessarily enjoy video games. We have meticulously documented every team, player, and match to give you a glimpse into the evolution of football. You can browse through the history of football at your own pace, discovering interesting facts and learning about the pioneers who helped shape the sport we all love.</value>
+  </data>
+  <data name="Message5" xml:space="preserve">
+    <value>Please note: The patch has two versions - one for FIFA 14 and one for FIFA 16. The FIFA 14 version is primary, while the other one is copied from the main version from time to time. Currently, only the FIFA 14 version is supported on the site.</value>
+  </data>
+  <data name="Message6" xml:space="preserve">
+    <value>We have also included visual representations for some additional add-ons created by other fans: the '2010s addon' by Jbou41 and the '21st century addon' by Valambrosio. These add-ons were not included in the 'canon' and are maintained separately, but can be installed over the main content.</value>
+  </data>
+  <data name="Message7part1" xml:space="preserve">
+    <value>Enjoy your exploration of football history on our website. We hope you have a fantastic experience and gain a deeper appreciation for the game's rich and fascinating past. If you have any questions or feedback, please don't hesitate to</value>
+  </data>
+  <data name="Link1" xml:space="preserve">
+    <value>reach out</value>
+  </data>
+  <data name="Message7part2" xml:space="preserve">
+    <value>to us.</value>
+  </data>
+  <data name="Message8" xml:space="preserve">
+    <value>Thank you for visiting our site!</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
 </root>

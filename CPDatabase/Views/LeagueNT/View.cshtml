@@ -1,22 +1,23 @@
-﻿<!--model IEnumerable<CPDatabase.Models.NationalTeam>-->
-@model NTsConcreteViewModel
+﻿@model NTsConcreteViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "National Teams By League: " + @ViewBag.CurrentLeagueNTName;
+    ViewData["Title"] = @Localizer["NationalTeamsByLeague"] + ": " + @ViewBag.CurrentLeagueNTName;
 }
 
-<h3>National Teams By League: @ViewBag.CurrentLeagueNTName</h3>
+<h3>@Localizer["NationalTeamsByLeague"]: @ViewBag.CurrentLeagueNTName</h3>
 <table class="table">
     <tr>
         <th>Id</th>
-        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.NameSort">National team</a></th>
-        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.CountrySort">Country</a></th>
-        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.LeagueSort">League</a></th>
-        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.YearSort">Year</a></th>
-        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.PeriodSort">Period</a></th>
-        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.NotQualSort">Not qual.</a></th>
-        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
-        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
-        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["NationalTeam"]</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.CountrySort">@Localizer["CountryNT"]</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.LeagueSort">@Localizer["LeagueNT"]</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.YearSort">@Localizer["Year"]</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.PeriodSort">@Localizer["Period"]</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.NotQualSort">@Localizer["NotQual"]</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
+        <th><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
         <th></th>
     </tr>
     @foreach (var nationalTeam in Model.NTs)
@@ -32,7 +33,7 @@
             <td>@nationalTeam.Giggi</td>
             <td>@nationalTeam.Jbou</td>
             <td>@nationalTeam.Val</td>
-            <td><a href="~/NT/View/@nationalTeam.Id">Look</a></td>
+            <td><a href="~/NT/View/@nationalTeam.Id">@Localizer["Look"]</a></td>
         </tr>
     }
 </table>

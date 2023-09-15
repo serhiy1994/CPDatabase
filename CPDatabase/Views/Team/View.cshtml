@@ -1,21 +1,23 @@
 ﻿@model CPDatabase.Models.Team
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Team: " + @Model.TeamName;
+    ViewData["Title"] = @Localizer["Team"] + ": " + @Model.TeamName;
 }
 
-<h3>Team: @Model.TeamName</h3>
+<h3>@Localizer["Team"]: @Model.TeamName</h3>
 <table class="table">
     <tr>
         <td>Id</td>
-        <td>Team Name</td>
-        <td>Fixed Team Name</td>
-        <td>Club</td>
-        <td>League</td>
-        <td>Half-decade (if exists)</td>
-        <td>Season (if exists)</td>
-        <td>Giggi</td>
-        <td>Jbou</td>
-        <td>Val</td>
+        <td>@Localizer["TeamName"]</td>
+        <td>@Localizer["FixedTeamName"]</td>
+        <td>@Localizer["Club"]</td>
+        <td>@Localizer["League"]</td>
+        <td>@Localizer["HalfDecade"]</td>
+        <td>@Localizer["HalfDecade"]</td>
+        <td>@Localizer["Giggiriva"]</td>
+        <td>@Localizer["Jbou41"]</td>
+        <td>@Localizer["Valambrosio"]</td>
     </tr>
     <tr>
         <td>@Model.Id</td>

@@ -1,17 +1,18 @@
-﻿<!--IEnumerable<CPDatabase.Models.Year>-->
-@model NTsYearViewModel
+﻿@model NTsYearViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Years for National Teams";
+    ViewData["Title"] = @Localizer["YearsForNationalTeams"];
 }
 
-<h3>Years for National Teams</h3>
+<h3>@Localizer["YearsForNationalTeams"]</h3>
 <table class="table">
     <tr>
         <th>Id</th>
-        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.NameSort">Year</a></th>
-        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></th>
-        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></th>
-        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></th>
+        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["Year"]</a></th>
+        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
+        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
+        <th><a asp-action="Year" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
         <td></td>
     </tr>
     @foreach (var year in Model.Years)
@@ -22,7 +23,7 @@
             <td>@year.Giggi</td>
             <td>@year.Jbou</td>
             <td>@year.Val</td>
-            <td><a href="~/Year/View/@year.Id">Look</a></td>
+            <td><a href="~/Year/View/@year.Id">@Localizer["Look"]</a></td>
         </tr>
     }
 </table>

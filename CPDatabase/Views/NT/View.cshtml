@@ -1,21 +1,23 @@
 ﻿@model CPDatabase.Models.NationalTeam
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "National Team: " + @Model.NTName;
+    ViewData["Title"] = @Localizer["NationalTeam"] + ": " + @Model.NTName;
 }
 
-<h3>National Team: @Model.NTName</h3>
+<h3>@Localizer["NationalTeam"]: @Model.NTName</h3>
 <table class="table">
     <tr>
         <td>Id</td>
-        <td>National Team Name</td>
-        <td>Country</td>
-        <td>League NT</td>
-        <td>Year (if exists)</td>
-        <td>Period (if exists)</td>
-        <td>Not qualified</td>
-        <td>Giggi</td>
-        <td>Jbou</td>
-        <td>Val</td>
+        <td>@Localizer["NationalTeam"]</td>
+        <td>@Localizer["CountryNT"]Country</td>
+        <td>@Localizer["LeagueNT"]League NT</td>
+        <td>@Localizer["Year"]Year (if any)</td>
+        <td>@Localizer["Period"]Period (if any)</td>
+        <td>@Localizer["NotQual"]Not qualified</td>
+        <td>@Localizer["Giggiriva"]Giggi</td>
+        <td>@Localizer["Jbou"]Jbou</td>
+        <td>@Localizer["Valambrosio"]Val</td>
     </tr>
     <tr>
         <td>@Model.Id</td>
@@ -32,9 +34,9 @@
 </table>
 @if (Model.Val == true)
 {
-<img src="@String.Concat("/images/val/", Model.NTName.Replace(" ", ""), ".png")" />
+    <img src="@String.Concat("/images/val/", Model.NTName.Replace(" ", ""), ".png")" />
 }
 else
 {
-<img src="@String.Concat("/images/", Model.NTName.Replace(" ", ""), ".png")" />
+    <img src="@String.Concat("/images/", Model.NTName.Replace(" ", ""), ".png")" />
 }

@@ -1,19 +1,20 @@
-﻿<!--IEnumerable<CPDatabase.Models.LeagueTeam>-->
-@model TeamsLeagueViewModel
+﻿@model TeamsLeagueViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Leagues for Clubs";
+    ViewData["Title"] = @Localizer["LeaguesForTeams"];
 }
 
-<h3>Leagues for Clubs</h3>
+<h3>@Localizer["LeaguesForTeams"]</h3>
 <table class="table">
     <tr>
         <td>Id</td>
-        <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.NameSort">LeagueTeam</a></td>
-        <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.HalfDecadeSort">Half-decade</a></td>
-        <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.SeasonSort">Season</a></td>
-        <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></td>
-        <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></td>
-        <td><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></td>
+        <th><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["LeagueTeam"]</a></th>
+        <th><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.HalfDecadeSort">@Localizer["HalfDecade"]</a></th>
+        <th><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.SeasonSort">@Localizer["Season"]</a></th>
+        <th><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
+        <th><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
+        <th><a asp-action="LeagueTeam" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
         <td></td>
     </tr>
     @foreach (var leagueTeam in Model.LeaguesT)
@@ -26,7 +27,7 @@
             <td>@leagueTeam.Giggi</td>
             <td>@leagueTeam.Jbou</td>
             <td>@leagueTeam.Val</td>
-            <td><a href="~/LeagueTeam/View/@leagueTeam.Id">Look</a></td>
+            <td><a href="~/LeagueTeam/View/@leagueTeam.Id">@Localizer["Look"]</a></td>
         </tr>
     }
 </table>

@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Contacts & Links";
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = @Localizer["Contacts&Links"];
 }
 
 <style>
@@ -8,31 +10,31 @@
     }
 </style>
 
-<h3>Contacts & links</h3>
+<h3>@Localizer["Contacts&Links"]</h3>
 <p></p>
-<h4>THIS SITE</h4>
+<h4>@Localizer["ThisSite"]</h4>
 <div>
-    <a href="https://github.com/serhiy1994/CPDatabase">Official source code repository on GitHub + complete database files</a><br/>
-    The site owner and creator: <span class="emoji">🇺🇦</span> Serhiy Mashkovskyi <a href="https://www.facebook.com/serhiy1994">Facebook</a>, <a href="https://t.me/serhiy1994">Telegram</a>
+    <a href="https://github.com/serhiy1994/CPDatabase">@Localizer["Source"]</a><br />
+    @Localizer["Owner"]: <span class="emoji">🇺🇦</span> Serhiy Mashkovskyi <a href="https://www.facebook.com/serhiy1994">Facebook</a>, <a href="https://t.me/serhiy1994">Telegram</a>
 </div>
 <p></p>
-<h4>MAIN PATCH (FIFA 14 VERSION)</h4>
+<h4>@Localizer["MainPatch"]</h4>
 <div>
-    <a href="https://fifaclassicpatch.altervista.org/">Official site + download links</a><br />
-    <a href="https://www.facebook.com/classicpatchHoF">Official Facebook page</a><br />
-    <a href="http://soccergaming.com/index.php?threads/download-classic-patch-14.177945/">SoccerGaming thread + download links also</a><br />
-    The creators: <span class="emoji">🇮🇹</span> Luigi Riva, <span class="emoji">🇮🇹</span> Andrea Tomasoni, <span class="emoji">🇮🇹</span> Andrea Cicognani. <i>Getting permission (or not) for publication of the authors' personal links is on the way.</i>
+    <a href="https://fifaclassicpatch.altervista.org/">@Localizer["OfficialSite"]</a><br />
+    <a href="https://www.facebook.com/classicpatchHoF">@Localizer["OfficialFacebook"]</a><br />
+    <a href="http://soccergaming.com/index.php?threads/download-classic-patch-14.177945/">@Localizer["Soccergaming"]</a><br />
+    @Localizer["Creators"]: <span class="emoji">🇮🇹</span> Luigi Riva, <span class="emoji">🇮🇹</span> Andrea Tomasoni, <span class="emoji">🇮🇹</span> Andrea Cicognani. <i>@Localizer["Permissions"].</i>
 </div>
 <p></p>
-<h4>JBOU41'S ADDON</h4>
+<h4>@Localizer["JbouAddon"]</h4>
 <div>
-    <a href="http://soccergaming.com/index.php?threads/unofficial-2010s-add-on-for-cp14.6469154/">SoccerGaming thread + download links</a><br />
-    <a href="http://soccergaming.com/index.php?threads/2006-unqualified-teams-for-classic-patch-14.6470717/">World Cup 2006 sub-content: SoccerGaming thread</a> (deprecated now as it's been included in the full addon later)<br />
-    The creator: <span class="emoji">🇫🇷</span> Jbou41. <i>Getting permission (or not) for publication of the author's personal links is on the way.</i>
+    <a href="http://soccergaming.com/index.php?threads/unofficial-2010s-add-on-for-cp14.6469154/">@Localizer["Soccergaming"]</a><br />
+    <a href="http://soccergaming.com/index.php?threads/2006-unqualified-teams-for-classic-patch-14.6470717/">@Localizer["SoccergamingWC06"]</a> @Localizer["Deprecated"]<br />
+    @Localizer["Creator"]: <span class="emoji">🇫🇷</span> Jbou41. <i>@Localizer["Permissions"]</i>
 </div>
 <p></p>
-<h4>VALAMBROSIO'S ADDON</h4>
+<h4>@Localizer["ValambrosioAddon"]VALAMBROSIO'S ADDON</h4>
 <div>
-    <a href="http://soccergaming.com/index.php?threads/classic-patch-post-10s-expansion-v1-and-update-released.6469222/">SoccerGaming thread + download links</a><br />
-    The creator: <span class="emoji">🇧🇪</span> Valambrosio. <i>Getting permission (or not) for publication of the author's personal links is on the way.</i>
+    <a href="http://soccergaming.com/index.php?threads/classic-patch-post-10s-expansion-v1-and-update-released.6469222/">@Localizer["Soccergaming"]</a><br />
+    @Localizer["Creator"]: <span class="emoji">🇧🇪</span> Valambrosio. <i>@Localizer["Permissions"]</i>
 </div>

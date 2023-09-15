@@ -1,7 +1,8 @@
-﻿<!--model IEnumerable<CPDatabase.Models.Team>-->
-@model TeamsAllViewModel
+﻿@model TeamsAllViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Teams";
+    ViewData["Title"] = @Localizer["Teams"];
 }
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -25,28 +26,28 @@
     });
 </script>
 
-<h3>Teams</h3>
+<h3>@Localizer["Teams"]</h3>
 <form method="get">
     <div class="form-group form-inline">
-        <label>Season: </label>
+        <label>@Localizer["Season"]: </label>
         <select name="season" id="selectS" asp-items="Model.FilterViewModel.Seasons" class="form-control"></select>
-        <label>Half-decade: </label>
+        <label>@Localizer["HalfDecade"]: </label>
         <select name="halfdecade" id="selectH" asp-items="Model.FilterViewModel.HalfDecades" class="form-control"></select>
-        <input type="submit" value="Filter" class="btn btn-outline-dark" />
+        <input type="submit" value="@Localizer["Filter"]" class="btn btn-outline-dark" />
     </div>
 </form>
 <table class="table">
     <tr>
         <th>Id</th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NameSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Team</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.FixedNameSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Fixed name</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ClubSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Club</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.LeagueSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">League</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.HalfDecadeSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Half-decade</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.SeasonSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Season</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.GiggiSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Giggiriva</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.JbouSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Jbou41</a></th>
-        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ValSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">Valambrosio</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.NameSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">@Localizer["Team"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.FixedNameSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">@Localizer["FixedName"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ClubSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">@Localizer["Club"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.LeagueSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">@Localizer["League"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.HalfDecadeSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">@Localizer["HalfDecade"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.SeasonSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">@Localizer["Season"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.GiggiSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">@Localizer["Giggiriva"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.JbouSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">@Localizer["Jbou41"]</a></th>
+        <th><a asp-action="All" asp-route-sortOrder="@Model.SortViewModel.ValSort" asp-route-season="@Model.FilterViewModel.SelectedSeason" asp-route-halfdecade="@Model.FilterViewModel.SelectedHalfDecade">@Localizer["Valambrosio"]</a></th>
         <th></th>
     </tr>
     @foreach (var team in Model.Teams)
@@ -62,7 +63,7 @@
             <td>@team.Giggi</td>
             <td>@team.Jbou</td>
             <td>@team.Val</td>
-            <td><a href="~/Team/View/@team.Id">Look</a></td>
+            <td><a href="~/Team/View/@team.Id">@Localizer["Look"]</a></td>
         </tr>
     }
 </table>

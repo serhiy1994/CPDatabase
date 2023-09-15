@@ -1,17 +1,18 @@
-﻿<!--model IEnumerable<CPDatabase.Models.HalfDecade>-->
-@model TeamsHalfDecadeViewModel
+﻿@model TeamsHalfDecadeViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Half-decades for Clubs";
+    ViewData["Title"] = @Localizer["HalfDecadesForTeams"];
 }
 
-<h3>Half-decades for Clubs</h3>
+<h3>@Localizer["HalfDecadesForTeams"]</h3>
 <table class="table">
     <tr>
         <td>Id</td>
-        <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.NameSort">Half-decade</a></td>
-        <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">Giggiriva</a></td>
-        <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.JbouSort">Jbou41</a></td>
-        <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.ValSort">Valambrosio</a></td>
+        <td><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["HalfDecade"]</a></td>
+        <th><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
+        <th><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
+        <th><a asp-action="HalfDecade" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
         <td></td>
     </tr>
     @foreach (var halfDecade in Model.HalfDecades)
@@ -22,7 +23,7 @@
             <td>@halfDecade.Giggi</td>
             <td>@halfDecade.Jbou</td>
             <td>@halfDecade.Val</td>
-            <td><a href="~/HalfDecade/View/@halfDecade.Id">Look</a></td>
+            <td><a href="~/HalfDecade/View/@halfDecade.Id">@Localizer["Look"]</a></td>
         </tr>
     }
 </table>

@@ -30,6 +30,38 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Home.Login.ru.resx">
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Home.Login.en.resx">
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Home.Feedback.ru.resx">
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Home.Feedback.en.resx">
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Home.Contacts.en.resx">
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Home.Contacts.ru.resx">
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Home.Changelog.ru.resx">
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views.Home.Changelog.en.resx">
+      <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views.Home.Index.en.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <CustomToolNamespace>&lt;reset to default&gt;</CustomToolNamespace>
