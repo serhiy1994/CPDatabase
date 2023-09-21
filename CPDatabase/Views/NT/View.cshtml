@@ -5,38 +5,46 @@
     ViewData["Title"] = @Localizer["NationalTeam"] + ": " + @Model.NTName;
 }
 
-<h3>@Localizer["NationalTeam"]: @Model.NTName</h3>
-<table class="table">
-    <tr>
-        <td>Id</td>
-        <td>@Localizer["NationalTeam"]</td>
-        <td>@Localizer["CountryNT"]Country</td>
-        <td>@Localizer["LeagueNT"]League NT</td>
-        <td>@Localizer["Year"]Year (if any)</td>
-        <td>@Localizer["Period"]Period (if any)</td>
-        <td>@Localizer["NotQual"]Not qualified</td>
-        <td>@Localizer["Giggiriva"]Giggi</td>
-        <td>@Localizer["Jbou"]Jbou</td>
-        <td>@Localizer["Valambrosio"]Val</td>
-    </tr>
-    <tr>
-        <td>@Model.Id</td>
-        <td>@Model.NTName</td>
-        <td>@Model.Country</td>
-        <td>@Model.LeagueNT</td>
-        <td>@Model.Year</td>
-        <td>@Model.Period</td>
-        <td>@Model.NotQual</td>
-        <td>@Model.Giggi</td>
-        <td>@Model.Jbou</td>
-        <td>@Model.Val</td>
-    </tr>
-</table>
-@if (Model.Val == true)
-{
-    <img src="@String.Concat("/images/val/", Model.NTName.Replace(" ", ""), ".png")" />
-}
-else
-{
-    <img src="@String.Concat("/images/", Model.NTName.Replace(" ", ""), ".png")" />
-}
+<h3 class="text-center">@Localizer["NationalTeam"]: @Model.NTName</h3>
+<div class="table-responsive-md">
+    <table class="table table-sm table-bordered">
+        <thead class="table-primary align-middle text-center">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">@Localizer["NationalTeam"]</th>
+                <th scope="col">@Localizer["CountryNT"]</th>
+                <th scope="col">@Localizer["LeagueNT"]</th>
+                <th scope="col">@Localizer["Year"]</th>
+                <th scope="col">@Localizer["Period"]</th>
+                <th scope="col">@Localizer["NotQual"]</th>
+                <th scope="col">@Localizer["Giggiriva"]</th>
+                <th scope="col">@Localizer["Jbou"]</th>
+                <th scope="col">@Localizer["Valambrosio"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.NTName</td>
+                <td>@Model.Country</td>
+                <td>@Model.LeagueNT</td>
+                <td>@Model.Year</td>
+                <td>@Model.Period</td>
+                <td>@Model.NotQual</td>
+                <td>@Model.Giggi</td>
+                <td>@Model.Jbou</td>
+                <td>@Model.Val</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="text-center">
+    @if (Model.Val == true)
+    {
+        <img src="@String.Concat("/images/val/", Model.NTName.Replace(" ", ""), ".png")" class="img-fluid" />
+    }
+    else
+    {
+        <img src="@String.Concat("/images/", Model.NTName.Replace(" ", ""), ".png")" class="img-fluid" />
+    }
+</div>

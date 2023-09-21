@@ -25,9 +25,22 @@ namespace CPDatabase
 
         CultureInfo[] supportedCultures = new[]
         {
-                new CultureInfo("en"),
+                new CultureInfo("en"), //UK
+                //new CultureInfo("cz"),
+                //new CultureInfo("nl"),
                 //new CultureInfo("fr"),
-                new CultureInfo("ru")
+                //new CultureInfo("de"),
+                //new CultureInfo("it"),
+                //new CultureInfo("pt"), //Portugal
+                //new CultureInfo("es"), //Spain
+                //new CultureInfo("hu"),
+                //new CultureInfo("fr"),
+                //new CultureInfo("pl"),
+                //new CultureInfo("ar"), //SA
+                //new CultureInfo("kr"),
+                //new CultureInfo("jp"),
+                new CultureInfo("ru")//,
+                //new CultureInfo("uk"),
         };
 
         public Startup(IConfiguration configuration)

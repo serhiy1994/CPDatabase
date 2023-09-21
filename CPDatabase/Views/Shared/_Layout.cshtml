@@ -1,70 +1,78 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] | CP14 DB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type" charset="utf-8" />
+    <title>@ViewData["Title"] | CPDB</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js" crossorigin="anonymous"></script>
+    <script src="~/js/popper.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
             <div class="container">
-                <div>
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="nav-item">Teams</li>
-                        <li>
-                            <ul>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="All">All</a></li>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="CountryClub">By country</a></li>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="Club">By club</a></li>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="LeagueTeam">By league (tournament)</a></li>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="HalfDecade">By half-decade</a></li>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="Season">By season</a></li>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="~/images/cplogo1.png" alt="CPDB Home" width="32" height="32"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown" data-bs-toggle="dropdown">@Localizer["Teams"]</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Team" asp-action="All">@Localizer["All"]</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Team" asp-action="CountryClub">@Localizer["ByCountry"]</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Team" asp-action="Club">@Localizer["ByClub"]</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Team" asp-action="LeagueTeam">@Localizer["ByLeague"]</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Team" asp-action="HalfDecade">@Localizer["ByHalfDecade"]</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Team" asp-action="Season">@Localizer["BySeason"]</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">National teams</li>
-                        <li>
-                            <ul>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="NT" asp-action="All">All</a></li>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="NT" asp-action="CountryNT">By country</a></li>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="NT" asp-action="LeagueNT">By league (tournament)</a></li>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="NT" asp-action="Period">By period</a></li>
-                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="NT" asp-action="Year">By year</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown" data-bs-toggle="dropdown">@Localizer["NationalTeams"]</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="NT" asp-action="All">@Localizer["All"]</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="NT" asp-action="CountryNT">@Localizer["ByCountry"]</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="NT" asp-action="LeagueNT">@Localizer["ByLeagueNT"]</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="NT" asp-action="Period">@Localizer["ByPeriod"]</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="NT" asp-action="Year">@Localizer["ByYear"]</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Changelog">Changelog</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Feedback">Report & feedback</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contacts">Contacts</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Changelog">@Localizer["Changelog"]</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Feedback">@Localizer["Reports&Feedbacks"]</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contacts">@Localizer["Contacts"]</a></li>
                         <li class="nav-item">
                             @if (User.Identity.Name == null)
                             {
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Login">@Localizer["Login"]</a>
                             }
                             else
                             {
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout as @User.Identity.Name</a>
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Logout">@Localizer["LogoutAs"] @User.Identity.Name</a>
                             }
                         </li>
                     </ul>
+                    @await Html.PartialAsync("_SelectLanguagePartial")
                 </div>
             </div>
         </nav>
-        <div>
-            @await Html.PartialAsync("_SelectLanguagePartial")
-        </div>
     </header>
     <div class="container body-content">
         @RenderBody()
     </div>
     <hr />
-    <footer class="footer">
-        <div class="container"> &copy; 2023 - CPDatabase </div>
+    <footer class="footer mt-auto py-3 bg-dark text-light">
+        <div class="container text-center text-muted align-middle">
+            <div class="row">
+                <div class="col"><a href="#" class="link-light text-decoration-none">@Localizer["DonateUs"]!</a></div>
+                <div class="col"><a href="#" class="link-light text-decoration-none">@Localizer["PrivacyPolicy"]</a></div>
+                <div class="col">2023 &copy; CPDB</div>
+            </div>
+        </div>
     </footer>
-    <!--<script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>-->
-    @*@await Html.PartialAsync("_ValidationScriptsPartial")*@
 </body>
 </html>

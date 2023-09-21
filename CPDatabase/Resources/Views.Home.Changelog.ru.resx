@@ -139,7 +139,7 @@
     <value>1. Обновление основной базы данных до версии 4.1, а также аддона Jbou41 до версий 3 и 3.1. 2. бета-релиз (пока содержит только представление базы данных, без дизайна)</value>
   </data>
   <data name="Changelog" xml:space="preserve">
-    <value>История изменений</value>
+    <value>Журнал</value>
   </data>
   <data name="December" xml:space="preserve">
     <value>Декабрь</value>
@@ -191,5 +191,8 @@
   </data>
   <data name="Change150923" xml:space="preserve">
     <value>Добавлена русская локализация</value>
+  </data>
+  <data name="ChangelogTitle" xml:space="preserve">
+    <value>Журнал и планы</value>
   </data>
 </root>

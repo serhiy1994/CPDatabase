@@ -135,7 +135,7 @@
   <data name="ReplyDate" xml:space="preserve">
     <value>Дата ответа</value>
   </data>
-  <data name="Reports&amp;Feedbacks" xml:space="preserve">
+  <data name="Feedbacks" xml:space="preserve">
     <value>Отзывы</value>
   </data>
   <data name="UserName" xml:space="preserve">
@@ -143,5 +143,8 @@
   </data>
   <data name="WriteReply" xml:space="preserve">
     <value>Написать ответ</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Страница для ваших сообщений об ошибках, отзывов о сайте и прочих подобных вещей</value>
   </data>
 </root>

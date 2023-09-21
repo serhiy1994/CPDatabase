@@ -175,10 +175,10 @@
     <value>1. main database updated to v4.1, as well as the v3 &amp; 3.1 of the Jbou41's addon's. 2. beta release (still contains only database representation, no design)</value>
   </data>
   <data name="FP1" xml:space="preserve">
-    <value>Add the 4.1 version of the main database</value>
+    <value>Add the 4.2 &amp; 4.3 version of the main database</value>
   </data>
   <data name="FP2" xml:space="preserve">
-    <value>Add the 3.1 version of Jbou41's addon's database</value>
+    <value>Add the 3.2 version of Jbou41's addon's database</value>
   </data>
   <data name="FP3" xml:space="preserve">
     <value>Add more &lt;i&gt;completed&lt;/i&gt; addons (if any)</value>
@@ -191,5 +191,8 @@
   </data>
   <data name="Change150923" xml:space="preserve">
     <value>Russian localization added</value>
+  </data>
+  <data name="ChangelogTitle" xml:space="preserve">
+    <value>Changelog &amp; Todos</value>
   </data>
 </root>

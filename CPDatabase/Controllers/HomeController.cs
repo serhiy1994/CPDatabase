@@ -210,17 +210,21 @@ namespace CPDatabase.Controllers
             return LocalRedirect(returnUrl);
         }
 
+        //todo: check DB Val
         //todo: make error page
+        //todo make privacy policy page
         //todo: complete feedback reply page (show validation and localization results to an user)
-        //todo: complete 2nd level menus
+        //todo: complete localizations for other languages
         //todo: check images paths (place them in the wwwroot folder + make accessible)
-        //todo: check grammar
+        //todo: check English grammar
         //todo: hide unneccessary columns
         //todo: decide what to do with fixed names
         //---
         //todo: team[nt]/all
         //---
-        //todo: explore bootstrap + make design
+        //todo: implement the actual DBs
+        //todo add SEO stuff
+        //todo: complete design
         //todo: make donate button
         //todo: publish on github
     }

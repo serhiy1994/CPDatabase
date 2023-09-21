@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Reports&amp;Feedbacks" xml:space="preserve">
-    <value>Reports &amp; feedbacks</value>
+  <data name="Feedbacks" xml:space="preserve">
+    <value>Feedbacks</value>
   </data>
   <data name="MessageDate" xml:space="preserve">
     <value>Message date</value>
@@ -143,5 +143,8 @@
   </data>
   <data name="LoginReply" xml:space="preserve">
     <value>Login to reply</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Page for your error reports, the site feedbacks and suchlike stuff</value>
   </data>
 </root>

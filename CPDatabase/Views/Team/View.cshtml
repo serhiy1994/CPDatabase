@@ -5,42 +5,50 @@
     ViewData["Title"] = @Localizer["Team"] + ": " + @Model.TeamName;
 }
 
-<h3>@Localizer["Team"]: @Model.TeamName</h3>
-<table class="table">
-    <tr>
-        <td>Id</td>
-        <td>@Localizer["TeamName"]</td>
-        <td>@Localizer["FixedTeamName"]</td>
-        <td>@Localizer["Club"]</td>
-        <td>@Localizer["League"]</td>
-        <td>@Localizer["HalfDecade"]</td>
-        <td>@Localizer["HalfDecade"]</td>
-        <td>@Localizer["Giggiriva"]</td>
-        <td>@Localizer["Jbou41"]</td>
-        <td>@Localizer["Valambrosio"]</td>
-    </tr>
-    <tr>
-        <td>@Model.Id</td>
-        <td>@Model.TeamName</td>
-        <td>@Model.FixedTeamName</td>
-        <td>@Model.Club</td>
-        <td>@Model.LeagueTeam</td>
-        <td>@Model.HalfDecade</td>
-        <td>@Model.Season</td>
-        <td>@Model.Giggi</td>
-        <td>@Model.Jbou</td>
-        <td>@Model.Val</td>
-    </tr>
-</table>
-@if (Model.Val == true)
-{
-    <img src="@String.Concat("/images/val/", Model.TeamName.Replace(" ", ""), ".png")" />
-}
-else if (Model.LeagueTeam == "Archive League")
-{
-    <img src="@String.Concat("/images/archive/", Model.TeamName.Replace(" ", ""), ".png")" />
-}
-else
-{
-    <img src="@String.Concat("/images/", Model.TeamName.Replace(" ", ""), ".png")" />
-}
+<h3 class="text-center">@Localizer["Team"]: @Model.TeamName</h3>
+<div class="table-responsive-md">
+    <table class="table table-sm table-bordered">
+        <thead class="table-primary align-middle text-center">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">@Localizer["TeamName"]</th>
+                <th scope="col">@Localizer["FixedTeamName"]</th>
+                <th scope="col">@Localizer["Club"]</th>
+                <th scope="col">@Localizer["League"]</th>
+                <th scope="col">@Localizer["HalfDecade"]</th>
+                <th scope="col">@Localizer["HalfDecade"]</th>
+                <th scope="col">@Localizer["Giggiriva"]</th>
+                <th scope="col">@Localizer["Jbou41"]</th>
+                <th scope="col">@Localizer["Valambrosio"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.TeamName</td>
+                <td>@Model.FixedTeamName</td>
+                <td>@Model.Club</td>
+                <td>@Model.LeagueTeam</td>
+                <td>@Model.HalfDecade</td>
+                <td>@Model.Season</td>
+                <td>@Model.Giggi</td>
+                <td>@Model.Jbou</td>
+                <td>@Model.Val</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="text-center">
+    @if (Model.Val == true)
+    {
+        <img src="@String.Concat("/images/val/", Model.TeamName.Replace(" ", ""), ".png")" class="img-fluid"/>
+    }
+    else if (Model.LeagueTeam == "Archive League")
+    {
+        <img src="@String.Concat("/images/archive/", Model.TeamName.Replace(" ", ""), ".png")" class="img-fluid"/>
+    }
+    else
+    {
+        <img src="@String.Concat("/images/", Model.TeamName.Replace(" ", ""), ".png")" class="img-fluid"/>
+    }
+</div>

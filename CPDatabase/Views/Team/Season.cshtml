@@ -5,57 +5,65 @@
     ViewData["Title"] = @Localizer["SeasonsForTeams"];
 }
 
-<h3>@Localizer["SeasonsForTeams"]</h3>
-<table class="table">
-    <tr>
-        <td>Id</td>
-        <td><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["Season"]</a></td>
-        <td><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></td>
-        <td><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></td>
-        <td><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></td>
-    </tr>
-    @foreach (var season in Model.Seasons)
+<h3 class="text-center">@Localizer["SeasonsForTeams"]</h3>
+<div class="table-responsive-md">
+    <table class="table table-sm table-striped table-hover table-bordered">
+        <thead class="table-dark align-middle text-center">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col"><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["Season"]</a></th>
+                <th scope="col"><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
+                <th scope="col"><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
+                <th scope="col"><a asp-action="Season" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var season in Model.Seasons)
+            {
+                <tr>
+                    <td>@season.Id</td>
+                    <td>@season.SeasonName</td>
+                    <td>@season.Giggi</td>
+                    <td>@season.Jbou</td>
+                    <td>@season.Val</td>
+                    <td><a href="~/Season/View/@season.Id">@Localizer["Look"]</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pagination justify-content-center">
+    @if (Model.PageViewModel.TooFarToFirst)
     {
-        <tr>
-            <td>@season.Id</td>
-            <td>@season.SeasonName</td>
-            <td>@season.Giggi</td>
-            <td>@season.Jbou</td>
-            <td>@season.Val</td>
-            <td><a href="~/Season/View/@season.Id">@Localizer["Look"]</a></td>
-        </tr>
+        <a asp-action="Season" asp-route-page="1" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">1</a>
     }
-</table>
-@if (Model.PageViewModel.TooFarToFirst)
-{
-    <a asp-action="Season" asp-route-page="1" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">1</a>
-}
-@if (Model.PageViewModel.HasPreviousPage3)
-{
-    <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber - 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 3).ToString())</a>
-}
-@if (Model.PageViewModel.HasPreviousPage2)
-{
-    <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber - 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 2).ToString())</a>
-}
-@if (Model.PageViewModel.HasPreviousPage)
-{
-    <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
-}
-<span class="btn">@Model.PageViewModel.PageNumber.ToString()</span>
-@if (Model.PageViewModel.HasNextPage)
-{
-    <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
-}
-@if (Model.PageViewModel.HasNextPage2)
-{
-    <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber + 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 2).ToString())</a>
-}
-@if (Model.PageViewModel.HasNextPage3)
-{
-    <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber + 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 3).ToString())</a>
-}
-@if (Model.PageViewModel.TooFarToLast)
-{
-    <a asp-action="Season" asp-route-page="@Model.PageViewModel.TotalPages" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">@Model.PageViewModel.TotalPages.ToString()</a>
-}
+    @if (Model.PageViewModel.HasPreviousPage3)
+    {
+        <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber - 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 3).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasPreviousPage2)
+    {
+        <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber - 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 2).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+    }
+    <span class="btn">@Model.PageViewModel.PageNumber.ToString()</span>
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasNextPage2)
+    {
+        <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber + 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 2).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasNextPage3)
+    {
+        <a asp-action="Season" asp-route-page="@(Model.PageViewModel.PageNumber + 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 3).ToString())</a>
+    }
+    @if (Model.PageViewModel.TooFarToLast)
+    {
+        <a asp-action="Season" asp-route-page="@Model.PageViewModel.TotalPages" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">@Model.PageViewModel.TotalPages.ToString()</a>
+    }
+</div>

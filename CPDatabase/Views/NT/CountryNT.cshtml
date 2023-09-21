@@ -5,62 +5,68 @@
     ViewData["Title"] = @Localizer["CountriesForNationalTeams"];
 }
 
-<h3>@Localizer["CountriesForNationalTeams"]</h3>
-<table class="table">
-    <tr>
-        <th>Id</th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["CountryNT"]</a></th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.HasSubSort">@Localizer["HasSubcountry"]</a></th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.SubcountrySort">@Localizer["Subcountry"]</a></th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
-        <th><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
-        <td></td>
-    </tr>
-    @foreach (var countryNT in Model.CountriesNT)
-    {
+<h3 class="text-center">@Localizer["CountriesForNationalTeams"]</h3>
+<div class="table-responsive-md">
+    <table class="table table-sm table-striped table-hover table-bordered">
         <tr>
-            <td>@countryNT.Id</td>
-            <td>@countryNT.CountryNTName</td>
-            <td>@countryNT.HasSub</td>
-            <td>@countryNT.Subcountry</td>
-            <td>@countryNT.Giggi</td>
-            <td>@countryNT.Jbou</td>
-            <td>@countryNT.Val</td>
-            <td><a href="~/CountryNT/View/@countryNT.Id">@Localizer["Look"]</a></td>
+            <th scope="col">Id</th>
+            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["CountryNT"]</a></th>
+            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.HasSubSort">@Localizer["HasSubcountry"]</a></th>
+            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.SubcountrySort">@Localizer["Subcountry"]</a></th>
+            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
+            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
+            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
+            <th scope="col"></th>
         </tr>
+        <tbody>
+            @foreach (var countryNT in Model.CountriesNT)
+            {
+                <tr>
+                    <td>@countryNT.Id</td>
+                    <td>@countryNT.CountryNTName</td>
+                    <td>@countryNT.HasSub</td>
+                    <td>@countryNT.Subcountry</td>
+                    <td>@countryNT.Giggi</td>
+                    <td>@countryNT.Jbou</td>
+                    <td>@countryNT.Val</td>
+                    <td><a href="~/CountryNT/View/@countryNT.Id">@Localizer["Look"]</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pagination justify-content-center">
+    @if (Model.PageViewModel.TooFarToFirst)
+    {
+        <a asp-action="CountryNT" asp-route-page="1" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">1</a>
     }
-</table>
-@if (Model.PageViewModel.TooFarToFirst)
-{
-    <a asp-action="CountryNT" asp-route-page="1" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">1</a>
-}
-@if (Model.PageViewModel.HasPreviousPage3)
-{
-    <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber - 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 3).ToString())</a>
-}
-@if (Model.PageViewModel.HasPreviousPage2)
-{
-    <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber - 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 2).ToString())</a>
-}
-@if (Model.PageViewModel.HasPreviousPage)
-{
-    <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
-}
-<span class="btn">@Model.PageViewModel.PageNumber.ToString()</span>
-@if (Model.PageViewModel.HasNextPage)
-{
-    <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
-}
-@if (Model.PageViewModel.HasNextPage2)
-{
-    <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber + 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 2).ToString())</a>
-}
-@if (Model.PageViewModel.HasNextPage3)
-{
-    <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber + 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 3).ToString())</a>
-}
-@if (Model.PageViewModel.TooFarToLast)
-{
-    <a asp-action="CountryNT" asp-route-page="@Model.PageViewModel.TotalPages" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">@Model.PageViewModel.TotalPages.ToString()</a>
-}
+    @if (Model.PageViewModel.HasPreviousPage3)
+    {
+        <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber - 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 3).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasPreviousPage2)
+    {
+        <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber - 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 2).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+    }
+    <span class="btn">@Model.PageViewModel.PageNumber.ToString()</span>
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasNextPage2)
+    {
+        <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber + 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 2).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasNextPage3)
+    {
+        <a asp-action="CountryNT" asp-route-page="@(Model.PageViewModel.PageNumber + 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 3).ToString())</a>
+    }
+    @if (Model.PageViewModel.TooFarToLast)
+    {
+        <a asp-action="CountryNT" asp-route-page="@Model.PageViewModel.TotalPages" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">@Model.PageViewModel.TotalPages.ToString()</a>
+    }
+</div>

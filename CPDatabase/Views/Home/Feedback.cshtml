@@ -5,104 +5,116 @@
     ViewData["Title"] = @Localizer["Reports&Feedbacks"];
 }
 
-<h3>@Localizer["Reports&Feedbacks"]</h3>
+<h3 class="text-center">@Localizer["Feedbacks"]</h3>
+<p class="text-center">@Localizer["Info"].</p>
 @if (User.Identity.Name == null)
 {
-    <form asp-action="MakeFeedback" asp-controller="Home" asp-anti-forgery="true">
-        <div class="validation" asp-validation-summary="All"></div>
-        <input type="hidden" asp-for="ReturnUrl" value="site.com" />
-        <div>
-            <div class="form-group">
-                <label asp-for="Username"></label>
-                <input type="text" asp-for="Username" />
-                <span asp-validation-for="Username" />
+    <form asp-anti-forgery="true" action="~/Home/MakeFeedback" method="post">
+        <div class="validation validation-summary-valid" data-valmsg-summary="true">
+            <ul><li style="display:none"></li></ul>
+        </div>
+        <input type="hidden" value="site.com" data-val="true" data-val-required="The ReturnUrl field is required." id="ReturnUrl" name="ReturnUrl">
+        <div class="form-group">
+            <div>
+                <label for="Username" class="form-label">Username</label>
+                <input type="text" class="form-control" data-val="true" data-val-required="UsernameRequired" id="Username" name="Username" value="">
+                <span class="field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" />
-                <span asp-validation-for="Email" />
+            <div>
+                <label for="Email" class="form-label">Email address</label>
+                <input type="email" class="form-control" data-val="true" data-val-email="WrongEmail" data-val-required="EmailRequired" id="Email" name="Email" value="">
+                <div class="form-text text-muted">We'll never share your email with anyone else.</div>
+                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Message"></label>
-                <input asp-for="Message" />
-                <span asp-validation-for="Message" />
+            <div>
+                <label for="Message" class="form-label">Message</label>
+                <textarea class="form-control" data-val="true" data-val-required="MessageRequired" id="Message" name="Message" value="" rows="3"></textarea>
+                <span class="field-validation-valid" data-valmsg-for="Message" data-valmsg-replace="true"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Send" class="btn btn-outline-dark" />
-            </div>
+            <button type="submit" class="btn btn-outline-dark">Send</button>
         </div>
     </form>
 }
-<table class="table">
-    <tr>
-        <td>Id</td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.MessageDateSort">@Localizer["MessageDate"]</a></td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.UsernameSort">@Localizer["UserName"]</a></td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.EmailSort">@Localizer["Email"]</a></td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.MessageSort">@Localizer["Message"]</a></td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.ReplySort">@Localizer["Reply"]</a></td>
-        <td><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.ReplyDateSort">@Localizer["ReplyDate"]</a></td>
-    </tr>
-    @foreach (var feedback in Model.Feedbacks)
+<div class="table-responsive-md">
+    <table class="table table-sm table-striped table-hover table-bordered">
+        <thead class="table-dark text-center align-middle">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col"><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.MessageDateSort">@Localizer["MessageDate"]</a></th>
+                <th scope="col"><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.UsernameSort">@Localizer["UserName"]</a></th>
+                <th scope="col"><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.EmailSort">@Localizer["Email"]</a></th>
+                <th scope="col"><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.MessageSort">@Localizer["Message"]</a></th>
+                <th scope="col"><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.ReplySort">@Localizer["Reply"]</a></th>
+                <th scope="col"><a asp-action="Feedback" asp-route-sortOrder="@Model.SortViewModel.ReplyDateSort">@Localizer["ReplyDate"]</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var feedback in Model.Feedbacks)
+            {
+                <tr>
+                    <td>@feedback.MessageId</td>
+                    <td>@feedback.DateMessage</td>
+                    <td>@feedback.Username</td>
+                    <td>@feedback.Email</td>
+                    <td>@feedback.Message</td>
+                    <td>
+                        @if (User.Identity.Name != null && feedback.Reply == null)
+                        {
+                            <form method="post" action="~/Home/Reply">
+                                <div class="form-group">
+                                    <textarea class="form-control" name="Reply" value="" cols="20" rows="2"></textarea>
+                                    <input type="hidden" name="MessageId" value="@feedback.MessageId">
+                                    <button style="margin-top:5px;" type="submit" class="btn btn-dark">@Localizer["WriteReply"]</button>
+                                </div>
+                            </form>
+                        }
+                        else if (User.Identity.Name == null && feedback.Reply == null)
+                        {
+                            @:<i>@Localizer["LoginReply"]</i>
+                        }
+                        else
+                        {
+                            @feedback.Reply
+                        }
+                    </td>
+                    <td>@feedback.DateReply</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pagination justify-content-center">
+    @if (Model.PageViewModel.TooFarToFirst)
     {
-        <tr>
-            <td>@feedback.MessageId</td>
-            <td>@feedback.DateMessage</td>
-            <td>@feedback.Username</td>
-            <td>@feedback.Email</td>
-            <td>@feedback.Message</td>
-            <td>
-                @if (User.Identity.Name != null && feedback.Reply == null)
-                {
-                    <form method="post" action="~/Home/Reply">
-                        <textarea cols="20" rows="2" name="Reply"></textarea>
-                        <input type="hidden" name="MessageId" value="@feedback.MessageId" />
-                        <button type="submit" class="btn btn-dark">@Localizer["WriteReply"]</button>
-                    </form>
-                }
-                else if (User.Identity.Name == null && feedback.Reply == null)
-                {
-                    @:<i>@Localizer["LoginReply"]</i>
-                }
-                else
-                {
-                    @feedback.Reply
-                }
-            </td>
-            <td>@feedback.DateReply</td>
-        </tr>
+        <a asp-action="Feedback" asp-route-page="1" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">1</a>
     }
-</table>
-@if (Model.PageViewModel.TooFarToFirst)
-{
-    <a asp-action="Feedback" asp-route-page="1" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">1</a>
-}
-@if (Model.PageViewModel.HasPreviousPage3)
-{
-    <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber - 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 3).ToString())</a>
-}
-@if (Model.PageViewModel.HasPreviousPage2)
-{
-    <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber - 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 2).ToString())</a>
-}
-@if (Model.PageViewModel.HasPreviousPage)
-{
-    <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
-}
-<span class="btn">@Model.PageViewModel.PageNumber.ToString()</span>
-@if (Model.PageViewModel.HasNextPage)
-{
-    <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
-}
-@if (Model.PageViewModel.HasNextPage2)
-{
-    <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber + 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 2).ToString())</a>
-}
-@if (Model.PageViewModel.HasNextPage3)
-{
-    <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber + 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 3).ToString())</a>
-}
-@if (Model.PageViewModel.TooFarToLast)
-{
-    <a asp-action="Feedback" asp-route-page="@Model.PageViewModel.TotalPages" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">@Model.PageViewModel.TotalPages.ToString()</a>
-}
+    @if (Model.PageViewModel.HasPreviousPage3)
+    {
+        <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber - 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 3).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasPreviousPage2)
+    {
+        <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber - 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 2).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber - 1).ToString())</a>
+    }
+    <span class="btn text-center">@Model.PageViewModel.PageNumber.ToString()</span>
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 1).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasNextPage2)
+    {
+        <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber + 2)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 2).ToString())</a>
+    }
+    @if (Model.PageViewModel.HasNextPage3)
+    {
+        <a asp-action="Feedback" asp-route-page="@(Model.PageViewModel.PageNumber + 3)" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-outline-dark">@((Model.PageViewModel.PageNumber + 3).ToString())</a>
+    }
+    @if (Model.PageViewModel.TooFarToLast)
+    {
+        <a asp-action="Feedback" asp-route-page="@Model.PageViewModel.TotalPages" asp-route-sortOrder="@Model.SortViewModel.Current" class="btn btn-secondary">@Model.PageViewModel.TotalPages.ToString()</a>
+    }
+</div>
