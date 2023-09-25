@@ -121,6 +121,12 @@
     <value>Вход</value>
   </data>
   <data name="NoteLogin" xml:space="preserve">
-    <value>(Только для администраторов и тестеров. Извините, регистрация излишняя!)</value>
+    <value>(Только для администраторов и тестеров. Извините, регистрация избыточна!)</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Имя пользователя</value>
   </data>
 </root>

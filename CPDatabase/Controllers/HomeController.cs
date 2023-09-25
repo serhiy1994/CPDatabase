@@ -212,7 +212,7 @@ namespace CPDatabase.Controllers
 
         //todo: check DB Val
         //todo: make error page
-        //todo make privacy policy page
+        //todo: make privacy policy page
         //todo: complete feedback reply page (show validation and localization results to an user)
         //todo: complete localizations for other languages
         //todo: check images paths (place them in the wwwroot folder + make accessible)

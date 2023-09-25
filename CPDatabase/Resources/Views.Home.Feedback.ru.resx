@@ -147,4 +147,10 @@
   <data name="Info" xml:space="preserve">
     <value>Страница для ваших сообщений об ошибках, отзывов о сайте и прочих подобных вещей</value>
   </data>
+  <data name="EmailNote" xml:space="preserve">
+    <value>Мы никому не передаем ваш email</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
 </root>

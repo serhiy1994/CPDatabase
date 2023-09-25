@@ -16,22 +16,22 @@
         <input type="hidden" value="site.com" data-val="true" data-val-required="The ReturnUrl field is required." id="ReturnUrl" name="ReturnUrl">
         <div class="form-group">
             <div>
-                <label for="Username" class="form-label">Username</label>
+                <label for="Username" class="form-label">@Localizer["UserName"]</label>
                 <input type="text" class="form-control" data-val="true" data-val-required="UsernameRequired" id="Username" name="Username" value="">
                 <span class="field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
             </div>
             <div>
-                <label for="Email" class="form-label">Email address</label>
+                <label for="Email" class="form-label">@Localizer["Email"]</label>
                 <input type="email" class="form-control" data-val="true" data-val-email="WrongEmail" data-val-required="EmailRequired" id="Email" name="Email" value="">
-                <div class="form-text text-muted">We'll never share your email with anyone else.</div>
+                <div class="form-text text-muted">@Localizer["EmailNote"].</div>
                 <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
             </div>
             <div>
-                <label for="Message" class="form-label">Message</label>
+                <label for="Message" class="form-label">@Localizer["Message"]</label>
                 <textarea class="form-control" data-val="true" data-val-required="MessageRequired" id="Message" name="Message" value="" rows="3"></textarea>
                 <span class="field-validation-valid" data-valmsg-for="Message" data-valmsg-replace="true"></span>
             </div>
-            <button type="submit" class="btn btn-outline-dark">Send</button>
+            <button type="submit" class="btn btn-outline-dark">@Localizer["Send"]</button>
         </div>
     </form>
 }

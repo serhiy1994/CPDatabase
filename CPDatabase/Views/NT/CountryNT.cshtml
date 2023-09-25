@@ -8,16 +8,18 @@
 <h3 class="text-center">@Localizer["CountriesForNationalTeams"]</h3>
 <div class="table-responsive-md">
     <table class="table table-sm table-striped table-hover table-bordered">
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["CountryNT"]</a></th>
-            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.HasSubSort">@Localizer["HasSubcountry"]</a></th>
-            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.SubcountrySort">@Localizer["Subcountry"]</a></th>
-            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
-            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
-            <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
-            <th scope="col"></th>
-        </tr>
+        <thead class="table-dark align-middle text-center">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["CountryNT"]</a></th>
+                <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.HasSubSort">@Localizer["HasSubcountry"]</a></th>
+                <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.SubcountrySort">@Localizer["Subcountry"]</a></th>
+                <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.GiggiSort">@Localizer["Giggiriva"]</a></th>
+                <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.JbouSort">@Localizer["Jbou41"]</a></th>
+                <th scope="col"><a asp-action="CountryNT" asp-route-sortOrder="@Model.SortViewModel.ValSort">@Localizer["Valambrosio"]</a></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
         <tbody>
             @foreach (var countryNT in Model.CountriesNT)
             {

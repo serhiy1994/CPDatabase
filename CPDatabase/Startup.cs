@@ -36,6 +36,9 @@ namespace CPDatabase
                 //new CultureInfo("hu"),
                 //new CultureInfo("fr"),
                 //new CultureInfo("pl"),
+                //new CultureInfo("dk"),
+                //new CultureInfo("se"),
+                //new CultureInfo("no"),
                 //new CultureInfo("ar"), //SA
                 //new CultureInfo("kr"),
                 //new CultureInfo("jp"),
