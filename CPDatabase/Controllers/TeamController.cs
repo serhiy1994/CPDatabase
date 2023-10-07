@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CPDatabase.Controllers
@@ -26,6 +27,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> All(int? season, int? halfDecade, int page = 1, TeamSortState sortOrder = TeamSortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<Team> teams = cpdbcontext.Team.AsQueryable();
 
             if (season != null && season != -1 && season != 0) teams = teams.Where(p => p.SeasonNavigation.Id == season);
@@ -56,8 +58,8 @@ namespace CPDatabase.Controllers
                 _ => teams.OrderBy(s => s.TeamName),
             };
 
-            var count = await teams.CountAsync();
-            var items = await teams.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await teams.CountAsync(cancellationToken);
+            var items = await teams.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             TeamSortViewModel sortViewModel = new TeamSortViewModel(sortOrder);
             TeamFilterViewModel filterViewModel = new TeamFilterViewModel(cpdbcontext.Season.ToList(), cpdbcontext.HalfDecade.ToList(), season, halfDecade);
@@ -68,6 +70,7 @@ namespace CPDatabase.Controllers
         
         public async Task<IActionResult> CountryClub(int page = 1, TeamCountryAndNTCountrySortState sortOrder = TeamCountryAndNTCountrySortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<CountryClub> countries = cpdbcontext.CountryClub.AsQueryable();
 
             countries = sortOrder switch
@@ -86,8 +89,8 @@ namespace CPDatabase.Controllers
                 _ => countries.OrderBy(s => s.CountryClubName),
             };
 
-            var count = await countries.CountAsync();
-            var items = await countries.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await countries.CountAsync(cancellationToken);
+            var items = await countries.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             CountrySortViewModel sortViewModel = new CountrySortViewModel(sortOrder);
             TeamsCountryViewModel tcViewModel = new TeamsCountryViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Countries = items };
@@ -97,6 +100,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> Club(int page = 1, TeamClubSortState sortOrder = TeamClubSortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<Club> clubs = cpdbcontext.Club.AsQueryable();
 
             clubs = sortOrder switch
@@ -113,8 +117,8 @@ namespace CPDatabase.Controllers
                 _ => clubs.OrderBy(s => s.ClubName),
             };
 
-            var count = await clubs.CountAsync();
-            var items = await clubs.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await clubs.CountAsync(cancellationToken);
+            var items = await clubs.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             ClubSortViewModel sortViewModel = new ClubSortViewModel(sortOrder);
             TeamsClubViewModel tclViewModel = new TeamsClubViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Clubs = items };
@@ -124,6 +128,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> LeagueTeam(int page = 1, TeamLeagueSortState sortOrder = TeamLeagueSortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<LeagueTeam> leaguesT = cpdbcontext.LeagueTeam.AsQueryable();
 
             leaguesT = sortOrder switch
@@ -142,8 +147,8 @@ namespace CPDatabase.Controllers
                 _ => leaguesT.OrderBy(s => s.Name),
             };
 
-            var count = await leaguesT.CountAsync();
-            var items = await leaguesT.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await leaguesT.CountAsync(cancellationToken);
+            var items = await leaguesT.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             LeagueTeamSortViewModel sortViewModel = new LeagueTeamSortViewModel(sortOrder);
             TeamsLeagueViewModel tlViewModel = new TeamsLeagueViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, LeaguesT = items };
@@ -153,6 +158,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> HalfDecade(int page = 1, TeamHalfDecadeAndSeasonSortState sortOrder = TeamHalfDecadeAndSeasonSortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<HalfDecade> halfDecades = cpdbcontext.HalfDecade.AsQueryable();
 
             halfDecades = sortOrder switch
@@ -167,8 +173,8 @@ namespace CPDatabase.Controllers
                 _ => halfDecades.OrderBy(s => s.HalfDecadeName),
             };
 
-            var count = await halfDecades.CountAsync();
-            var items = await halfDecades.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await halfDecades.CountAsync(cancellationToken);
+            var items = await halfDecades.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             HalfDecadeAndSeasonSortViewModel sortViewModel = new HalfDecadeAndSeasonSortViewModel(sortOrder);
             TeamsHalfDecadeViewModel thdViewModel = new TeamsHalfDecadeViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, HalfDecades = items };
@@ -178,6 +184,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> Season(int page = 1, TeamHalfDecadeAndSeasonSortState sortOrder = TeamHalfDecadeAndSeasonSortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<Season> seasons = cpdbcontext.Season.AsQueryable();
 
             seasons = sortOrder switch
@@ -192,8 +199,8 @@ namespace CPDatabase.Controllers
                 _ => seasons.OrderBy(s => s.SeasonName),
             };
             
-            var count = await seasons.CountAsync();
-            var items = await seasons.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await seasons.CountAsync(cancellationToken);
+            var items = await seasons.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             HalfDecadeAndSeasonSortViewModel sortViewModel = new HalfDecadeAndSeasonSortViewModel(sortOrder);
             TeamsSeasonViewModel tsViewModel = new TeamsSeasonViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Seasons = items };

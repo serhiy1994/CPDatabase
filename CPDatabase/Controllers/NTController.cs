@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CPDatabase.Controllers
@@ -26,6 +27,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> CountryNT(int page = 1, TeamCountryAndNTCountrySortState sortOrder = TeamCountryAndNTCountrySortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<CountryNT> countriesNT = cpdbcontext.CountryNT.AsQueryable();
 
             countriesNT = sortOrder switch
@@ -44,8 +46,8 @@ namespace CPDatabase.Controllers
                 _ => countriesNT.OrderBy(s => s.CountryNTName),
             };
 
-            var count = await countriesNT.CountAsync();
-            var items = await countriesNT.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await countriesNT.CountAsync(cancellationToken);
+            var items = await countriesNT.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             CountrySortViewModel sortViewModel = new CountrySortViewModel(sortOrder);
             NTsCountryViewModel ntcViewModel = new NTsCountryViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, CountriesNT = items };
@@ -55,6 +57,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> Year(int page = 1, NTPeriodAndYearSortState sortOrder = NTPeriodAndYearSortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<Year> years = cpdbcontext.Year.AsQueryable();
 
             years = sortOrder switch
@@ -69,8 +72,8 @@ namespace CPDatabase.Controllers
                 _ => years.OrderBy(s => s.YearName),
             };
 
-            var count = await years.CountAsync();
-            var items = await years.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await years.CountAsync(cancellationToken);
+            var items = await years.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             PeriodAndYearSortViewModel sortViewModel = new PeriodAndYearSortViewModel(sortOrder);
             NTsYearViewModel ntyViewModel = new NTsYearViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Years = items };
@@ -80,6 +83,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> Period(int page = 1, NTPeriodAndYearSortState sortOrder = NTPeriodAndYearSortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<Period> periods = cpdbcontext.Period.AsQueryable();
 
             periods = sortOrder switch
@@ -94,8 +98,8 @@ namespace CPDatabase.Controllers
                 _ => periods.OrderBy(s => s.PeriodName),
             };
 
-            var count = await periods.CountAsync();
-            var items = await periods.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await periods.CountAsync(cancellationToken);
+            var items = await periods.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             PeriodAndYearSortViewModel sortViewModel = new PeriodAndYearSortViewModel(sortOrder);
             NTsPeriodViewModel ntpViewModel = new NTsPeriodViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Periods = items };
@@ -105,6 +109,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> LeagueNT(int page = 1, NTLeagueSortState sortOrder = NTLeagueSortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<LeagueNT> leaguesNT = cpdbcontext.LeagueNT.AsQueryable();
 
             leaguesNT = sortOrder switch
@@ -123,8 +128,8 @@ namespace CPDatabase.Controllers
                 _ => leaguesNT.OrderBy(s => s.LeagueNTName),
             };
 
-            var count = await leaguesNT.CountAsync();
-            var items = await leaguesNT.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await leaguesNT.CountAsync(cancellationToken);
+            var items = await leaguesNT.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             LeagueNTSortViewModel sortViewModel = new LeagueNTSortViewModel(sortOrder);
             NTsLeagueViewModel ntlViewModel = new NTsLeagueViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, LeaguesNT = items };
@@ -134,6 +139,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> All(int? year, int? period, int page = 1, NTSortState sortOrder = NTSortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<NationalTeam> nts = cpdbcontext.NationalTeam.AsQueryable();
 
             if (year != null && year != -1 && year != 0) nts = nts.Where(p => p.YearNavigation.Id == year);
@@ -164,8 +170,8 @@ namespace CPDatabase.Controllers
                 _ => nts.OrderBy(s => s.NTName),
             };
 
-            var count = await nts.CountAsync();
-            var items = await nts.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await nts.CountAsync(cancellationToken);
+            var items = await nts.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             NTSortViewModel sortViewModel = new NTSortViewModel(sortOrder);
             NTFilterViewModel filterViewModel = new NTFilterViewModel(cpdbcontext.Year.ToList(), cpdbcontext.Period.ToList(), year, period);

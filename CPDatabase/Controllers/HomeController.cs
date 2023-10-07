@@ -13,6 +13,7 @@ using CPDatabase.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
+using System.Threading;
 
 namespace CPDatabase.Controllers
 {
@@ -39,6 +40,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> Feedback(int page = 1, FeedbackSortState sortOrder = FeedbackSortState.MessageDateAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             int pageSize = 25;
             IQueryable<FeedbackLog> feedbacks = cpdbcontext.FeedbackLog.AsQueryable();
 
@@ -57,8 +59,8 @@ namespace CPDatabase.Controllers
                 FeedbackSortState.ReplyDateDesc => feedbacks.OrderByDescending(s => s.DateReply),
                 _ => feedbacks.OrderBy(s => s.DateMessage),
             };
-            var count = await feedbacks.CountAsync();
-            var items = await feedbacks.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await feedbacks.CountAsync(cancellationToken);
+            var items = await feedbacks.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             FeedbackSortViewModel sortViewModel = new FeedbackSortViewModel(sortOrder);
             FeedbackViewModel feedbackViewModel = new FeedbackViewModel(null) { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Feedbacks = items };
@@ -70,7 +72,8 @@ namespace CPDatabase.Controllers
         [HttpPost]
         public async Task<IActionResult> MakeFeedback(FeedbackInputModel feedback)
         {
-            FeedbackViewModel vm = await BuildFeedbackViewModelAsync(feedback.ReturnUrl!);
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
+            FeedbackViewModel vm = await BuildFeedbackViewModelAsync(feedback.ReturnUrl!, cancellationToken);
             if (ModelState.IsValid)
             {
                 if (feedback != null)
@@ -88,7 +91,7 @@ namespace CPDatabase.Controllers
             return RedirectToAction("Feedback", vm);
         }
 
-        private async Task<FeedbackViewModel> BuildFeedbackViewModelAsync(string returnUrl)
+        private async Task<FeedbackViewModel> BuildFeedbackViewModelAsync(string returnUrl, CancellationToken cancellationToken)
         {
             var vm = new FeedbackViewModel(returnUrl)
             {                
@@ -135,9 +138,10 @@ namespace CPDatabase.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             if (ModelState.IsValid)
             {
-                User user = await cpdbcontext.User.FirstOrDefaultAsync(u => u.Username == model.Name && u.Password == model.Password);
+                User user = await cpdbcontext.User.FirstOrDefaultAsync(u => u.Username == model.Name && u.Password == model.Password, cancellationToken);
                 if (user != null)
                 {
                     await Authenticate(model.Name);

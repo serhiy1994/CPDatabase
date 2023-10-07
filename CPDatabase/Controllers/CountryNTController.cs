@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CPDatabase.Controllers
@@ -17,6 +18,7 @@ namespace CPDatabase.Controllers
 
         public async Task<IActionResult> View(int? id, int page = 1, NTSortState sortOrder = NTSortState.NameAsc)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             int pageSize = 25;
             if (id == null) return RedirectToAction("CountryNT", "NT");
             IQueryable<NationalTeam> NTsByCountry = cpdbcontext.NationalTeam.Where(t => t.CountryNavigation.Id == id);
@@ -46,8 +48,8 @@ namespace CPDatabase.Controllers
                     _ => NTsByCountry.OrderBy(s => s.NTName),
                 };
 
-                var count = await NTsByCountry.CountAsync();
-                var items = await NTsByCountry.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+                var count = await NTsByCountry.CountAsync(cancellationToken);
+                var items = await NTsByCountry.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
                 PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
                 NTSortViewModel sortViewModel = new NTSortViewModel(sortOrder);
                 NTsConcreteViewModel ntconViewModel = new NTsConcreteViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, NTs = items };
