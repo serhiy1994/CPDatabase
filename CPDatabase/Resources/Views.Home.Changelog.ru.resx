@@ -123,19 +123,19 @@
   <data name="August" xml:space="preserve">
     <value>Август</value>
   </data>
-  <data name="Change060323" xml:space="preserve">
+  <data name="Change2023-03-6" xml:space="preserve">
     <value>1. завершен релиз технического сайта. 2. первый альфа-релиз</value>
   </data>
-  <data name="Change101122" xml:space="preserve">
+  <data name="Change2022-11-10" xml:space="preserve">
     <value>добавлена главная база данных  версий 3.1 &amp; 3.2 &amp; 3.3, а также версии 2 и v1.1 баз данных аддонов Jbou41 и Valambrosio соответственно</value>
   </data>
-  <data name="Change131222" xml:space="preserve">
+  <data name="Change2022-12-13" xml:space="preserve">
     <value>первый релиз технического сайта</value>
   </data>
-  <data name="Change250822" xml:space="preserve">
+  <data name="Change2022-08-05" xml:space="preserve">
     <value>составлена версия 3.0 главной базы данных</value>
   </data>
-  <data name="Change270323" xml:space="preserve">
+  <data name="Change2023-03-27" xml:space="preserve">
     <value>1. Обновление основной базы данных до версии 4.1, а также аддона Jbou41 до версий 3 и 3.1. 2. бета-релиз (пока содержит только представление базы данных, без дизайна)</value>
   </data>
   <data name="Changelog" xml:space="preserve">
@@ -189,10 +189,13 @@
   <data name="September" xml:space="preserve">
     <value>Сентябрь</value>
   </data>
-  <data name="Change150923" xml:space="preserve">
+  <data name="Change2023-09-15" xml:space="preserve">
     <value>Добавлена русская локализация</value>
   </data>
   <data name="ChangelogTitle" xml:space="preserve">
     <value>Журнал и планы</value>
+  </data>
+  <data name="Change2023-09-21" xml:space="preserve">
+    <value>1. Добавлен начальный дизайн. Второй бета-релиз</value>
   </data>
 </root>
