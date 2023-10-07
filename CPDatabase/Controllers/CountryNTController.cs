@@ -22,7 +22,7 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("CountryNT", "NT");
             IQueryable<NationalTeam> NTsByCountry = cpdbcontext.NationalTeam.Where(t => t.CountryNavigation.Id == id);
-            if (NTsByCountry != null)
+            if (NTsByCountry.Count() != 0)
             {
                 ViewBag.CurrentCountryNTName = cpdbcontext.CountryNT.FirstOrDefault(c => c.Id == id)?.CountryNTName ?? "NOT FOUND";
 

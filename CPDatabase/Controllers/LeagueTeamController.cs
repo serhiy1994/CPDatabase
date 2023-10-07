@@ -22,7 +22,7 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("LeagueTeam", "Team");
             IQueryable<Team> teamsByLeague = cpdbcontext.Team.Where(t => t.LeagueTeamNavigation.Id == id);
-            if (teamsByLeague != null)
+            if (teamsByLeague.Count() != 0)
             {
                 ViewBag.CurrentLeagueName = cpdbcontext.LeagueTeam.FirstOrDefault(c => c.Id == id)?.Name ?? "NOT FOUND";
 

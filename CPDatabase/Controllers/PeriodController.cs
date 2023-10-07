@@ -22,7 +22,7 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("Period", "NT");
             IQueryable<NationalTeam> NTsByPeriod = cpdbcontext.NationalTeam.Where(t => t.PeriodNavigation.Id == id);
-            if (NTsByPeriod != null)
+            if (NTsByPeriod.Count() != 0)
             {
                 ViewBag.CurrentPeriodName = cpdbcontext.Period.FirstOrDefault(c => c.Id == id)?.PeriodName ?? "NOT FOUND";
 

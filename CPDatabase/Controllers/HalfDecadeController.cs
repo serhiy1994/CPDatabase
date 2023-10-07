@@ -22,7 +22,7 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("HalfDecade", "Team");
             IQueryable<Team> teamsByHalfDecade = cpdbcontext.Team.Where(t => t.HalfDecadeNavigation.Id == id);
-            if (teamsByHalfDecade != null)
+            if (teamsByHalfDecade.Count() != 0)
             {
                 ViewBag.CurrentHalfDecadeName = cpdbcontext.HalfDecade.FirstOrDefault(c => c.Id == id)?.HalfDecadeName ?? "NOT FOUND";
 

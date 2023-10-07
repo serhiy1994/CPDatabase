@@ -22,7 +22,7 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("Year", "NT");
             IQueryable<NationalTeam> NTsByYear = cpdbcontext.NationalTeam.Where(t => t.YearNavigation.Id == id);
-            if (NTsByYear != null)
+            if (NTsByYear.Count() != 0)
             {
                 ViewBag.CurrentYearName = cpdbcontext.Year.FirstOrDefault(c => c.Id == id)?.YearName ?? "NOT FOUND";
 
