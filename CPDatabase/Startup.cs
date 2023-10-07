@@ -21,7 +21,7 @@ namespace CPDatabase
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        public IConfigurationRoot Configuration { get; }
 
         CultureInfo[] supportedCultures = new[]
         {
@@ -46,9 +46,16 @@ namespace CPDatabase
                 //new CultureInfo("uk"),
         };
 
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -91,16 +98,9 @@ namespace CPDatabase
             app.UseFileServer(new FileServerOptions
             {
                 EnableDirectoryBrowsing = true,
-                FileProvider = new PhysicalFileProvider(@"D:\\Serhiy\\CP content\\4.1\\all teams\\"),
+                FileProvider = new PhysicalFileProvider(Configuration.GetConnectionString("ImagesFolder")),
                 RequestPath = new PathString("/images"),
                 EnableDefaultFiles = false
-                //StaticFileOptions = new StaticFileOptions()
-                //{
-                //    OnPrepareResponse = ctx =>
-                //    {
-                //        ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600");
-                //    }
-                //}
             });
             app.UseStaticFiles();
 
