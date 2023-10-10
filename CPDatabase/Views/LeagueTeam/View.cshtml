@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = @Localizer["TeamsByLeague"] + ": " + +@ViewBag.CurrentLeagueName;
+    ViewData["Title"] = @Localizer["TeamsByLeague"] + ": " + @ViewBag.CurrentLeagueName;
 }
 
 <h3 class="text-center">@Localizer["TeamsByLeague"]: @ViewBag.CurrentLeagueName</h3>
