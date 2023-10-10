@@ -22,9 +22,10 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("CountryNT", "NT");
             IQueryable<NationalTeam> NTsByCountry = cpdbcontext.NationalTeam.Where(t => t.CountryNavigation.Id == id);
-            if (NTsByCountry.Count() != 0)
+            var count = await NTsByCountry.CountAsync(cancellationToken);
+            if (count != 0)
             {
-                ViewBag.CurrentCountryNTName = cpdbcontext.CountryNT.FirstOrDefault(c => c.Id == id)?.CountryNTName ?? "NOT FOUND";
+                ViewBag.CurrentCountryNTName = (await cpdbcontext.CountryNT.FirstOrDefaultAsync(c => c.Id == id, cancellationToken))?.CountryNTName ?? "NOT FOUND";
 
                 NTsByCountry = sortOrder switch
                 {
@@ -47,8 +48,7 @@ namespace CPDatabase.Controllers
                     NTSortState.ValDesc => NTsByCountry.OrderByDescending(s => s.Val),
                     _ => NTsByCountry.OrderBy(s => s.NTName),
                 };
-
-                var count = await NTsByCountry.CountAsync(cancellationToken);
+                
                 var items = await NTsByCountry.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
                 PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
                 NTSortViewModel sortViewModel = new NTSortViewModel(sortOrder);

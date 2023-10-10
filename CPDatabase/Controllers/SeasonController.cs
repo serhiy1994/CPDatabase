@@ -22,9 +22,10 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("Season", "Team");
             IQueryable<Team> teamsBySeason = cpdbcontext.Team.Where(t => t.SeasonNavigation.Id == id);
-            if (teamsBySeason.Count() != 0)
+            var count = await teamsBySeason.CountAsync(cancellationToken);
+            if (count != 0)
             {
-                ViewBag.CurrentSeasonName = cpdbcontext.Season.FirstOrDefault(c => c.Id == id)?.SeasonName ?? "NOT FOUND";
+                ViewBag.CurrentSeasonName = (await cpdbcontext.Season.FirstOrDefaultAsync(c => c.Id == id, cancellationToken))?.SeasonName ?? "NOT FOUND";
 
                 teamsBySeason = sortOrder switch
                 {
@@ -48,7 +49,6 @@ namespace CPDatabase.Controllers
                     _ => teamsBySeason.OrderBy(s => s.TeamName),
                 };
 
-                var count = await teamsBySeason.CountAsync(cancellationToken);
                 var items = await teamsBySeason.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
                 PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
                 TeamSortViewModel sortViewModel = new TeamSortViewModel(sortOrder);

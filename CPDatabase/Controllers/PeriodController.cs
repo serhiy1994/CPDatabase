@@ -22,9 +22,10 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("Period", "NT");
             IQueryable<NationalTeam> NTsByPeriod = cpdbcontext.NationalTeam.Where(t => t.PeriodNavigation.Id == id);
-            if (NTsByPeriod.Count() != 0)
+            var count = await NTsByPeriod.CountAsync(cancellationToken);
+            if (count != 0)
             {
-                ViewBag.CurrentPeriodName = cpdbcontext.Period.FirstOrDefault(c => c.Id == id)?.PeriodName ?? "NOT FOUND";
+                ViewBag.CurrentPeriodName = (await cpdbcontext.Period.FirstOrDefaultAsync(c => c.Id == id, cancellationToken))?.PeriodName ?? "NOT FOUND";
 
                 NTsByPeriod = sortOrder switch
                 {
@@ -48,7 +49,6 @@ namespace CPDatabase.Controllers
                     _ => NTsByPeriod.OrderBy(s => s.NTName),
                 };
 
-                var count = await NTsByPeriod.CountAsync(cancellationToken);
                 var items = await NTsByPeriod.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
                 PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
                 NTSortViewModel sortViewModel = new NTSortViewModel(sortOrder);

@@ -102,11 +102,12 @@ namespace CPDatabase.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Reply(FeedbackLog feedback)
+        public async Task<IActionResult> Reply(FeedbackLog feedback)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             if (feedback != null)
             {
-                FeedbackLog primaryFeedback = cpdbcontext.FeedbackLog.FirstOrDefault(fbl => fbl.MessageId == feedback.MessageId);
+                FeedbackLog primaryFeedback = await cpdbcontext.FeedbackLog.FirstOrDefaultAsync(fbl => fbl.MessageId == feedback.MessageId, cancellationToken);
                 if (primaryFeedback != null)
                 {
                     primaryFeedback.Reply = feedback.Reply;

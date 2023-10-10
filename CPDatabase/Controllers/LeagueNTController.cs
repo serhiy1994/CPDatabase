@@ -22,9 +22,10 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("LeagueNT", "NT");
             IQueryable<NationalTeam> NTsByLeague = cpdbcontext.NationalTeam.Where(t => t.LeagueNtNavigation.Id == id);
-            if (NTsByLeague.Count() != 0)
+            var count = await NTsByLeague.CountAsync(cancellationToken);
+            if (count != 0)
             {
-                ViewBag.CurrentLeagueNTName = cpdbcontext.LeagueNT.FirstOrDefault(c => c.Id == id)?.LeagueNTName ?? "NOT FOUND";
+                ViewBag.CurrentLeagueNTName = (await cpdbcontext.LeagueNT.FirstOrDefaultAsync(c => c.Id == id, cancellationToken))?.LeagueNTName ?? "NOT FOUND";
 
                 NTsByLeague = sortOrder switch
                 {
@@ -48,7 +49,6 @@ namespace CPDatabase.Controllers
                     _ => NTsByLeague.OrderBy(s => s.NTName),
                 };
 
-                var count = await NTsByLeague.CountAsync(cancellationToken);
                 var items = await NTsByLeague.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
                 PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
                 NTSortViewModel sortViewModel = new NTSortViewModel(sortOrder);

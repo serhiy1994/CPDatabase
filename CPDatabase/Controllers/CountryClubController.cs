@@ -22,9 +22,10 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("CountryClub", "Team");
             IQueryable<Team> teamsByCountry = cpdbcontext.Team.Where(t => t.ClubNavigation.CountryNavigation.Id == id);
-            if (teamsByCountry.Count() != 0)
+            var count = await teamsByCountry.CountAsync(cancellationToken);
+            if (count != 0)
             {
-                ViewBag.CurrentCountryName = cpdbcontext.CountryClub.FirstOrDefault(c => c.Id == id)?.CountryClubName ?? "NOT FOUND";
+                ViewBag.CurrentCountryName = (await cpdbcontext.CountryClub.FirstOrDefaultAsync(c => c.Id == id, cancellationToken))?.CountryClubName ?? "NOT FOUND";
 
                 teamsByCountry = sortOrder switch
                 {
@@ -48,7 +49,6 @@ namespace CPDatabase.Controllers
                     _ => teamsByCountry.OrderBy(s => s.TeamName),
                 };
 
-                var count = await teamsByCountry.CountAsync(cancellationToken);
                 var items = await teamsByCountry.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
                 PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
                 TeamSortViewModel sortViewModel = new TeamSortViewModel(sortOrder);

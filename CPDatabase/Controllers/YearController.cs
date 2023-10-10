@@ -22,9 +22,10 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("Year", "NT");
             IQueryable<NationalTeam> NTsByYear = cpdbcontext.NationalTeam.Where(t => t.YearNavigation.Id == id);
-            if (NTsByYear.Count() != 0)
+            var count = await NTsByYear.CountAsync(cancellationToken);
+            if (count != 0)
             {
-                ViewBag.CurrentYearName = cpdbcontext.Year.FirstOrDefault(c => c.Id == id)?.YearName ?? "NOT FOUND";
+                ViewBag.CurrentYearName = (await cpdbcontext.Year.FirstOrDefaultAsync(c => c.Id == id, cancellationToken))?.YearName ?? "NOT FOUND";
 
                 NTsByYear = sortOrder switch
                 {
@@ -48,7 +49,6 @@ namespace CPDatabase.Controllers
                     _ => NTsByYear.OrderBy(s => s.NTName),
                 };
 
-                var count = await NTsByYear.CountAsync(cancellationToken);
                 var items = await NTsByYear.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
                 PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
                 NTSortViewModel sortViewModel = new NTSortViewModel(sortOrder);

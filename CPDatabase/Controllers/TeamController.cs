@@ -17,10 +17,11 @@ namespace CPDatabase.Controllers
             cpdbcontext = context;
         }
 
-        public IActionResult View(int? id)
+        public async Task<IActionResult> View(int? id)
         {
+            CancellationToken cancellationToken = HttpContext.RequestAborted;
             if (id == null) return RedirectToAction("All");
-            Team team = cpdbcontext.Team.FirstOrDefault(t => t.Id == id);
+            Team team = await cpdbcontext.Team.FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
             if (team != null) return View(team);
             else return NotFound();
         }

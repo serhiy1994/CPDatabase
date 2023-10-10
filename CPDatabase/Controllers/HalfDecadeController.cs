@@ -22,9 +22,10 @@ namespace CPDatabase.Controllers
             int pageSize = 25;
             if (id == null) return RedirectToAction("HalfDecade", "Team");
             IQueryable<Team> teamsByHalfDecade = cpdbcontext.Team.Where(t => t.HalfDecadeNavigation.Id == id);
-            if (teamsByHalfDecade.Count() != 0)
+            var count = await teamsByHalfDecade.CountAsync(cancellationToken);
+            if (count != 0)
             {
-                ViewBag.CurrentHalfDecadeName = cpdbcontext.HalfDecade.FirstOrDefault(c => c.Id == id)?.HalfDecadeName ?? "NOT FOUND";
+                ViewBag.CurrentHalfDecadeName = (await cpdbcontext.HalfDecade.FirstOrDefaultAsync(c => c.Id == id, cancellationToken))?.HalfDecadeName ?? "NOT FOUND";
 
                 teamsByHalfDecade = sortOrder switch
                 {
@@ -47,8 +48,7 @@ namespace CPDatabase.Controllers
                     TeamSortState.ValDesc => teamsByHalfDecade.OrderByDescending(s => s.Val),
                     _ => teamsByHalfDecade.OrderBy(s => s.TeamName),
                 };
-
-                var count = await teamsByHalfDecade.CountAsync(cancellationToken);
+                                
                 var items = await teamsByHalfDecade.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
                 PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
                 TeamSortViewModel sortViewModel = new TeamSortViewModel(sortOrder);
