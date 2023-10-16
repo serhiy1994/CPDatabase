@@ -133,4 +133,10 @@
   <data name="Teams" xml:space="preserve">
     <value>Команды</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
 </root>

@@ -28,9 +28,9 @@
                     <td>@leagueTeam.Name</td>
                     <td>@leagueTeam.HalfDecade</td>
                     <td>@leagueTeam.Season</td>
-                    <td>@leagueTeam.Giggi</td>
-                    <td>@leagueTeam.Jbou</td>
-                    <td>@leagueTeam.Val</td>
+                    <td class="text-center">@if (leagueTeam.Giggi) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (leagueTeam.Jbou) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (leagueTeam.Val) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
                     <td><a href="~/LeagueTeam/View/@leagueTeam.Id">@Localizer["Look"]</a></td>
                 </tr>
             }

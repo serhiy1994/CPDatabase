@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = @Localizer["NationalTeam"] + ": " + @Model.NTName;
+    ViewData["Title"] = @Localizer["NationalTeam"].Value + ": " + @Model.NTName;
 }
 
 <h3 class="text-center">@Localizer["NationalTeam"]: @Model.NTName</h3>
@@ -30,10 +30,10 @@
                 <td>@Model.LeagueNT</td>
                 <td>@Model.Year</td>
                 <td>@Model.Period</td>
-                <td>@Model.NotQual</td>
-                <td>@Model.Giggi</td>
-                <td>@Model.Jbou</td>
-                <td>@Model.Val</td>
+                <td class="text-center">@if (Model.NotQual) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                <td class="text-center">@if (Model.Giggi) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                <td class="text-center">@if (Model.Jbou) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                <td class="text-center">@if (Model.Val) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
             </tr>
         </tbody>
     </table>

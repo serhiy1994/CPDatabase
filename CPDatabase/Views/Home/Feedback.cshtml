@@ -57,7 +57,7 @@
                     <td>@feedback.Username</td>
                     <td>@feedback.Email</td>
                     <td>@feedback.Message</td>
-                    <td>
+                    <td class="text-center">
                         @if (User.Identity.Name != null && feedback.Reply == null)
                         {
                             <form method="post" action="~/Home/Reply">

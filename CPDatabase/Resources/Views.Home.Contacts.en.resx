@@ -162,4 +162,13 @@
   <data name="ValambrosioAddon" xml:space="preserve">
     <value>VALAMBROSIO'S ADDON</value>
   </data>
+  <data name="LogoSiteCreator" xml:space="preserve">
+    <value>Logo creator</value>
+  </data>
+  <data name="LogoPatchCreator" xml:space="preserve">
+    <value>Logo creator</value>
+  </data>
+  <data name="BasedOn" xml:space="preserve">
+    <value>based on the patch logo (see below)</value>
+  </data>
 </root>

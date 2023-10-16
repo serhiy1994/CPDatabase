@@ -63,10 +63,10 @@
                     <td>@nationalTeam.LeagueNT</td>
                     <td>@nationalTeam.Year</td>
                     <td>@nationalTeam.Period</td>
-                    <td>@nationalTeam.NotQual</td>
-                    <td>@nationalTeam.Giggi</td>
-                    <td>@nationalTeam.Jbou</td>
-                    <td>@nationalTeam.Val</td>
+                    <td class="text-center">@if (nationalTeam.NotQual) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (nationalTeam.Giggi) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (nationalTeam.Jbou) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (nationalTeam.Val) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
                     <td><a href="~/NT/View/@nationalTeam.Id">@Localizer["Look"]</a></td>
                 </tr>
             }

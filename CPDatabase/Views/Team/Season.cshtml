@@ -24,9 +24,9 @@
                 <tr>
                     <td>@season.Id</td>
                     <td>@season.SeasonName</td>
-                    <td>@season.Giggi</td>
-                    <td>@season.Jbou</td>
-                    <td>@season.Val</td>
+                    <td class="text-center">@if (season.Giggi) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (season.Jbou) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (season.Val) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
                     <td><a href="~/Season/View/@season.Id">@Localizer["Look"]</a></td>
                 </tr>
             }

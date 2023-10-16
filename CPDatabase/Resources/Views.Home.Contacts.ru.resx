@@ -162,4 +162,13 @@
   <data name="ValambrosioAddon" xml:space="preserve">
     <value>АДДОН ОТ VALAMBROSIO</value>
   </data>
+  <data name="LogoSiteCreator" xml:space="preserve">
+    <value>Создатель логотипа</value>
+  </data>
+  <data name="LogoPatchCreator" xml:space="preserve">
+    <value>Создатель логотипа</value>
+  </data>
+  <data name="BasedOn" xml:space="preserve">
+    <value>основано на логотипе патча (см. ниже)</value>
+  </data>
 </root>

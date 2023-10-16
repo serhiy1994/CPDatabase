@@ -26,11 +26,11 @@
                 <tr>
                     <td>@countryNT.Id</td>
                     <td>@countryNT.CountryNTName</td>
-                    <td>@countryNT.HasSub</td>
+                    <td class="text-center">@if (countryNT.HasSub) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
                     <td>@countryNT.Subcountry</td>
-                    <td>@countryNT.Giggi</td>
-                    <td>@countryNT.Jbou</td>
-                    <td>@countryNT.Val</td>
+                    <td class="text-center">@if (countryNT.Giggi) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (countryNT.Jbou) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (countryNT.Val) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
                     <td><a href="~/CountryNT/View/@countryNT.Id">@Localizer["Look"]</a></td>
                 </tr>
             }

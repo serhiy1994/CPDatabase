@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = @Localizer["TeamsByHalfDecade"] + ": " + @ViewBag.CurrentHalfDecadeName;
+    ViewData["Title"] = @Localizer["TeamsByHalfDecade"].Value + ": " + @ViewBag.CurrentHalfDecadeName;
 }
 
 <h3 class="text-center">@Localizer["TeamsByHalfDecade"]: @ViewBag.CurrentHalfDecadeName</h3>
@@ -12,7 +12,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col"><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.NameSort">@Localizer["Team"]</a></th>
-                <th scope="col"><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.FixedNameSort">@Localizer["FixedName"]</a></th>
+                <!--<th scope="col"><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.FixedNameSort">@Localizer["FixedName"]</a></th>-->
                 <th scope="col"><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.ClubSort">@Localizer["Club"]</a></th>
                 <th scope="col"><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.LeagueSort">@Localizer["League"]</a></th>
                 <th scope="col"><a asp-action="View" asp-route-sortOrder="@Model.SortViewModel.HalfDecadeSort">@Localizer["HalfDecade"]</a></th>
@@ -29,14 +29,14 @@
                 <tr>
                     <td>@team.Id</td>
                     <td>@team.TeamName</td>
-                    <td>@team.FixedTeamName</td>
+                    <!--<td>@team.FixedTeamName</td>-->
                     <td>@team.Club</td>
                     <td>@team.LeagueTeam</td>
                     <td>@team.HalfDecade</td>
                     <td>@team.Season</td>
-                    <td>@team.Giggi</td>
-                    <td>@team.Jbou</td>
-                    <td>@team.Val</td>
+                    <td class="text-center">@if (team.Giggi) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (team.Jbou) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (team.Val) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
                     <td><a href="~/Team/View/@team.Id">@Localizer["Look"]</a></td>
                 </tr>
             }

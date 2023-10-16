@@ -24,9 +24,9 @@
                 <tr>
                     <td>@period.Id</td>
                     <td>@period.PeriodName</td>
-                    <td>@period.Giggi</td>
-                    <td>@period.Jbou</td>
-                    <td>@period.Val</td>
+                    <td class="text-center">@if (period.Giggi) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (period.Jbou) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (period.Val) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
                     <td><a href="~/Period/View/@period.Id">@Localizer["Look"]</a></td>
                 </tr>
             }

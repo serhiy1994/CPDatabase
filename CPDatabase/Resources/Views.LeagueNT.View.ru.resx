@@ -130,4 +130,10 @@
   <data name="Giggiriva" xml:space="preserve">
     <value>Giggiriva</value>
   </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
 </root>

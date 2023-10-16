@@ -26,9 +26,9 @@
                     <td>@club.Id</td>
                     <td>@club.ClubName</td>
                     <td>@club.Country</td>
-                    <td>@club.Giggi</td>
-                    <td>@club.Jbou</td>
-                    <td>@club.Val</td>
+                    <td class="text-center">@if (club.Giggi) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (club.Jbou) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (club.Val) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
                     <td><a href="~/Club/View/@club.Id">@Localizer["Look"]</a></td>
                 </tr>
             }

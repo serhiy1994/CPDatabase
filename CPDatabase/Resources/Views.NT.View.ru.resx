@@ -130,4 +130,10 @@
   <data name="Jbou41" xml:space="preserve">
     <value>Jbou41</value>
   </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
 </root>

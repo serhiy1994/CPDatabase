@@ -24,9 +24,9 @@
                 <tr>
                     <td>@halfDecade.Id</td>
                     <td>@halfDecade.HalfDecadeName</td>
-                    <td>@halfDecade.Giggi</td>
-                    <td>@halfDecade.Jbou</td>
-                    <td>@halfDecade.Val</td>
+                    <td class="text-center">@if (halfDecade.Giggi) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (halfDecade.Jbou) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (halfDecade.Val) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
                     <td><a href="~/HalfDecade/View/@halfDecade.Id">@Localizer["Look"]</a></td>
                 </tr>
             }

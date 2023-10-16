@@ -222,13 +222,11 @@ namespace CPDatabase.Controllers
         //todo: complete localizations for other languages
         //todo: check images paths (place them in the wwwroot folder + make accessible)
         //todo: check English grammar
-        //todo: hide unneccessary columns
-        //todo: decide what to do with fixed names
         //---
         //todo: team[nt]/all
         //---
         //todo: implement the actual DBs
-        //todo add SEO stuff
+        //todo: add SEO stuff
         //todo: complete design
         //todo: make donate button
         //todo: publish on github

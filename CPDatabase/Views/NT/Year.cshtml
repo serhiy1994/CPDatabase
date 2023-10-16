@@ -24,9 +24,9 @@
                 <tr>
                     <td>@year.Id</td>
                     <td>@year.YearName</td>
-                    <td>@year.Giggi</td>
-                    <td>@year.Jbou</td>
-                    <td>@year.Val</td>
+                    <td class="text-center">@if (year.Giggi) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (year.Jbou) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                    <td class="text-center">@if (year.Val) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
                     <td><a href="~/Year/View/@year.Id">@Localizer["Look"]</a></td>
                 </tr>
             }

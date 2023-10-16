@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = @Localizer["Team"] + ": " + @Model.TeamName;
+    ViewData["Title"] = @Localizer["Team"].Value + ": " + @Model.TeamName;
 }
 
 <h3 class="text-center">@Localizer["Team"]: @Model.TeamName</h3>
@@ -12,7 +12,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">@Localizer["TeamName"]</th>
-                <th scope="col">@Localizer["FixedTeamName"]</th>
+                <!--<th scope="col">@Localizer["FixedTeamName"]</th>-->
                 <th scope="col">@Localizer["Club"]</th>
                 <th scope="col">@Localizer["League"]</th>
                 <th scope="col">@Localizer["HalfDecade"]</th>
@@ -26,14 +26,14 @@
             <tr>
                 <td>@Model.Id</td>
                 <td>@Model.TeamName</td>
-                <td>@Model.FixedTeamName</td>
+                <!--<td>@Model.FixedTeamName</td>-->
                 <td>@Model.Club</td>
                 <td>@Model.LeagueTeam</td>
                 <td>@Model.HalfDecade</td>
                 <td>@Model.Season</td>
-                <td>@Model.Giggi</td>
-                <td>@Model.Jbou</td>
-                <td>@Model.Val</td>
+                <td class="text-center">@if (Model.Giggi) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                <td class="text-center">@if (Model.Jbou) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
+                <td class="text-center">@if (Model.Val) { @Localizer["Yes"] } else { @Localizer["No"] }</td>
             </tr>
         </tbody>
     </table>
