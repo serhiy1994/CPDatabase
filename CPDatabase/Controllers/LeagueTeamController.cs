@@ -1,7 +1,10 @@
 ﻿using CPDatabase.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,36 +23,36 @@ namespace CPDatabase.Controllers
         {
             CancellationToken cancellationToken = HttpContext.RequestAborted;
             int pageSize = 25;
+            var query = cpdbcontext.Team.AsQueryable();
             if (id == null) return RedirectToAction("LeagueTeam", "Team");
-            IQueryable<Team> teamsByLeague = cpdbcontext.Team.Where(t => t.LeagueTeamNavigation.Id == id);
-            var count = await teamsByLeague.CountAsync(cancellationToken);
+            query = QueryExtensions.FilterByLeagueId(query, id.Value, t => t.LeagueTeamNavigation.Id);
+            var count = await query.CountAsync(cancellationToken);
+
             if (count != 0)
             {
                 ViewBag.CurrentLeagueName = (await cpdbcontext.LeagueTeam.FirstOrDefaultAsync(c => c.Id == id, cancellationToken))?.Name ?? "NOT FOUND";
-
-                teamsByLeague = sortOrder switch
+                query = query.ApplySort(sortOrder, new Dictionary<Enum, Expression<Func<Team, object>>>
                 {
-                    TeamSortState.NameDesc => teamsByLeague.OrderByDescending(s => s.TeamName),
-                    TeamSortState.FixedNameAsc => teamsByLeague.OrderBy(s => s.FixedTeamName),
-                    TeamSortState.FixedNameDesc => teamsByLeague.OrderByDescending(s => s.FixedTeamName),
-                    TeamSortState.ClubAsc => teamsByLeague.OrderBy(s => s.ClubNavigation.ClubName),
-                    TeamSortState.ClubDesc => teamsByLeague.OrderByDescending(s => s.ClubNavigation.ClubName),
-                    TeamSortState.LeagueAsc => teamsByLeague.OrderBy(s => s.LeagueTeamNavigation.Name),
-                    TeamSortState.LeagueDesc => teamsByLeague.OrderByDescending(s => s.LeagueTeamNavigation.Name),
-                    TeamSortState.HalfDecadeAsc => teamsByLeague.OrderBy(s => s.HalfDecadeNavigation.HalfDecadeName),
-                    TeamSortState.HalfDecadeDesc => teamsByLeague.OrderByDescending(s => s.HalfDecadeNavigation.HalfDecadeName),
-                    TeamSortState.SeasonAsc => teamsByLeague.OrderBy(s => s.SeasonNavigation.SeasonName),
-                    TeamSortState.SeasonDesc => teamsByLeague.OrderByDescending(s => s.SeasonNavigation.SeasonName),
-                    TeamSortState.GiggiAsc => teamsByLeague.OrderBy(s => s.Giggi),
-                    TeamSortState.GiggiDesc => teamsByLeague.OrderByDescending(s => s.Giggi),
-                    TeamSortState.JbouAsc => teamsByLeague.OrderBy(s => s.Jbou),
-                    TeamSortState.JbouDesc => teamsByLeague.OrderByDescending(s => s.Jbou),
-                    TeamSortState.ValAsc => teamsByLeague.OrderBy(s => s.Val),
-                    TeamSortState.ValDesc => teamsByLeague.OrderByDescending(s => s.Val),
-                    _ => teamsByLeague.OrderBy(s => s.TeamName),
-                };
+                    { TeamSortState.NameDesc, s => s.TeamName },
+                    { TeamSortState.FixedNameAsc, s => s.FixedTeamName },
+                    { TeamSortState.FixedNameDesc, s => s.FixedTeamName },
+                    { TeamSortState.ClubAsc, s => s.ClubNavigation.ClubName },
+                    { TeamSortState.ClubDesc, s => s.ClubNavigation.ClubName },
+                    { TeamSortState.LeagueAsc, s => s.LeagueTeamNavigation.Name },
+                    { TeamSortState.LeagueDesc, s => s.LeagueTeamNavigation.Name },
+                    { TeamSortState.HalfDecadeAsc, s => s.HalfDecadeNavigation.HalfDecadeName },
+                    { TeamSortState.HalfDecadeDesc, s => s.HalfDecadeNavigation.HalfDecadeName },
+                    { TeamSortState.SeasonAsc, s => s.SeasonNavigation.SeasonName },
+                    { TeamSortState.SeasonDesc, s => s.SeasonNavigation.SeasonName },
+                    { TeamSortState.GiggiAsc, s => s.Giggi },
+                    { TeamSortState.GiggiDesc, s => s.Giggi },
+                    { TeamSortState.JbouAsc, s => s.Jbou },
+                    { TeamSortState.JbouDesc, s => s.Jbou },
+                    { TeamSortState.ValAsc, s => s.Val },
+                    { TeamSortState.ValDesc, s => s.Val },
+                });
 
-                var items = await teamsByLeague.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+                var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
                 PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
                 TeamSortViewModel sortViewModel = new TeamSortViewModel(sortOrder);
                 TeamsConcreteViewModel tconViewModel = new TeamsConcreteViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Teams = items };

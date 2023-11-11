@@ -1,7 +1,10 @@
 ﻿using CPDatabase.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,38 +32,37 @@ namespace CPDatabase.Controllers
         public async Task<IActionResult> All(int? season, int? halfDecade, int page = 1, TeamSortState sortOrder = TeamSortState.NameAsc)
         {
             CancellationToken cancellationToken = HttpContext.RequestAborted;
-            IQueryable<Team> teams = cpdbcontext.Team.AsQueryable();
+            var query = cpdbcontext.Team.AsQueryable();
 
-            if (season != null && season != -1 && season != 0) teams = teams.Where(p => p.SeasonNavigation.Id == season);
-            else if (season == 0) teams = teams.Where(p => p.Season == null);
+            if (season != null && season != -1 && season != 0) query = query.Where(p => p.SeasonNavigation.Id == season);
+            else if (season == 0) query = query.Where(p => p.Season == null);
 
-            if (halfDecade != null && halfDecade != -1 && halfDecade != 0) teams = teams.Where(p => p.HalfDecadeNavigation.Id == halfDecade);
-            else if (halfDecade == 0) teams = teams.Where(p => p.HalfDecade == null);
+            if (halfDecade != null && halfDecade != -1 && halfDecade != 0) query = query.Where(p => p.HalfDecadeNavigation.Id == halfDecade);
+            else if (halfDecade == 0) query = query.Where(p => p.HalfDecade == null);
 
-            teams = sortOrder switch
+            query = query.ApplySort(sortOrder, new Dictionary<Enum, Expression<Func<Team, object>>>
             {
-                TeamSortState.NameDesc => teams.OrderByDescending(s => s.TeamName),
-                TeamSortState.FixedNameAsc => teams.OrderBy(s => s.FixedTeamName),
-                TeamSortState.FixedNameDesc => teams.OrderByDescending(s => s.FixedTeamName),
-                TeamSortState.ClubAsc => teams.OrderBy(s => s.ClubNavigation.ClubName),
-                TeamSortState.ClubDesc => teams.OrderByDescending(s => s.ClubNavigation.ClubName),
-                TeamSortState.LeagueAsc => teams.OrderBy(s => s.LeagueTeamNavigation.Name),
-                TeamSortState.LeagueDesc => teams.OrderByDescending(s => s.LeagueTeamNavigation.Name),
-                TeamSortState.HalfDecadeAsc => teams.OrderBy(s => s.HalfDecadeNavigation.HalfDecadeName),
-                TeamSortState.HalfDecadeDesc => teams.OrderByDescending(s => s.HalfDecadeNavigation.HalfDecadeName),
-                TeamSortState.SeasonAsc => teams.OrderBy(s => s.SeasonNavigation.SeasonName),
-                TeamSortState.SeasonDesc => teams.OrderByDescending(s => s.SeasonNavigation.SeasonName),
-                TeamSortState.GiggiAsc => teams.OrderBy(s => s.Giggi),
-                TeamSortState.GiggiDesc => teams.OrderByDescending(s => s.Giggi),
-                TeamSortState.JbouAsc => teams.OrderBy(s => s.Jbou),
-                TeamSortState.JbouDesc => teams.OrderByDescending(s => s.Jbou),
-                TeamSortState.ValAsc => teams.OrderBy(s => s.Val),
-                TeamSortState.ValDesc => teams.OrderByDescending(s => s.Val),
-                _ => teams.OrderBy(s => s.TeamName),
-            };
+                { TeamSortState.NameDesc, s => s.TeamName },
+                { TeamSortState.FixedNameAsc, s => s.FixedTeamName },
+                { TeamSortState.FixedNameDesc, s => s.FixedTeamName },
+                { TeamSortState.ClubAsc, s => s.ClubNavigation.ClubName },
+                { TeamSortState.ClubDesc, s => s.ClubNavigation.ClubName },
+                { TeamSortState.LeagueAsc, s => s.LeagueTeamNavigation.Name },
+                { TeamSortState.LeagueDesc, s => s.LeagueTeamNavigation.Name },
+                { TeamSortState.HalfDecadeAsc, s => s.HalfDecadeNavigation.HalfDecadeName },
+                { TeamSortState.HalfDecadeDesc, s => s.HalfDecadeNavigation.HalfDecadeName },
+                { TeamSortState.SeasonAsc, s => s.SeasonNavigation.SeasonName },
+                { TeamSortState.SeasonDesc, s => s.SeasonNavigation.SeasonName },
+                { TeamSortState.GiggiAsc, s => s.Giggi },
+                { TeamSortState.GiggiDesc, s => s.Giggi },
+                { TeamSortState.JbouAsc, s => s.Jbou },
+                { TeamSortState.JbouDesc, s => s.Jbou },
+                { TeamSortState.ValAsc, s => s.Val },
+                { TeamSortState.ValDesc, s => s.Val },
+            });
 
-            var count = await teams.CountAsync(cancellationToken);
-            var items = await teams.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+            var count = await query.CountAsync(cancellationToken);
+            var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
             TeamSortViewModel sortViewModel = new TeamSortViewModel(sortOrder);
             TeamFilterViewModel filterViewModel = new TeamFilterViewModel(cpdbcontext.Season.ToList(), cpdbcontext.HalfDecade.ToList(), season, halfDecade);
@@ -74,21 +76,20 @@ namespace CPDatabase.Controllers
             CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<CountryClub> countries = cpdbcontext.CountryClub.AsQueryable();
 
-            countries = sortOrder switch
+            countries = QueryExtensions.ApplySort(countries, sortOrder, new Dictionary<Enum, Expression<Func<CountryClub, object>>>
             {
-                TeamCountryAndNTCountrySortState.NameDesc => countries.OrderByDescending(s => s.CountryClubName),
-                TeamCountryAndNTCountrySortState.HasSubAsc => countries.OrderBy(s => s.HasSub),
-                TeamCountryAndNTCountrySortState.HasSubDesc => countries.OrderByDescending(s => s.HasSub),
-                TeamCountryAndNTCountrySortState.SubcountryAsc => countries.OrderBy(s => s.Subcountry),
-                TeamCountryAndNTCountrySortState.SubcountryDesc => countries.OrderByDescending(s => s.Subcountry),
-                TeamCountryAndNTCountrySortState.GiggiAsc => countries.OrderBy(s => s.Giggi),
-                TeamCountryAndNTCountrySortState.GiggiDesc => countries.OrderByDescending(s => s.Giggi),
-                TeamCountryAndNTCountrySortState.JbouAsc => countries.OrderBy(s => s.Jbou),
-                TeamCountryAndNTCountrySortState.JbouDesc => countries.OrderByDescending(s => s.Jbou),
-                TeamCountryAndNTCountrySortState.ValAsc => countries.OrderBy(s => s.Val),
-                TeamCountryAndNTCountrySortState.ValDesc => countries.OrderByDescending(s => s.Val),
-                _ => countries.OrderBy(s => s.CountryClubName),
-            };
+                { TeamCountryAndNTCountrySortState.NameDesc, s => s.CountryClubName },
+                { TeamCountryAndNTCountrySortState.HasSubAsc, s => s.HasSub },
+                { TeamCountryAndNTCountrySortState.HasSubDesc, s => s.HasSub },
+                { TeamCountryAndNTCountrySortState.SubcountryAsc, s => s.Subcountry },
+                { TeamCountryAndNTCountrySortState.SubcountryDesc, s => s.Subcountry },
+                { TeamCountryAndNTCountrySortState.GiggiAsc, s => s.Giggi },
+                { TeamCountryAndNTCountrySortState.GiggiDesc, s => s.Giggi },
+                { TeamCountryAndNTCountrySortState.JbouAsc, s => s.Jbou },
+                { TeamCountryAndNTCountrySortState.JbouDesc, s => s.Jbou },
+                { TeamCountryAndNTCountrySortState.ValAsc, s => s.Val },
+                { TeamCountryAndNTCountrySortState.ValDesc, s => s.Val },
+            });
 
             var count = await countries.CountAsync(cancellationToken);
             var items = await countries.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
@@ -104,19 +105,18 @@ namespace CPDatabase.Controllers
             CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<Club> clubs = cpdbcontext.Club.AsQueryable();
 
-            clubs = sortOrder switch
+            clubs = QueryExtensions.ApplySort(clubs, sortOrder, new Dictionary<Enum, Expression<Func<Club, object>>>
             {
-                TeamClubSortState.NameDesc => clubs.OrderByDescending(s => s.ClubName),
-                TeamClubSortState.CountryAsc => clubs.OrderBy(s => s.CountryNavigation.CountryClubName),
-                TeamClubSortState.CountryDesc => clubs.OrderByDescending(s => s.CountryNavigation.CountryClubName),
-                TeamClubSortState.GiggiAsc => clubs.OrderBy(s => s.Giggi),
-                TeamClubSortState.GiggiDesc => clubs.OrderByDescending(s => s.Giggi),
-                TeamClubSortState.JbouAsc => clubs.OrderBy(s => s.Jbou),
-                TeamClubSortState.JbouDesc => clubs.OrderByDescending(s => s.Jbou),
-                TeamClubSortState.ValAsc => clubs.OrderBy(s => s.Val),
-                TeamClubSortState.ValDesc => clubs.OrderByDescending(s => s.Val),
-                _ => clubs.OrderBy(s => s.ClubName),
-            };
+                { TeamClubSortState.NameDesc, s => s.ClubName },
+                { TeamClubSortState.CountryAsc, s => s.CountryNavigation.CountryClubName },
+                { TeamClubSortState.CountryDesc, s => s.CountryNavigation.CountryClubName },
+                { TeamClubSortState.GiggiAsc, s => s.Giggi },
+                { TeamClubSortState.GiggiDesc, s => s.Giggi },
+                { TeamClubSortState.JbouAsc, s => s.Jbou },
+                { TeamClubSortState.JbouDesc, s => s.Jbou },
+                { TeamClubSortState.ValAsc, s => s.Val },
+                { TeamClubSortState.ValDesc, s => s.Val },
+            });
 
             var count = await clubs.CountAsync(cancellationToken);
             var items = await clubs.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
@@ -132,21 +132,21 @@ namespace CPDatabase.Controllers
             CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<LeagueTeam> leaguesT = cpdbcontext.LeagueTeam.AsQueryable();
 
-            leaguesT = sortOrder switch
+            leaguesT = QueryExtensions.ApplySort(leaguesT, sortOrder, new Dictionary<Enum, Expression<Func<LeagueTeam, object>>>
             {
-                TeamLeagueSortState.NameDesc => leaguesT.OrderByDescending(s => s.Name),
-                TeamLeagueSortState.HalfDecadeAsc => leaguesT.OrderBy(s => s.HalfDecadeNavigation.HalfDecadeName),
-                TeamLeagueSortState.HalfDecadeDesc => leaguesT.OrderByDescending(s => s.HalfDecadeNavigation.HalfDecadeName),
-                TeamLeagueSortState.SeasonAsc => leaguesT.OrderBy(s => s.SeasonNavigation.SeasonName),
-                TeamLeagueSortState.SeasonDesc => leaguesT.OrderByDescending(s => s.SeasonNavigation.SeasonName),
-                TeamLeagueSortState.GiggiAsc => leaguesT.OrderBy(s => s.Giggi),
-                TeamLeagueSortState.GiggiDesc => leaguesT.OrderByDescending(s => s.Giggi),
-                TeamLeagueSortState.JbouAsc => leaguesT.OrderBy(s => s.Jbou),
-                TeamLeagueSortState.JbouDesc => leaguesT.OrderByDescending(s => s.Jbou),
-                TeamLeagueSortState.ValAsc => leaguesT.OrderBy(s => s.Val),
-                TeamLeagueSortState.ValDesc => leaguesT.OrderByDescending(s => s.Val),
-                _ => leaguesT.OrderBy(s => s.Name),
-            };
+                { TeamLeagueSortState.NameDesc, s => s.Name },
+                { TeamLeagueSortState.HalfDecadeAsc, s => s.HalfDecadeNavigation.HalfDecadeName },
+                { TeamLeagueSortState.HalfDecadeDesc, s => s.HalfDecadeNavigation.HalfDecadeName },
+                { TeamLeagueSortState.SeasonAsc, s => s.SeasonNavigation.SeasonName },
+                { TeamLeagueSortState.SeasonDesc, s => s.SeasonNavigation.SeasonName },
+                { TeamLeagueSortState.GiggiAsc, s => s.Giggi },
+                { TeamLeagueSortState.GiggiDesc, s => s.Giggi },
+                { TeamLeagueSortState.JbouAsc, s => s.Jbou },
+                { TeamLeagueSortState.JbouDesc, s => s.Jbou },
+                { TeamLeagueSortState.ValAsc, s => s.Val },
+                { TeamLeagueSortState.ValDesc, s => s.Val },
+            });
+
 
             var count = await leaguesT.CountAsync(cancellationToken);
             var items = await leaguesT.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
@@ -162,17 +162,16 @@ namespace CPDatabase.Controllers
             CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<HalfDecade> halfDecades = cpdbcontext.HalfDecade.AsQueryable();
 
-            halfDecades = sortOrder switch
+            halfDecades = QueryExtensions.ApplySort(halfDecades, sortOrder, new Dictionary<Enum, Expression<Func<HalfDecade, object>>>
             {
-                TeamHalfDecadeAndSeasonSortState.NameDesc => halfDecades.OrderByDescending(s => s.HalfDecadeName),
-                TeamHalfDecadeAndSeasonSortState.GiggiAsc => halfDecades.OrderBy(s => s.Giggi),
-                TeamHalfDecadeAndSeasonSortState.GiggiDesc => halfDecades.OrderByDescending(s => s.Giggi),
-                TeamHalfDecadeAndSeasonSortState.JbouAsc => halfDecades.OrderBy(s => s.Jbou),
-                TeamHalfDecadeAndSeasonSortState.JbouDesc => halfDecades.OrderByDescending(s => s.Jbou),
-                TeamHalfDecadeAndSeasonSortState.ValAsc => halfDecades.OrderBy(s => s.Val),
-                TeamHalfDecadeAndSeasonSortState.ValDesc => halfDecades.OrderByDescending(s => s.Val),
-                _ => halfDecades.OrderBy(s => s.HalfDecadeName),
-            };
+                { TeamHalfDecadeAndSeasonSortState.NameDesc, s => s.HalfDecadeName },
+                { TeamHalfDecadeAndSeasonSortState.GiggiAsc, s => s.Giggi },
+                { TeamHalfDecadeAndSeasonSortState.GiggiDesc, s => s.Giggi },
+                { TeamHalfDecadeAndSeasonSortState.JbouAsc, s => s.Jbou },
+                { TeamHalfDecadeAndSeasonSortState.JbouDesc, s => s.Jbou },
+                { TeamHalfDecadeAndSeasonSortState.ValAsc, s => s.Val },
+                { TeamHalfDecadeAndSeasonSortState.ValDesc, s => s.Val },
+            });
 
             var count = await halfDecades.CountAsync(cancellationToken);
             var items = await halfDecades.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
@@ -188,18 +187,17 @@ namespace CPDatabase.Controllers
             CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<Season> seasons = cpdbcontext.Season.AsQueryable();
 
-            seasons = sortOrder switch
+            seasons = QueryExtensions.ApplySort(seasons, sortOrder, new Dictionary<Enum, Expression<Func<Season, object>>>
             {
-                TeamHalfDecadeAndSeasonSortState.NameDesc => seasons.OrderByDescending(s => s.SeasonName),
-                TeamHalfDecadeAndSeasonSortState.GiggiAsc => seasons.OrderBy(s => s.Giggi),
-                TeamHalfDecadeAndSeasonSortState.GiggiDesc => seasons.OrderByDescending(s => s.Giggi),
-                TeamHalfDecadeAndSeasonSortState.JbouAsc => seasons.OrderBy(s => s.Jbou),
-                TeamHalfDecadeAndSeasonSortState.JbouDesc => seasons.OrderByDescending(s => s.Jbou),
-                TeamHalfDecadeAndSeasonSortState.ValAsc => seasons.OrderBy(s => s.Val),
-                TeamHalfDecadeAndSeasonSortState.ValDesc => seasons.OrderByDescending(s => s.Val),
-                _ => seasons.OrderBy(s => s.SeasonName),
-            };
-            
+                { TeamHalfDecadeAndSeasonSortState.NameDesc, s => s.SeasonName },
+                { TeamHalfDecadeAndSeasonSortState.GiggiAsc, s => s.Giggi },
+                { TeamHalfDecadeAndSeasonSortState.GiggiDesc, s => s.Giggi },
+                { TeamHalfDecadeAndSeasonSortState.JbouAsc, s => s.Jbou },
+                { TeamHalfDecadeAndSeasonSortState.JbouDesc, s => s.Jbou },
+                { TeamHalfDecadeAndSeasonSortState.ValAsc, s => s.Val },
+                { TeamHalfDecadeAndSeasonSortState.ValDesc, s => s.Val },
+            });
+
             var count = await seasons.CountAsync(cancellationToken);
             var items = await seasons.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);

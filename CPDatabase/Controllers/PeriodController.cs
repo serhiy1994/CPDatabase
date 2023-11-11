@@ -1,7 +1,10 @@
 ﻿using CPDatabase.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,27 +30,26 @@ namespace CPDatabase.Controllers
             {
                 ViewBag.CurrentPeriodName = (await cpdbcontext.Period.FirstOrDefaultAsync(c => c.Id == id, cancellationToken))?.PeriodName ?? "NOT FOUND";
 
-                NTsByPeriod = sortOrder switch
+                NTsByPeriod = QueryExtensions.ApplySort(NTsByPeriod, sortOrder, new Dictionary<Enum, Expression<Func<NationalTeam, object>>>
                 {
-                    NTSortState.NameDesc => NTsByPeriod.OrderByDescending(s => s.NTName),
-                    NTSortState.CountryAsc => NTsByPeriod.OrderBy(s => s.CountryNavigation.CountryNTName),
-                    NTSortState.CountryDesc => NTsByPeriod.OrderByDescending(s => s.CountryNavigation.CountryNTName),
-                    NTSortState.LeagueAsc => NTsByPeriod.OrderBy(s => s.LeagueNtNavigation.LeagueNTName),
-                    NTSortState.LeagueDesc => NTsByPeriod.OrderByDescending(s => s.LeagueNtNavigation.LeagueNTName),
-                    NTSortState.YearAsc => NTsByPeriod.OrderBy(s => s.YearNavigation.YearName),
-                    NTSortState.YearDesc => NTsByPeriod.OrderByDescending(s => s.YearNavigation.YearName),
-                    NTSortState.PeriodAsc => NTsByPeriod.OrderBy(s => s.PeriodNavigation.PeriodName),
-                    NTSortState.PeriodDesc => NTsByPeriod.OrderByDescending(s => s.PeriodNavigation.PeriodName),
-                    NTSortState.NotQualAsc => NTsByPeriod.OrderBy(s => s.NotQual),
-                    NTSortState.NotQualDesc => NTsByPeriod.OrderByDescending(s => s.NotQual),
-                    NTSortState.GiggiAsc => NTsByPeriod.OrderBy(s => s.Giggi),
-                    NTSortState.GiggiDesc => NTsByPeriod.OrderByDescending(s => s.Giggi),
-                    NTSortState.JbouAsc => NTsByPeriod.OrderBy(s => s.Jbou),
-                    NTSortState.JbouDesc => NTsByPeriod.OrderByDescending(s => s.Jbou),
-                    NTSortState.ValAsc => NTsByPeriod.OrderBy(s => s.Val),
-                    NTSortState.ValDesc => NTsByPeriod.OrderByDescending(s => s.Val),
-                    _ => NTsByPeriod.OrderBy(s => s.NTName),
-                };
+                    { NTSortState.NameDesc, s => s.NTName },
+                    { NTSortState.CountryAsc, s => s.CountryNavigation.CountryNTName },
+                    { NTSortState.CountryDesc, s => s.CountryNavigation.CountryNTName },
+                    { NTSortState.LeagueAsc, s => s.LeagueNtNavigation.LeagueNTName },
+                    { NTSortState.LeagueDesc, s => s.LeagueNtNavigation.LeagueNTName },
+                    { NTSortState.YearAsc, s => s.YearNavigation.YearName },
+                    { NTSortState.YearDesc, s => s.YearNavigation.YearName },
+                    { NTSortState.PeriodAsc, s => s.PeriodNavigation.PeriodName },
+                    { NTSortState.PeriodDesc, s => s.PeriodNavigation.PeriodName },
+                    { NTSortState.NotQualAsc, s => s.NotQual },
+                    { NTSortState.NotQualDesc, s => s.NotQual },
+                    { NTSortState.GiggiAsc, s => s.Giggi },
+                    { NTSortState.GiggiDesc, s => s.Giggi },
+                    { NTSortState.JbouAsc, s => s.Jbou },
+                    { NTSortState.JbouDesc, s => s.Jbou },
+                    { NTSortState.ValAsc, s => s.Val },
+                    { NTSortState.ValDesc, s => s.Val },
+                });
 
                 var items = await NTsByPeriod.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
                 PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
