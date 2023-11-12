@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.WebEncoders;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using CPDatabase.Services;
 
 namespace CPDatabase
 {
@@ -79,6 +80,8 @@ namespace CPDatabase
             {
                 options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);
             });
+
+            services.AddSorting();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

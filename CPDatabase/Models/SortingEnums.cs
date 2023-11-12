@@ -1,5 +1,24 @@
 ﻿namespace CPDatabase.Models
 {
+    public enum SortOrder
+    {
+        Asc = 0,
+        Desc
+    }
+
+    public enum TeamSortBy
+    {
+        Name,
+        FixedName,
+        Club,
+        League,
+        HalfDecade,
+        Season,
+        Giggi,
+        Jbou,
+        Val,
+    }
+    
     public enum TeamSortState
     {
         NameAsc,
