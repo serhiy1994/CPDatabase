@@ -1,4 +1,5 @@
 ﻿using CPDatabase.Models;
+using CPDatabase.Services.Sorting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,17 +8,26 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CPDatabase.Controllers
 {
     public class TeamController : Controller
     {
-        CPDBContext cpdbcontext;
-        int pageSize = 25;
+        private const int pageSize = 25;
 
-        public TeamController(CPDBContext context)
+        private readonly CPDBContext cpdbcontext;
+        private readonly ISortByMapper<Team, TeamSortBy> teamSortByMapper;
+        private readonly ISortByMapper<CountryClub, TeamCountryAndNTCountrySortBy> countrySortByMapper;
+
+        public TeamController(
+            CPDBContext context,
+            ISortByMapper<Team, TeamSortBy> teamSortByMapper,
+            ISortByMapper<CountryClub, TeamCountryAndNTCountrySortBy> countrySortByMapper)
         {
             cpdbcontext = context;
+            this.teamSortByMapper = teamSortByMapper;
+            this.countrySortByMapper = countrySortByMapper;
         }
 
         public async Task<IActionResult> View(int? id)
@@ -29,77 +39,60 @@ namespace CPDatabase.Controllers
             else return NotFound();
         }
 
-        public async Task<IActionResult> All(int? season, int? halfDecade, int page = 1, TeamSortState sortOrder = TeamSortState.NameAsc)
+        public async Task<IActionResult> All(int? season, int? halfDecade, int page = 1, TeamSortBy sortBy = TeamSortBy.Name, SortOrder sortOrder = SortOrder.Asc)
         {
             CancellationToken cancellationToken = HttpContext.RequestAborted;
             var query = cpdbcontext.Team.AsQueryable();
 
-            if (season != null && season != -1 && season != 0) query = query.Where(p => p.SeasonNavigation.Id == season);
+            if (season != null && season != -1 && season != 0) query = QueryExtensions.Filter(query, season.Value, t => t.SeasonNavigation.Id);
             else if (season == 0) query = query.Where(p => p.Season == null);
 
-            if (halfDecade != null && halfDecade != -1 && halfDecade != 0) query = query.Where(p => p.HalfDecadeNavigation.Id == halfDecade);
+            if (halfDecade != null && halfDecade != -1 && halfDecade != 0) query = QueryExtensions.Filter(query, halfDecade.Value, t => t.HalfDecadeNavigation.Id);
             else if (halfDecade == 0) query = query.Where(p => p.HalfDecade == null);
 
-            query = query.ApplySort(sortOrder, new Dictionary<Enum, Expression<Func<Team, object>>>
+            var count = await query.CountAsync(cancellationToken);
+
+            query = query.ApplySorting(teamSortByMapper, sortBy, sortOrder);
+            query = query.Paginate(new PaginationData
             {
-                { TeamSortState.NameDesc, s => s.TeamName },
-                { TeamSortState.FixedNameAsc, s => s.FixedTeamName },
-                { TeamSortState.FixedNameDesc, s => s.FixedTeamName },
-                { TeamSortState.ClubAsc, s => s.ClubNavigation.ClubName },
-                { TeamSortState.ClubDesc, s => s.ClubNavigation.ClubName },
-                { TeamSortState.LeagueAsc, s => s.LeagueTeamNavigation.Name },
-                { TeamSortState.LeagueDesc, s => s.LeagueTeamNavigation.Name },
-                { TeamSortState.HalfDecadeAsc, s => s.HalfDecadeNavigation.HalfDecadeName },
-                { TeamSortState.HalfDecadeDesc, s => s.HalfDecadeNavigation.HalfDecadeName },
-                { TeamSortState.SeasonAsc, s => s.SeasonNavigation.SeasonName },
-                { TeamSortState.SeasonDesc, s => s.SeasonNavigation.SeasonName },
-                { TeamSortState.GiggiAsc, s => s.Giggi },
-                { TeamSortState.GiggiDesc, s => s.Giggi },
-                { TeamSortState.JbouAsc, s => s.Jbou },
-                { TeamSortState.JbouDesc, s => s.Jbou },
-                { TeamSortState.ValAsc, s => s.Val },
-                { TeamSortState.ValDesc, s => s.Val },
+                Page = page,
+                PageSize = pageSize,
+                TotalCount = count
             });
 
-            var count = await query.CountAsync(cancellationToken);
-            var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+            var items = await query.ToListAsync(cancellationToken);
+
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
-            TeamSortViewModel sortViewModel = new TeamSortViewModel(sortOrder);
+            TeamSortViewModel sortViewModel = new TeamSortViewModel(default); //TODO: fix
             TeamFilterViewModel filterViewModel = new TeamFilterViewModel(cpdbcontext.Season.ToList(), cpdbcontext.HalfDecade.ToList(), season, halfDecade);
             TeamsAllViewModel taViewModel = new TeamsAllViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, FilterViewModel = filterViewModel, Teams = items };
             
             return View(taViewModel);
         }
         
-        public async Task<IActionResult> CountryClub(int page = 1, TeamCountryAndNTCountrySortState sortOrder = TeamCountryAndNTCountrySortState.NameAsc)
+        public async Task<IActionResult> CountryClub(int page = 1, TeamCountryAndNTCountrySortBy sortBy = TeamCountryAndNTCountrySortBy.Name, SortOrder sortOrder=SortOrder.Asc)
         {
             CancellationToken cancellationToken = HttpContext.RequestAborted;
             IQueryable<CountryClub> countries = cpdbcontext.CountryClub.AsQueryable();
 
-            countries = QueryExtensions.ApplySort(countries, sortOrder, new Dictionary<Enum, Expression<Func<CountryClub, object>>>
-            {
-                { TeamCountryAndNTCountrySortState.NameDesc, s => s.CountryClubName },
-                { TeamCountryAndNTCountrySortState.HasSubAsc, s => s.HasSub },
-                { TeamCountryAndNTCountrySortState.HasSubDesc, s => s.HasSub },
-                { TeamCountryAndNTCountrySortState.SubcountryAsc, s => s.Subcountry },
-                { TeamCountryAndNTCountrySortState.SubcountryDesc, s => s.Subcountry },
-                { TeamCountryAndNTCountrySortState.GiggiAsc, s => s.Giggi },
-                { TeamCountryAndNTCountrySortState.GiggiDesc, s => s.Giggi },
-                { TeamCountryAndNTCountrySortState.JbouAsc, s => s.Jbou },
-                { TeamCountryAndNTCountrySortState.JbouDesc, s => s.Jbou },
-                { TeamCountryAndNTCountrySortState.ValAsc, s => s.Val },
-                { TeamCountryAndNTCountrySortState.ValDesc, s => s.Val },
-            });
-
             var count = await countries.CountAsync(cancellationToken);
-            var items = await countries.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+
+            countries = countries.ApplySorting(teamSortByMapper, sortBy, sortOrder);
+            countries = countries.Paginate(new PaginationData
+            {
+                Page = page,
+                PageSize = pageSize,
+                TotalCount = count
+            });
+            var items = await countries.ToListAsync(cancellationToken);
+
             PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
-            CountrySortViewModel sortViewModel = new CountrySortViewModel(sortOrder);
+            CountrySortViewModel sortViewModel = new CountrySortViewModel(default); //TODO: fix
             TeamsCountryViewModel tcViewModel = new TeamsCountryViewModel { PageViewModel = pageViewModel, SortViewModel = sortViewModel, Countries = items };
 
             return View(tcViewModel);
         }
-
+        //TODO: refactor other controllers below
         public async Task<IActionResult> Club(int page = 1, TeamClubSortState sortOrder = TeamClubSortState.NameAsc)
         {
             CancellationToken cancellationToken = HttpContext.RequestAborted;

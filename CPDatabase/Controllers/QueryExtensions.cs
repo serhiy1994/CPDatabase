@@ -9,15 +9,9 @@ namespace CPDatabase.Controllers
 {
     public static class QueryExtensions
     {
-        public static IQueryable<T> FilterByLeagueId<T>(this IQueryable<T> query, int id, Expression<Func<T, int>> leagueIdSelector)
+        public static IQueryable<T> Filter<T>(this IQueryable<T> query, int id, Expression<Func<T, int>> leagueIdSelector)
         {
             return query.Where(t => leagueIdSelector.Compile()(t) == id);
-        }
-
-        public static IQueryable<T> ApplySort<T>(this IQueryable<T> query, Enum sortOrder, Dictionary<Enum, Expression<Func<T, object>>> sortSelectors)
-        {
-            if (sortSelectors.TryGetValue(sortOrder, out var selector)) return query.OrderBy(selector);
-            return query.OrderBy(s => s);
         }
 
         public static IQueryable<T> ApplySorting<T, TInput>(

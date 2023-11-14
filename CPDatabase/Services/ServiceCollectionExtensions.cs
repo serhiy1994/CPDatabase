@@ -9,7 +9,7 @@ namespace CPDatabase.Services
         public static IServiceCollection AddSorting(this IServiceCollection services)
         {
             services.AddSingleton<ISortByMapper<Team, TeamSortBy>, LeagueTeamSortByMapper>();
-
+            services.AddSingleton<ISortByMapper<CountryClub, TeamCountryAndNTCountrySortBy>, CountriesClubSortByMapper>();
             return services;
         }
     }

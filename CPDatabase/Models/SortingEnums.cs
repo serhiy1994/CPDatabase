@@ -16,31 +16,9 @@
         Season,
         Giggi,
         Jbou,
-        Val,
+        Val
     }
     
-    public enum TeamSortState
-    {
-        NameAsc,
-        NameDesc,
-        FixedNameAsc,
-        FixedNameDesc,
-        ClubAsc,
-        ClubDesc,
-        LeagueAsc,
-        LeagueDesc,
-        HalfDecadeAsc,
-        HalfDecadeDesc,
-        SeasonAsc,
-        SeasonDesc,
-        GiggiAsc,
-        GiggiDesc,
-        JbouAsc,
-        JbouDesc,
-        ValAsc,
-        ValDesc
-    }
-
     public enum TeamClubSortState
     {
         NameAsc,
@@ -55,21 +33,15 @@
         ValDesc
     }
 
-    public enum TeamCountryAndNTCountrySortState
+    public enum TeamCountryAndNTCountrySortBy
     {
-        NameAsc,
-        NameDesc,
-        HasSubAsc,
-        HasSubDesc,
-        SubcountryAsc,
-        SubcountryDesc,
-        GiggiAsc,
-        GiggiDesc,
-        JbouAsc,
-        JbouDesc,
-        ValAsc,
-        ValDesc
-    }
+        Name,
+        HasSub,
+        Subcountry,
+        Giggi,
+        Jbou,
+        Val
+    }    
 
     public enum TeamLeagueSortState
     {
